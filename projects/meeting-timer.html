@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>會議效率計時器 | Bill Liu</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'PingFang TC', sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+  }
+
+  .topbar {
+    background: #1a1d27;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .back-link {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: rgba(255,255,255,0.9); }
+
+  .topbar h1 { font-size: 1.05rem; font-weight: 600; color: #fff; }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* Setup panel */
+  .setup-panel {
+    background: #1a1d27;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .panel-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1.1rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.35rem;
+  }
+
+  .form-group input, .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+    padding: 0.5rem 0.8rem;
+    border-radius: 7px;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: rgba(99,102,241,0.5);
+  }
+  .form-group select option { background: #1a1d27; }
+
+  /* Participant list */
+  .participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .participant-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .participant-row input, .participant-row select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    outline: none;
+  }
+
+  .participant-row input { flex: 1; }
+  .participant-row select { width: 120px; flex-shrink: 0; }
+
+  .btn-remove {
+    background: rgba(248,113,113,0.1);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: #f87171;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .btn-remove:hover { background: rgba(248,113,113,0.2); }
+
+  .btn-add {
+    background: rgba(255,255,255,0.04);
+    border: 1px dashed rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.5);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .btn-add:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+
+  /* Agenda */
+  .agenda-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .agenda-row input[type="text"] {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    outline: none;
+  }
+
+  .agenda-row input[type="number"] {
+    width: 70px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    outline: none;
+    text-align: center;
+  }
+
+  .agenda-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.35);
+    flex-shrink: 0;
+  }
+
+  /* Timer display */
+  .timer-panel {
+    background: #1a1d27;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .timer-display {
+    font-size: 4rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+  }
+
+  .timer-display.warn  { color: #fbbf24; }
+  .timer-display.over  { color: #f87171; }
+
+  .cost-display {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #34d399;
+    margin-bottom: 0.3rem;
+  }
+
+  .cost-label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 1.5rem;
+  }
+
+  .controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .ctrl-btn {
+    padding: 0.6rem 1.6rem;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .ctrl-btn.primary {
+    background: #6366f1;
+    color: #fff;
+  }
+  .ctrl-btn.primary:hover { background: #4f46e5; }
+
+  .ctrl-btn.secondary {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.75);
+  }
+  .ctrl-btn.secondary:hover { background: rgba(255,255,255,0.12); }
+
+  .ctrl-btn.danger {
+    background: rgba(248,113,113,0.12);
+    border: 1px solid rgba(248,113,113,0.25);
+    color: #f87171;
+  }
+  .ctrl-btn.danger:hover { background: rgba(248,113,113,0.22); }
+
+  /* Current agenda indicator */
+  .agenda-track {
+    margin-top: 1.2rem;
+    text-align: left;
+  }
+
+  .agenda-items-display {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .agenda-item-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
+  }
+
+  .agenda-item-row.active {
+    background: rgba(99,102,241,0.12);
+    border-color: rgba(99,102,241,0.3);
+    color: #a5b4fc;
+  }
+
+  .agenda-item-row.done {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+
+  .agenda-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.15);
+  }
+  .agenda-item-row.active  .agenda-dot { background: #6366f1; }
+  .agenda-item-row.done    .agenda-dot { background: #34d399; }
+
+  .agenda-item-name { flex: 1; }
+  .agenda-item-dur  { color: rgba(255,255,255,0.35); font-size: 0.75rem; }
+  .agenda-item-status { font-size: 0.72rem; font-weight: 600; }
+
+  /* Stats */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    background: #1a1d27;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .stat-val { font-size: 1.4rem; font-weight: 700; color: #fff; }
+  .stat-lab { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
+
+  /* Footer */
+  .proj-footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+  }
+  .proj-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  .proj-footer a:hover { color: rgba(255,255,255,0.6); }
+
+  @media (max-width: 560px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .timer-display { font-size: 2.8rem; }
+    .container { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="../index.html" class="back-link">← 返回首頁</a>
+  <h1>⏱️ 會議效率計時器</h1>
+</div>
+
+<div class="container">
+
+  <!-- Stats summary -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-val" id="stat-participants">0</div>
+      <div class="stat-lab">與會人數</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stat-total-min">0 分鐘</div>
+      <div class="stat-lab">預計總時長</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="stat-hourly-cost">NT$0</div>
+      <div class="stat-lab">每分鐘會議成本</div>
+    </div>
+  </div>
+
+  <!-- Setup: Participants -->
+  <div class="setup-panel">
+    <div class="panel-title">👥 與會人員設定</div>
+    <div class="participant-list" id="participant-list"></div>
+    <button class="btn-add" onclick="addParticipant()">＋ 新增與會者</button>
+  </div>
+
+  <!-- Setup: Agenda -->
+  <div class="setup-panel">
+    <div class="panel-title">📋 會議議程</div>
+    <div id="agenda-list"></div>
+    <button class="btn-add" onclick="addAgenda()">＋ 新增議程項目</button>
+  </div>
+
+  <!-- Timer -->
+  <div class="timer-panel">
+    <div class="timer-display" id="timer-display">00:00:00</div>
+    <div class="cost-display" id="cost-display">NT$0</div>
+    <div class="cost-label">累計會議成本（人力時間成本估算）</div>
+
+    <div class="controls">
+      <button class="ctrl-btn primary" id="start-btn" onclick="toggleTimer()">▶ 開始計時</button>
+      <button class="ctrl-btn secondary" onclick="nextAgenda()" id="next-btn" disabled>下一議程 →</button>
+      <button class="ctrl-btn danger" onclick="resetTimer()">↺ 重置</button>
+    </div>
+
+    <div class="agenda-track" id="agenda-track" style="display:none">
+      <div class="panel-title" style="margin-bottom:0.7rem">議程進度</div>
+      <div class="agenda-items-display" id="agenda-display"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  Side Project by <a href="../index.html">劉書銓 Bill Liu</a> &nbsp;·&nbsp; 善用時間，提升每次會議的品質
+</div>
+
+<script>
+// Salary presets (monthly, TWD)
+const SALARY_MAP = {
+  staff:    { label: '一般職員',  monthly: 35000 },
+  senior:   { label: '資深職員',  monthly: 55000 },
+  manager:  { label: '基層主管',  monthly: 75000 },
+  director: { label: '中階主管',  monthly: 100000 },
+  vp:       { label: '副總/VP',   monthly: 150000 },
+  ceo:      { label: '執行長/CEO',monthly: 250000 },
+};
+
+// Working hours/month
+const WORK_HOURS_MONTH = 160;
+
+let participants = [];
+let agendaItems  = [];
+let timerInterval = null;
+let elapsedSeconds = 0;
+let running = false;
+let currentAgendaIdx = 0;
+let agendaItemStart  = 0;
+
+function hourlyRate(level) {
+  return SALARY_MAP[level].monthly / WORK_HOURS_MONTH;
+}
+
+function totalHourlyRate() {
+  return participants.reduce((sum, p) => sum + hourlyRate(p.level), 0);
+}
+
+function updateStats() {
+  document.getElementById('stat-participants').textContent = participants.length;
+  const totalMin = agendaItems.reduce((s, a) => s + (parseInt(a.duration) || 0), 0);
+  document.getElementById('stat-total-min').textContent = totalMin + ' 分鐘';
+  const perMin = totalHourlyRate() / 60;
+  document.getElementById('stat-hourly-cost').textContent =
+    'NT$' + Math.round(perMin).toLocaleString();
+}
+
+// ── Participants ─────────────────────────────────────────────────────────────
+function addParticipant(name = '', level = 'manager') {
+  participants.push({ id: Date.now(), name, level });
+  renderParticipants();
+  updateStats();
+}
+
+function removeParticipant(id) {
+  participants = participants.filter(p => p.id !== id);
+  renderParticipants();
+  updateStats();
+}
+
+function renderParticipants() {
+  const list = document.getElementById('participant-list');
+  list.innerHTML = participants.map(p => `
+    <div class="participant-row">
+      <input type="text" placeholder="姓名（選填）" value="${p.name}"
+        onchange="updateParticipant(${p.id},'name',this.value)" />
+      <select onchange="updateParticipant(${p.id},'level',this.value)">
+        ${Object.entries(SALARY_MAP).map(([k,v]) =>
+          `<option value="${k}" ${p.level===k?'selected':''}>${v.label}</option>`
+        ).join('')}
+      </select>
+      <button class="btn-remove" onclick="removeParticipant(${p.id})">×</button>
+    </div>
+  `).join('');
+}
+
+function updateParticipant(id, field, val) {
+  const p = participants.find(x => x.id === id);
+  if (p) p[field] = val;
+  updateStats();
+}
+
+// ── Agenda ───────────────────────────────────────────────────────────────────
+function addAgenda(name = '', duration = 10) {
+  agendaItems.push({ id: Date.now(), name, duration });
+  renderAgendaSetup();
+  updateStats();
+}
+
+function removeAgenda(id) {
+  agendaItems = agendaItems.filter(a => a.id !== id);
+  renderAgendaSetup();
+  updateStats();
+}
+
+function renderAgendaSetup() {
+  const list = document.getElementById('agenda-list');
+  list.innerHTML = agendaItems.map((a, i) => `
+    <div class="agenda-row">
+      <span style="font-size:0.75rem;color:rgba(255,255,255,0.3);flex-shrink:0;width:18px">${i+1}.</span>
+      <input type="text" placeholder="議程名稱" value="${a.name}"
+        onchange="updateAgenda(${a.id},'name',this.value)" />
+      <input type="number" min="1" max="180" value="${a.duration}"
+        onchange="updateAgenda(${a.id},'duration',this.value)" />
+      <span class="agenda-label">分鐘</span>
+      <button class="btn-remove" onclick="removeAgenda(${a.id})">×</button>
+    </div>
+  `).join('');
+}
+
+function updateAgenda(id, field, val) {
+  const a = agendaItems.find(x => x.id === id);
+  if (a) a[field] = field === 'duration' ? parseInt(val) || 0 : val;
+  updateStats();
+}
+
+// ── Timer ────────────────────────────────────────────────────────────────────
+function toggleTimer() {
+  if (!running) {
+    startTimer();
+  } else {
+    pauseTimer();
+  }
+}
+
+function startTimer() {
+  if (participants.length === 0) {
+    alert('請先設定至少一位與會者');
+    return;
+  }
+  running = true;
+  document.getElementById('start-btn').textContent = '⏸ 暫停';
+  document.getElementById('next-btn').disabled = agendaItems.length === 0;
+
+  if (agendaItems.length > 0) {
+    document.getElementById('agenda-track').style.display = 'block';
+    renderAgendaDisplay();
+  }
+
+  timerInterval = setInterval(tick, 1000);
+}
+
+function pauseTimer() {
+  running = false;
+  clearInterval(timerInterval);
+  document.getElementById('start-btn').textContent = '▶ 繼續計時';
+}
+
+function resetTimer() {
+  pauseTimer();
+  elapsedSeconds    = 0;
+  currentAgendaIdx  = 0;
+  agendaItemStart   = 0;
+  document.getElementById('timer-display').textContent = '00:00:00';
+  document.getElementById('timer-display').className   = 'timer-display';
+  document.getElementById('cost-display').textContent  = 'NT$0';
+  document.getElementById('start-btn').textContent     = '▶ 開始計時';
+  document.getElementById('next-btn').disabled         = true;
+  document.getElementById('agenda-track').style.display = 'none';
+}
+
+function tick() {
+  elapsedSeconds++;
+
+  // Timer display
+  const h = Math.floor(elapsedSeconds / 3600);
+  const m = Math.floor((elapsedSeconds % 3600) / 60);
+  const s = elapsedSeconds % 60;
+  const display = document.getElementById('timer-display');
+  display.textContent = [h,m,s].map(v => String(v).padStart(2,'0')).join(':');
+
+  // Cost
+  const cost = (totalHourlyRate() / 3600) * elapsedSeconds;
+  document.getElementById('cost-display').textContent =
+    'NT$' + Math.round(cost).toLocaleString();
+
+  // Color warning
+  const totalExpected = agendaItems.reduce((s,a) => s + a.duration * 60, 0);
+  display.className = 'timer-display';
+  if (totalExpected > 0) {
+    const pct = elapsedSeconds / totalExpected;
+    if (pct >= 1)    display.classList.add('over');
+    else if (pct >= 0.85) display.classList.add('warn');
+  }
+
+  // Auto-advance agenda hint
+  if (agendaItems.length > 0 && currentAgendaIdx < agendaItems.length) {
+    const agendaSec = agendaItems[currentAgendaIdx].duration * 60;
+    const spent = elapsedSeconds - agendaItemStart;
+    renderAgendaDisplay(spent, agendaSec);
+  }
+}
+
+function nextAgenda() {
+  if (currentAgendaIdx < agendaItems.length - 1) {
+    currentAgendaIdx++;
+    agendaItemStart = elapsedSeconds;
+    renderAgendaDisplay(0, agendaItems[currentAgendaIdx].duration * 60);
+  } else {
+    pauseTimer();
+    document.getElementById('start-btn').textContent = '✓ 會議結束';
+    document.getElementById('next-btn').disabled = true;
+  }
+}
+
+function renderAgendaDisplay(spent = 0, total = 0) {
+  const container = document.getElementById('agenda-display');
+  container.innerHTML = agendaItems.map((a, i) => {
+    let cls = '', statusTxt = '';
+    if (i < currentAgendaIdx) {
+      cls = 'done'; statusTxt = '✓ 完成';
+    } else if (i === currentAgendaIdx) {
+      cls = 'active';
+      if (total > 0) {
+        const rem = total - spent;
+        if (rem <= 0) {
+          statusTxt = '⚠ 超時 ' + Math.abs(Math.ceil(rem/60)) + '分';
+        } else {
+          statusTxt = '剩 ' + Math.ceil(rem/60) + '分';
+        }
+      }
+    }
+    return `
+      <div class="agenda-item-row ${cls}">
+        <div class="agenda-dot"></div>
+        <span class="agenda-item-name">${a.name || '（未命名議程）'}</span>
+        <span class="agenda-item-dur">${a.duration}分鐘</span>
+        <span class="agenda-item-status">${statusTxt}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+addParticipant('主持人',  'director');
+addParticipant('出席者A', 'manager');
+addParticipant('出席者B', 'senior');
+
+addAgenda('開場與確認議程', 5);
+addAgenda('現況報告', 15);
+addAgenda('問題討論', 20);
+addAgenda('決策與行動方案', 10);
+addAgenda('結語與下次會議', 5);
+
+updateStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+/* =========================================
+   Custom styles for Bill Liu's portfolio
+   Supplements the Dimension HTML5UP theme
+   ========================================= */
+
+/* --- Timeline --- */
+.timeline {
+	position: relative;
+	margin: 1.5em 0 2em;
+	padding-left: 1.4em;
+}
+
+.timeline::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 4px;
+	bottom: 0;
+	width: 2px;
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.35),
+		rgba(255, 255, 255, 0.05)
+	);
+}
+
+.timeline-item {
+	position: relative;
+	margin-bottom: 2em;
+	padding-left: 1.2em;
+}
+
+.timeline-item::before {
+	content: '';
+	position: absolute;
+	left: -1.6em;
+	top: 7px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
+}
+
+.timeline-content h3 {
+	font-size: 1.05em;
+	font-weight: 600;
+	color: #fff;
+	margin-bottom: 0.25em;
+}
+
+.timeline-content h4 {
+	font-size: 0.88em;
+	color: rgba(255, 255, 255, 0.55);
+	margin-bottom: 0.75em;
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	flex-wrap: wrap;
+}
+
+.timeline-content h4 .period {
+	background: rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	padding: 1px 9px;
+	border-radius: 20px;
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.65);
+}
+
+.timeline-content ul {
+	list-style: disc;
+	padding-left: 1.1em;
+}
+
+.timeline-content ul li {
+	font-size: 0.88em;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.78);
+	margin-bottom: 0.3em;
+}
+
+/* --- Education block --- */
+.edu-block {
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	padding-top: 1.5em;
+	margin-top: 0.5em;
+}
+
+.edu-block h3 {
+	font-size: 0.9em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: rgba(255, 255, 255, 0.45);
+	margin-bottom: 0.6em;
+}
+
+.edu-block p {
+	font-size: 0.92em;
+	color: rgba(255, 255, 255, 0.85);
+	margin-bottom: 0.3em;
+}
+
+.edu-block .edu-note {
+	font-size: 0.82em;
+	color: rgba(255, 255, 255, 0.5);
+	font-style: italic;
+}
+
+/* --- Skills --- */
+.skill-section {
+	margin-bottom: 1.6em;
+}
+
+.skill-section h3 {
+	font-size: 0.8em;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: rgba(255, 255, 255, 0.4);
+	margin-bottom: 0.6em;
+}
+
+.skill-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45em;
+}
+
+.skill-tag {
+	background: rgba(255, 255, 255, 0.09);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	color: rgba(255, 255, 255, 0.85);
+	padding: 4px 12px;
+	border-radius: 20px;
+	font-size: 0.8em;
+	transition: background 0.2s, border-color 0.2s;
+	cursor: default;
+}
+
+.skill-tag:hover {
+	background: rgba(255, 255, 255, 0.16);
+	border-color: rgba(255, 255, 255, 0.35);
+}
+
+.skill-tag.tech {
+	border-color: rgba(100, 180, 255, 0.35);
+	color: rgba(180, 220, 255, 0.92);
+}
+
+.skill-tag.tech:hover {
+	background: rgba(100, 180, 255, 0.1);
+}
+
+.skill-tag.soft {
+	border-color: rgba(150, 255, 180, 0.3);
+	color: rgba(180, 255, 200, 0.88);
+}
+
+.skill-tag.soft:hover {
+	background: rgba(150, 255, 180, 0.08);
+}
+
+/* --- Projects --- */
+.projects-intro {
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.65);
+	margin-bottom: 1.8em;
+	line-height: 1.6;
+}
+
+.project-card {
+	background: rgba(255, 255, 255, 0.04);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	padding: 1.4em 1.6em;
+	margin-bottom: 1.2em;
+	transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.project-card:hover {
+	background: rgba(255, 255, 255, 0.07);
+	border-color: rgba(255, 255, 255, 0.22);
+	transform: translateY(-2px);
+}
+
+.project-header {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.9em;
+	margin-bottom: 0.7em;
+}
+
+.project-icon {
+	font-size: 1.6em;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.project-header > div {
+	flex: 1;
+}
+
+.project-header h3 {
+	font-size: 1em;
+	font-weight: 600;
+	color: #fff;
+	margin: 0 0 0.35em;
+}
+
+.project-tag {
+	display: inline-block;
+	font-size: 0.72em;
+	padding: 2px 8px;
+	border-radius: 10px;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.15);
+	color: rgba(255, 255, 255, 0.55);
+	margin-right: 0.3em;
+}
+
+.project-card > p {
+	font-size: 0.86em;
+	color: rgba(255, 255, 255, 0.65);
+	line-height: 1.65;
+	margin-bottom: 1em;
+}
+
+.button.small {
+	font-size: 0.78em;
+	padding: 0.45em 1.1em;
+	height: auto;
+	line-height: 1.6;
+	background: transparent;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	color: rgba(255, 255, 255, 0.75);
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background 0.2s, border-color 0.2s, color 0.2s;
+	display: inline-block;
+}
+
+.button.small:hover {
+	background: rgba(255, 255, 255, 0.1);
+	border-color: rgba(255, 255, 255, 0.5);
+	color: #fff;
+}
+
+/* --- Blockquote --- */
+blockquote {
+	border-left: 3px solid rgba(255, 255, 255, 0.25);
+	padding: 0.8em 1.2em;
+	margin: 1.4em 0;
+	font-style: italic;
+	color: rgba(255, 255, 255, 0.65);
+	background: rgba(255, 255, 255, 0.03);
+	border-radius: 0 6px 6px 0;
+	font-size: 0.95em;
+	line-height: 1.7;
+}
+
+/* --- Contact iframe --- */
+#contact iframe {
+	display: block;
+	width: 100%;
+	border-radius: 8px;
+	margin-bottom: 1.5em;
+}
+
+/* --- Responsive tweaks --- */
+@media screen and (max-width: 480px) {
+	.timeline {
+		padding-left: 1em;
+	}
+	.skill-grid {
+		gap: 0.35em;
+	}
+	.project-header {
+		flex-direction: column;
+		gap: 0.5em;
+	}
+}

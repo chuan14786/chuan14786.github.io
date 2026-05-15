@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>零售 KPI 儀表板 | Bill Liu</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', 'PingFang TC', sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: #1a1d27;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .back-link {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: rgba(255,255,255,0.9); }
+
+  .topbar h1 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .topbar-meta {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .period-selector {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .period-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.6);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .period-btn:hover, .period-btn.active {
+    background: rgba(99,102,241,0.25);
+    border-color: rgba(99,102,241,0.5);
+    color: #a5b4fc;
+  }
+
+  /* Main layout */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  /* KPI Cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .kpi-card {
+    background: #1a1d27;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .kpi-card:hover {
+    border-color: rgba(255,255,255,0.14);
+    transform: translateY(-2px);
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 12px 12px 0 0;
+  }
+  .kpi-card.green::before  { background: linear-gradient(90deg, #34d399, #059669); }
+  .kpi-card.blue::before   { background: linear-gradient(90deg, #60a5fa, #2563eb); }
+  .kpi-card.purple::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+  .kpi-card.amber::before  { background: linear-gradient(90deg, #fbbf24, #d97706); }
+
+  .kpi-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+
+  .kpi-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .kpi-sub {
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .badge-up   { color: #34d399; }
+  .badge-down { color: #f87171; }
+
+  /* Charts grid */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .main { padding: 1rem; }
+  }
+
+  .chart-card {
+    background: #1a1d27;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.4rem;
+  }
+
+  .chart-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.2rem;
+  }
+
+  canvas { width: 100% !important; }
+
+  /* Bottom row */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .bottom-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Table */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+  .data-table th {
+    text-align: left;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .data-table td {
+    padding: 0.6rem;
+    color: rgba(255,255,255,0.75);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+
+  .rate {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+  .rate.good { background: rgba(52,211,153,0.15); color: #34d399; }
+  .rate.warn { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .rate.bad  { background: rgba(248,113,113,0.15); color: #f87171; }
+
+  /* Progress bars */
+  .prog-item {
+    margin-bottom: 1rem;
+  }
+  .prog-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 0.35rem;
+    color: rgba(255,255,255,0.7);
+  }
+  .prog-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .prog-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  /* Footer attribution */
+  .proj-footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+  }
+  .proj-footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  .proj-footer a:hover { color: rgba(255,255,255,0.6); }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="../index.html" class="back-link">← 返回首頁</a>
+    <div>
+      <h1>📊 零售 KPI 儀表板</h1>
+    </div>
+  </div>
+  <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+    <span class="topbar-meta" id="update-time"></span>
+    <div class="period-selector">
+      <button class="period-btn active" onclick="setPeriod(this,'Q1')">Q1</button>
+      <button class="period-btn" onclick="setPeriod(this,'Q2')">Q2</button>
+      <button class="period-btn" onclick="setPeriod(this,'Q3')">Q3</button>
+      <button class="period-btn" onclick="setPeriod(this,'Q4')">Q4</button>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card green">
+      <div class="kpi-label">本季營收</div>
+      <div class="kpi-value" id="kpi-revenue">—</div>
+      <div class="kpi-sub"><span class="badge-up" id="kpi-revenue-chg">—</span></div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">來客數</div>
+      <div class="kpi-value" id="kpi-customers">—</div>
+      <div class="kpi-sub"><span class="badge-up" id="kpi-customers-chg">—</span></div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">客單價</div>
+      <div class="kpi-value" id="kpi-aov">—</div>
+      <div class="kpi-sub"><span id="kpi-aov-chg">—</span></div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">目標達成率</div>
+      <div class="kpi-value" id="kpi-achieve">—</div>
+      <div class="kpi-sub"><span id="kpi-achieve-note" style="color:rgba(255,255,255,0.4)">—</span></div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">月度營收趨勢（萬元）</div>
+      <canvas id="revenueChart" height="160"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">部門業績佔比</div>
+      <canvas id="deptChart" height="160"></canvas>
+    </div>
+  </div>
+
+  <!-- Bottom row -->
+  <div class="bottom-grid">
+    <div class="chart-card">
+      <div class="chart-title">各部門達成率</div>
+      <div id="dept-progress"></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">品類業績明細</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>品類</th>
+            <th>營收（萬）</th>
+            <th>達成率</th>
+            <th>YoY</th>
+          </tr>
+        </thead>
+        <tbody id="category-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="proj-footer">
+  Side Project by <a href="../index.html">劉書銓 Bill Liu</a> &nbsp;·&nbsp; 資料為模擬示範數據
+</div>
+
+<script>
+// ── Data ────────────────────────────────────────────────────────────────────
+const DATA = {
+  Q1: {
+    revenue: '4,820', customers: '38,600', aov: '1,249', achieve: '96%',
+    revChg: '▲ 8.3% vs 上季', custChg: '▲ 5.1% vs 上季',
+    aovChg: { cls: 'badge-up', txt: '▲ NT$82 vs 上季' },
+    achieveNote: '距目標差 192 萬',
+    months: ['1月','2月','3月'],
+    revenueData: [1480, 1620, 1720],
+    targetData:  [1600, 1650, 1750],
+    deptLabels:  ['女裝','男裝','配件','美妝','餐飲'],
+    deptData:    [1820, 1050, 780, 690, 480],
+    depts: [
+      { name: '女裝部', val: 92 },
+      { name: '男裝部', val: 105 },
+      { name: '配件館', val: 88 },
+      { name: '美妝區', val: 97 },
+      { name: '餐飲區', val: 82 },
+    ],
+    categories: [
+      { name: '女裝', rev: 1820, rate: 92,  yoy: '+11%' },
+      { name: '男裝', rev: 1050, rate: 105, yoy: '+4%'  },
+      { name: '配件', rev: 780,  rate: 88,  yoy: '+18%' },
+      { name: '美妝', rev: 690,  rate: 97,  yoy: '+7%'  },
+      { name: '餐飲', rev: 480,  rate: 82,  yoy: '-3%'  },
+    ]
+  },
+  Q2: {
+    revenue: '5,340', customers: '42,100', aov: '1,268', achieve: '103%',
+    revChg: '▲ 10.8% vs 上季', custChg: '▲ 9.1% vs 上季',
+    aovChg: { cls: 'badge-up', txt: '▲ NT$19 vs 上季' },
+    achieveNote: '超標 159 萬',
+    months: ['4月','5月','6月'],
+    revenueData: [1680, 1820, 1840],
+    targetData:  [1700, 1720, 1760],
+    deptLabels:  ['女裝','男裝','配件','美妝','餐飲'],
+    deptData:    [2010, 1180, 860, 760, 530],
+    depts: [
+      { name: '女裝部', val: 108 },
+      { name: '男裝部', val: 102 },
+      { name: '配件館', val: 95  },
+      { name: '美妝區', val: 110 },
+      { name: '餐飲區', val: 91  },
+    ],
+    categories: [
+      { name: '女裝', rev: 2010, rate: 108, yoy: '+14%' },
+      { name: '男裝', rev: 1180, rate: 102, yoy: '+9%'  },
+      { name: '配件', rev: 860,  rate: 95,  yoy: '+22%' },
+      { name: '美妝', rev: 760,  rate: 110, yoy: '+12%' },
+      { name: '餐飲', rev: 530,  rate: 91,  yoy: '+1%'  },
+    ]
+  },
+  Q3: {
+    revenue: '5,920', customers: '46,800', aov: '1,265', achieve: '108%',
+    revChg: '▲ 10.9% vs 上季', custChg: '▲ 11.2% vs 上季',
+    aovChg: { cls: 'badge-down', txt: '▼ NT$3 vs 上季' },
+    achieveNote: '超標 464 萬',
+    months: ['7月','8月','9月'],
+    revenueData: [1890, 2010, 2020],
+    targetData:  [1800, 1800, 1900],
+    deptLabels:  ['女裝','男裝','配件','美妝','餐飲'],
+    deptData:    [2230, 1310, 950, 870, 560],
+    depts: [
+      { name: '女裝部', val: 114 },
+      { name: '男裝部', val: 108 },
+      { name: '配件館', val: 102 },
+      { name: '美妝區', val: 116 },
+      { name: '餐飲區', val: 98  },
+    ],
+    categories: [
+      { name: '女裝', rev: 2230, rate: 114, yoy: '+18%' },
+      { name: '男裝', rev: 1310, rate: 108, yoy: '+13%' },
+      { name: '配件', rev: 950,  rate: 102, yoy: '+28%' },
+      { name: '美妝', rev: 870,  rate: 116, yoy: '+15%' },
+      { name: '餐飲', rev: 560,  rate: 98,  yoy: '+4%'  },
+    ]
+  },
+  Q4: {
+    revenue: '7,210', customers: '58,400', aov: '1,234', achieve: '118%',
+    revChg: '▲ 21.8% vs 上季', custChg: '▲ 24.8% vs 上季',
+    aovChg: { cls: 'badge-down', txt: '▼ NT$31 vs 上季' },
+    achieveNote: '超標 1,100 萬（週年慶效應）',
+    months: ['10月','11月','12月'],
+    revenueData: [2210, 2840, 2160],
+    targetData:  [2000, 2200, 1900],
+    deptLabels:  ['女裝','男裝','配件','美妝','餐飲'],
+    deptData:    [2700, 1650, 1180, 1050, 630],
+    depts: [
+      { name: '女裝部', val: 122 },
+      { name: '男裝部', val: 115 },
+      { name: '配件館', val: 118 },
+      { name: '美妝區', val: 125 },
+      { name: '餐飲區', val: 104 },
+    ],
+    categories: [
+      { name: '女裝', rev: 2700, rate: 122, yoy: '+22%' },
+      { name: '男裝', rev: 1650, rate: 115, yoy: '+18%' },
+      { name: '配件', rev: 1180, rate: 118, yoy: '+34%' },
+      { name: '美妝', rev: 1050, rate: 125, yoy: '+20%' },
+      { name: '餐飲', rev: 630,  rate: 104, yoy: '+9%'  },
+    ]
+  }
+};
+
+let revenueChart, deptChart;
+let currentPeriod = 'Q1';
+
+function rateClass(v) {
+  if (v >= 100) return 'good';
+  if (v >= 90)  return 'warn';
+  return 'bad';
+}
+
+function progColor(v) {
+  if (v >= 100) return '#34d399';
+  if (v >= 90)  return '#fbbf24';
+  return '#f87171';
+}
+
+function renderKPIs(d) {
+  document.getElementById('kpi-revenue').textContent = d.revenue + ' 萬';
+  document.getElementById('kpi-customers').textContent = d.customers;
+  document.getElementById('kpi-aov').textContent = 'NT$' + d.aov;
+  document.getElementById('kpi-achieve').textContent = d.achieve;
+  document.getElementById('kpi-revenue-chg').textContent = d.revChg;
+  document.getElementById('kpi-customers-chg').textContent = d.custChg;
+  const aovEl = document.getElementById('kpi-aov-chg');
+  aovEl.className = d.aovChg.cls;
+  aovEl.textContent = d.aovChg.txt;
+  document.getElementById('kpi-achieve-note').textContent = d.achieveNote;
+}
+
+function renderCharts(d) {
+  const ctx1 = document.getElementById('revenueChart').getContext('2d');
+  if (revenueChart) revenueChart.destroy();
+  revenueChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: d.months,
+      datasets: [
+        {
+          label: '實際營收',
+          data: d.revenueData,
+          borderColor: '#60a5fa',
+          backgroundColor: 'rgba(96,165,250,0.08)',
+          tension: 0.4,
+          fill: true,
+          pointRadius: 4,
+          pointBackgroundColor: '#60a5fa',
+        },
+        {
+          label: '目標',
+          data: d.targetData,
+          borderColor: 'rgba(255,255,255,0.2)',
+          borderDash: [5,4],
+          tension: 0.4,
+          fill: false,
+          pointRadius: 3,
+          pointBackgroundColor: 'rgba(255,255,255,0.3)',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { labels: { color: 'rgba(255,255,255,0.5)', font: { size: 11 } } }
+      },
+      scales: {
+        x: { ticks: { color: 'rgba(255,255,255,0.4)' }, grid: { color: 'rgba(255,255,255,0.04)' } },
+        y: { ticks: { color: 'rgba(255,255,255,0.4)', callback: v => v + '萬' }, grid: { color: 'rgba(255,255,255,0.04)' } }
+      }
+    }
+  });
+
+  const ctx2 = document.getElementById('deptChart').getContext('2d');
+  if (deptChart) deptChart.destroy();
+  deptChart = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: d.deptLabels,
+      datasets: [{
+        data: d.deptData,
+        backgroundColor: ['#6366f1','#06b6d4','#f59e0b','#10b981','#f43f5e'],
+        borderColor: '#1a1d27',
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: {
+        legend: { position: 'bottom', labels: { color: 'rgba(255,255,255,0.5)', font: { size: 11 }, padding: 10 } }
+      }
+    }
+  });
+}
+
+function renderProgress(d) {
+  const container = document.getElementById('dept-progress');
+  container.innerHTML = d.depts.map(dep => `
+    <div class="prog-item">
+      <div class="prog-label">
+        <span>${dep.name}</span>
+        <span style="color:${progColor(dep.val)};font-weight:600">${dep.val}%</span>
+      </div>
+      <div class="prog-bar">
+        <div class="prog-fill" style="width:${Math.min(dep.val,100)}%;background:${progColor(dep.val)}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTable(d) {
+  const tbody = document.getElementById('category-table');
+  tbody.innerHTML = d.categories.map(c => `
+    <tr>
+      <td>${c.name}</td>
+      <td>${c.rev}</td>
+      <td><span class="rate ${rateClass(c.rate)}">${c.rate}%</span></td>
+      <td style="color:${c.yoy.startsWith('+') ? '#34d399' : '#f87171'}">${c.yoy}</td>
+    </tr>
+  `).join('');
+}
+
+function setPeriod(btn, period) {
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentPeriod = period;
+  renderAll();
+}
+
+function renderAll() {
+  const d = DATA[currentPeriod];
+  renderKPIs(d);
+  renderCharts(d);
+  renderProgress(d);
+  renderTable(d);
+}
+
+// Init
+document.getElementById('update-time').textContent =
+  '資料更新：' + new Date().toLocaleDateString('zh-TW', { year:'numeric', month:'long', day:'numeric' });
+renderAll();
+</script>
+</body>
+</html>
