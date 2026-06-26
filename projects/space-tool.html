@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>空間工具 — 坪數分析</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d1117;--panel:#161b22;--card:#21262d;
+  --accent:#3b82f6;--green:#10b981;--yellow:#f59e0b;
+  --text:#e6edf3;--dim:#7d8590;--border:#30363d;--danger:#f85149;
+  --hdr:48px;--nav:58px;
+}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif}
+
+/* ── Header ── */
+header{position:fixed;inset:0 0 auto 0;height:var(--hdr);z-index:300;
+  background:var(--panel);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 12px;gap:8px}
+header h1{font-size:15px;font-weight:700;flex:1}
+
+/* ── App shell ── */
+.app{position:fixed;top:var(--hdr);bottom:0;left:0;right:0;display:flex}
+
+/* ── Sidebar (desktop) ── */
+.sidebar{width:240px;background:var(--panel);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+.sec{padding:12px 14px;border-bottom:1px solid var(--border)}
+.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--dim);margin-bottom:8px}
+
+/* ── Canvas ── */
+.canvas-area{flex:1;position:relative;overflow:hidden;background:#090d11}
+#cvs{position:absolute;top:0;left:0;touch-action:none}
+
+/* ── Empty state ── */
+.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;color:var(--dim);pointer-events:none;text-align:center}
+.empty .ico{font-size:52px;opacity:.12}
+.empty h2{font-size:15px;opacity:.35}
+.empty p{font-size:12px;opacity:.22;line-height:1.7;max-width:200px}
+
+/* ── Draw action bar ── */
+.draw-bar{position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  background:rgba(22,27,34,.93);border:1px solid var(--border);border-radius:24px;
+  display:none;align-items:center;gap:6px;padding:6px 10px;
+  backdrop-filter:blur(8px);z-index:30;white-space:nowrap}
+.draw-bar.show{display:flex}
+.draw-bar .info{font-size:12px;color:var(--dim);min-width:72px;text-align:center}
+
+/* ── Ref overlay (mobile hint) ── */
+.ref-overlay{position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  background:rgba(245,158,11,.92);color:#1a0f00;border-radius:20px;
+  padding:6px 16px;font-size:12px;font-weight:600;pointer-events:none;
+  z-index:40;display:none;white-space:nowrap}
+.ref-overlay.show{display:block}
+
+/* ── Status ── */
+.status{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  background:rgba(22,27,34,.85);border:1px solid var(--border);border-radius:20px;
+  padding:4px 14px;font-size:11px;color:var(--dim);pointer-events:none;
+  white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
+
+/* ── Zoom buttons ── */
+.zoom-btns{position:absolute;bottom:44px;right:10px;display:flex;flex-direction:column;gap:4px}
+.zoom-btns button{width:30px;height:30px;border:1px solid var(--border);border-radius:6px;
+  background:var(--panel);color:var(--text);font-size:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.12s}
+.zoom-btns button:hover{background:var(--card)}
+
+/* ── Mobile nav ── */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:var(--nav);
+  background:var(--panel);border-top:1px solid var(--border);z-index:300}
+.mnav{display:flex;height:100%}
+.mnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;border:none;background:none;color:var(--dim);font-size:10px;cursor:pointer;
+  padding:0;transition:.12s;-webkit-tap-highlight-color:transparent}
+.mnav-btn .i{font-size:22px;line-height:1}
+.mnav-btn.on{color:var(--accent)}
+.mnav-btn.yon{color:var(--yellow)}
+
+/* ── Bottom sheet ── */
+.sheet{position:fixed;bottom:var(--nav);left:0;right:0;max-height:65vh;z-index:200;
+  background:var(--panel);border-radius:16px 16px 0 0;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;overflow:hidden;
+  transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);
+  display:none}
+.sheet.open{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:2px;
+  margin:10px auto 6px;cursor:pointer;flex-shrink:0}
+
+/* ── Form ── */
+.lbl{display:block;font-size:11px;color:var(--dim);margin-bottom:4px}
+input[type=number],input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);padding:8px 10px;font-size:14px;outline:none;
+  transition:border-color .15s}
+input:focus{border-color:var(--accent)}
+.row2{display:flex;gap:8px}.row2>*{flex:1}
+
+/* ── Buttons ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  padding:8px 14px;border:none;border-radius:8px;font-size:13px;
+  cursor:pointer;transition:.15s;font-weight:500}
+.bp{background:var(--accent);color:#fff}.bp:active{opacity:.8}
+.bo{background:transparent;color:var(--text);border:1px solid var(--border)}.bo:active{background:var(--card)}
+.by{background:transparent;color:var(--yellow);border:1px solid #4a3800}.by.on{background:#1c1400;border-color:var(--yellow)}
+.bd{background:transparent;color:var(--danger);border:1px solid #3a1212;font-size:12px;padding:5px 10px}
+.bf{width:100%}
+.bs{padding:5px 10px;font-size:12px;border-radius:6px}
+.bico{width:32px;height:32px;border:1px solid var(--border);border-radius:7px;
+  background:var(--card);color:var(--text);font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;border:none;transition:.12s}
+.bico:active{opacity:.7}
+.bico.gr{color:var(--green)}
+.bico.re{color:var(--danger)}
+.bico.dim{opacity:.3;pointer-events:none}
+
+/* ── Desktop tool buttons ── */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tbtn{padding:8px 4px;border:1px solid var(--border);border-radius:6px;
+  background:var(--bg);color:var(--dim);cursor:pointer;text-align:center;
+  font-size:10px;transition:.12s;line-height:1.4}
+.tbtn .i{font-size:18px;display:block;margin-bottom:3px}
+.tbtn:hover,.tbtn.on{border-color:var(--accent);background:rgba(59,130,246,.1);color:var(--accent)}
+
+/* ── Zone list ── */
+.zone-scroll{flex:1;overflow-y:auto;padding:6px 8px}
+.zi{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;
+  cursor:pointer;transition:.12s;border:1px solid transparent}
+.zi:hover{background:var(--bg)}
+.zi.sel{background:var(--bg);border-color:var(--border)}
+.zdot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.zinfo{flex:1;min-width:0}
+.zname{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.znin{background:transparent;border:none;border-bottom:1px solid var(--accent);
+  color:var(--text);font-size:12px;width:100%;outline:none;padding:0}
+.zarea{font-size:10px;color:var(--dim);margin-top:2px}
+.zarea b{color:var(--green)}
+.zdel{background:none;border:none;color:var(--dim);cursor:pointer;
+  padding:4px 6px;border-radius:4px;font-size:13px;opacity:0;transition:.12s;flex-shrink:0}
+.zi:hover .zdel,.zi.sel .zdel{opacity:.6}
+.zdel:hover{color:var(--danger);background:rgba(248,81,73,.1)}
+
+/* ── Summary ── */
+.summary{padding:10px 14px;border-top:1px solid var(--border);flex-shrink:0;font-size:12px}
+.srow{display:flex;justify-content:space-between;color:var(--dim);padding:1px 0}
+.stotal{display:flex;justify-content:space-between;font-size:16px;font-weight:700;
+  color:var(--green);padding-top:6px;margin-top:6px;border-top:1px solid var(--border)}
+
+/* ── Misc ── */
+.hint{font-size:11px;color:var(--dim);line-height:1.6;margin-top:6px}
+.greentext{font-size:11px;color:var(--green);margin-top:6px}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* ── Mobile overrides ── */
+@media(max-width:640px){
+  .sidebar{display:none}
+  .mobile-nav{display:block}
+  .sheet{display:flex}
+  .app{bottom:var(--nav)}
+  .status{bottom:8px}
+  .zoom-btns{bottom:8px;right:8px}
+  .zi{padding:10px 8px}
+  .zdel{opacity:.5}
+}
+</style>
+</head>
+<body>
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+
+<header>
+  <span style="font-size:19px">📐</span>
+  <h1>空間工具</h1>
+  <button class="btn bo bs hidden" id="clearBtn" onclick="clearAll()">🗑 清除</button>
+  <button class="btn bp bs" onclick="document.getElementById('fileInput').click()">📁 上傳</button>
+</header>
+
+<div class="app">
+  <!-- Desktop sidebar -->
+  <aside class="sidebar">
+    <div class="sec">
+      <div class="sec-title">比例校正</div>
+      <button class="btn by bf" id="refBtn" onclick="toggleRef()">📏 設定參考線</button>
+      <div class="hint hidden" id="dRefHint"></div>
+      <div class="hidden" id="dRefInput" style="margin-top:8px">
+        <label class="lbl">此線段實際長度（公尺）</label>
+        <div class="row2" style="margin-top:4px">
+          <input type="number" id="dRefM" value="1" min="0.01" step="0.1" inputmode="decimal">
+          <button class="btn bp" onclick="confirmRef()">確認</button>
+        </div>
+      </div>
+      <div class="greentext hidden" id="dRefDone"></div>
+      <button class="btn bd bs hidden" id="dRefReset" onclick="resetRef()" style="margin-top:6px">重新設定</button>
+    </div>
+    <div class="sec">
+      <div class="sec-title">工具</div>
+      <div class="tgrid">
+        <button class="tbtn on" id="tbDraw" onclick="setTool('draw')"><span class="i">✏️</span>繪製區域</button>
+        <button class="tbtn" id="tbSelect" onclick="setTool('select')"><span class="i">👆</span>選取移動</button>
+        <button class="tbtn" id="tbView" onclick="setTool('view')"><span class="i">🔍</span>縮放平移</button>
+      </div>
+      <div class="hint" id="toolHint">點擊繪製頂點，靠近起點或按 Enter 閉合，Esc 取消</div>
+    </div>
+    <div class="sec" style="flex:1;overflow:hidden;display:flex;flex-direction:column;padding-bottom:0">
+      <div class="sec-title">已標記區域</div>
+      <div class="zone-scroll" id="dZoneList"><div class="hint" style="text-align:center;padding:16px 0">尚無標記</div></div>
+    </div>
+    <div class="summary">
+      <div class="srow"><span>區域數</span><span id="dCnt">0</span></div>
+      <div class="srow"><span>總面積</span><span id="dM2">0.00 m²</span></div>
+      <div class="stotal"><span>總坪數</span><span id="dPing">0.00 坪</span></div>
+    </div>
+  </aside>
+
+  <!-- Canvas -->
+  <div class="canvas-area" id="canvasArea">
+    <canvas id="cvs"></canvas>
+    <div class="empty" id="emptyHint">
+      <div class="ico">📐</div>
+      <h2>上傳平面圖開始分析</h2>
+      <p>支援 JPG、PNG<br>可拖曳至此</p>
+    </div>
+    <!-- draw bar -->
+    <div class="draw-bar" id="drawBar">
+      <button class="bico" onclick="undoPt()" title="撤銷">↩</button>
+      <span class="info" id="drawInfo">0 頂點</span>
+      <button class="bico gr dim" id="closeBtn" onclick="closePoly()">✓</button>
+      <button class="bico re" onclick="cancelDraw()">✕</button>
+    </div>
+    <!-- ref overlay -->
+    <div class="ref-overlay" id="refOverlay">點第一個端點</div>
+    <div class="status" id="status">就緒 · 請先上傳平面圖</div>
+    <div class="zoom-btns">
+      <button onclick="zs(1.25)">+</button>
+      <button onclick="zs(.8)">−</button>
+      <button onclick="zoomFit()">⊞</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile bottom nav -->
+<nav class="mobile-nav">
+  <div class="mnav">
+    <button class="mnav-btn" onclick="document.getElementById('fileInput').click()"><span class="i">📁</span>上傳</button>
+    <button class="mnav-btn on" id="mnDraw" onclick="setTool('draw')"><span class="i">✏️</span>繪製</button>
+    <button class="mnav-btn" id="mnRef" onclick="toggleRef()"><span class="i">📏</span>參考線</button>
+    <button class="mnav-btn" id="mnSelect" onclick="setTool('select')"><span class="i">👆</span>選取</button>
+    <button class="mnav-btn" id="mnZones" onclick="toggleSheet()"><span class="i">☰</span>區域</button>
+  </div>
+</nav>
+
+<!-- Mobile bottom sheet -->
+<div class="sheet" id="sheet">
+  <div class="sheet-handle" onclick="toggleSheet()"></div>
+  <!-- ref section in sheet -->
+  <div style="padding:10px 16px;border-bottom:1px solid var(--border);flex-shrink:0">
+    <div style="font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">比例校正</div>
+    <div class="greentext hidden" id="mRefDone"></div>
+    <div class="hint hidden" id="mRefHint"></div>
+    <div class="hidden" id="mRefInput">
+      <label class="lbl" style="margin-top:8px">此線段實際長度（公尺）</label>
+      <div class="row2" style="margin-top:4px">
+        <input type="number" id="mRefM" value="1" min="0.01" step="0.1" inputmode="decimal" style="font-size:16px">
+        <button class="btn bp" onclick="confirmRef()">確認</button>
+      </div>
+    </div>
+  </div>
+  <!-- zone list in sheet -->
+  <div class="zone-scroll" id="mZoneList"><div class="hint" style="text-align:center;padding:16px 0">尚無標記</div></div>
+  <div class="summary">
+    <div class="srow"><span>區域數</span><span id="mCnt">0</span></div>
+    <div class="srow"><span>總面積</span><span id="mM2">0.00 m²</span></div>
+    <div class="stotal"><span>總坪數</span><span id="mPing">0.00 坪</span></div>
+  </div>
+</div>
+
+<script>
+if(!CanvasRenderingContext2D.prototype.roundRect){
+  CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){
+    this.moveTo(x+r,y);this.lineTo(x+w-r,y);this.arcTo(x+w,y,x+w,y+r,r);
+    this.lineTo(x+w,y+h-r);this.arcTo(x+w,y+h,x+w-r,y+h,r);
+    this.lineTo(x+r,y+h);this.arcTo(x,y+h,x,y+h-r,r);
+    this.lineTo(x,y+r);this.arcTo(x,y,x+r,y,r);this.closePath();
+  };
+}
+
+const PING=1/3.30579;
+const SNAP=16;
+const COLORS=['#ef4444','#f97316','#eab308','#22c55e','#06b6d4','#a855f7','#ec4899','#3b82f6','#14b8a6'];
+
+let img=null,imgW=0,imgH=0;
+let mpp=0;
+let vp={x:0,y:0,z:1};
+let tool='draw',drawing=false,curPts=[];
+let zones=[],selId=null,colorIdx=0;
+let ref={on:false,pts:[]};
+let pan=null,drag=null,pinch=null,lastTap=0;
+let dpr=1,sheetOpen=false;
+
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+const carea=document.getElementById('canvasArea');
+
+const toC=(ix,iy)=>({x:(ix-vp.x)*vp.z,y:(iy-vp.y)*vp.z});
+const toI=(cx,cy)=>({x:cx/vp.z+vp.x,y:cy/vp.z+vp.y});
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+const uid=()=>Math.random().toString(36).slice(2);
+const $=id=>document.getElementById(id);
+const show=(...ids)=>ids.forEach(id=>$(id).classList.remove('hidden'));
+const hide=(...ids)=>ids.forEach(id=>$(id).classList.add('hidden'));
+
+// ── Geometry ──────────────────────────────────────────────────────────────
+function shoelace(pts){
+  let a=0,n=pts.length;
+  for(let i=0;i<n;i++){const j=(i+1)%n;a+=pts[i].x*pts[j].y-pts[j].x*pts[i].y;}
+  return Math.abs(a)/2;
+}
+function pip(px,py,pts){
+  let inside=false,n=pts.length;
+  for(let i=0,j=n-1;i<n;j=i++){
+    const xi=pts[i].x,yi=pts[i].y,xj=pts[j].x,yj=pts[j].y;
+    if((yi>py)!==(yj>py)&&px<(xj-xi)*(py-yi)/(yj-yi)+xi)inside=!inside;
+  }
+  return inside;
+}
+
+// ── Zones ─────────────────────────────────────────────────────────────────
+function calcArea(pts){const px2=shoelace(pts),m2=px2*mpp*mpp;return{m2,ping:m2*PING};}
+function reCalc(z){if(z.pts.length>=3&&mpp>0){const a=calcArea(z.pts);z.m2=a.m2;z.ping=a.ping;}else{z.m2=0;z.ping=0;}}
+
+function closePoly(){
+  if(curPts.length<3)return;
+  const color=COLORS[colorIdx++%COLORS.length];
+  const z={id:uid(),name:`空間 ${zones.length+1}`,color,pts:[...curPts],m2:0,ping:0};
+  reCalc(z);zones.push(z);selId=z.id;curPts=[];drawing=false;
+  syncUI();setStatus(`已建立「${z.name}」`);render();
+}
+function deleteZone(id){zones=zones.filter(z=>z.id!==id);if(selId===id)selId=null;syncUI();render();}
+function clearAll(){if(!zones.length)return;if(!confirm('清除所有標記？'))return;zones=[];selId=null;curPts=[];drawing=false;syncUI();render();}
+function undoPt(){if(!drawing)return;curPts.pop();if(!curPts.length)drawing=false;syncDrawBar();render();}
+function cancelDraw(){curPts=[];drawing=false;syncDrawBar();setStatus('取消繪製');render();}
+function getZoneAt(ix,iy){for(let i=zones.length-1;i>=0;i--)if(pip(ix,iy,zones[i].pts))return zones[i];return null;}
+function getVtxAt(ix,iy,zid){const z=zones.find(z=>z.id===zid);if(!z)return -1;for(let i=0;i<z.pts.length;i++)if(dist({x:ix,y:iy},z.pts[i])*vp.z<12)return i;return -1;}
+
+// ── Reference line ────────────────────────────────────────────────────────
+function toggleRef(){
+  ref={on:!ref.on,pts:[]};
+  syncRefUI();
+  if(ref.on)setStatus('在圖上點兩個端點設定已知距離');
+  else setStatus('取消參考線');
+  render();
+}
+function confirmRef(){
+  if(ref.pts.length<2)return;
+  const m=parseFloat($('dRefM').value)||parseFloat($('mRefM').value)||1;
+  $('dRefM').value=m;$('mRefM').value=m;
+  const px=dist(ref.pts[0],ref.pts[1]);
+  mpp=m/px;
+  ref={on:false,pts:[]};
+  zones.forEach(reCalc);
+  syncRefUI();syncUI();
+  setStatus(`比例已設定：${m}m = ${px.toFixed(1)}px`);
+  render();
+}
+function resetRef(){mpp=0;ref={on:false,pts:[]};zones.forEach(reCalc);syncRefUI();syncUI();render();setStatus('已清除比例設定');}
+
+function syncRefUI(){
+  const on=ref.on,set=mpp>0&&!on;
+  // desktop
+  $('refBtn').classList.toggle('on',on);
+  $('refBtn').textContent=on?'📏 點擊圖上兩端點…':'📏 設定參考線';
+  on&&ref.pts.length<2?show('dRefHint'):hide('dRefHint');
+  $('dRefHint').textContent=on?`已點 ${ref.pts.length}/2 個端點`:'';
+  on&&ref.pts.length>=2?show('dRefInput'):hide('dRefInput');
+  set?show('dRefDone','dRefReset'):hide('dRefDone','dRefReset');
+  if(set)$('dRefDone').textContent=`✓ 已校正：1px ≈ ${(mpp*100).toFixed(3)} cm`;
+  // mobile nav
+  $('mnRef').classList.toggle('yon',on);
+  // sheet
+  on&&ref.pts.length<2?show('mRefHint'):hide('mRefHint');
+  $('mRefHint').textContent=on?`已點 ${ref.pts.length}/2 個端點`:'';
+  on&&ref.pts.length>=2?show('mRefInput'):hide('mRefInput');
+  set?show('mRefDone'):hide('mRefDone');
+  if(set)$('mRefDone').textContent=`✓ 已校正：1px ≈ ${(mpp*100).toFixed(3)} cm`;
+  // ref overlay
+  const overlay=$('refOverlay');
+  if(on&&ref.pts.length<2){overlay.classList.add('show');overlay.textContent=ref.pts.length===0?'點第一個端點':'點第二個端點';}
+  else overlay.classList.remove('show');
+  // auto-open sheet on mobile when ref pts ready
+  if(on&&ref.pts.length>=2&&window.innerWidth<=640&&!sheetOpen)toggleSheet();
+}
+
+// ── Draw bar ──────────────────────────────────────────────────────────────
+function syncDrawBar(){
+  const bar=$('drawBar'),cb=$('closeBtn');
+  bar.classList.toggle('show',drawing);
+  if(drawing){
+    $('drawInfo').textContent=`${curPts.length} 頂點`;
+    cb.classList.toggle('dim',curPts.length<3);
+    cb.classList.toggle('gr',curPts.length>=3);
+  }
+}
+
+// ── Tool ──────────────────────────────────────────────────────────────────
+const HINTS={
+  draw:'點擊繪製頂點，靠近起點或按 Enter 閉合，Esc 取消，Ctrl+Z 撤銷',
+  select:'點選區域，拖曳頂點調整，Delete 刪除',
+  view:'滾輪縮放，拖曳平移；手機：雙指縮放',
+};
+function setTool(t){
+  tool=t;
+  if(t!=='draw'){curPts=[];drawing=false;syncDrawBar();}
+  ['Draw','Select','View'].forEach(n=>$(('tb'+n)).classList.remove('on'));
+  $('tb'+t[0].toUpperCase()+t.slice(1)).classList.add('on');
+  $('toolHint').textContent=HINTS[t];
+  ['mnDraw','mnSelect'].forEach(id=>$(id).classList.remove('on'));
+  if(t==='draw')$('mnDraw').classList.add('on');
+  if(t==='select')$('mnSelect').classList.add('on');
+  cvs.style.cursor={draw:'crosshair',select:'default',view:'grab'}[t];
+  render();
+}
+
+// ── Sheet ─────────────────────────────────────────────────────────────────
+function toggleSheet(){
+  sheetOpen=!sheetOpen;
+  $('sheet').classList.toggle('open',sheetOpen);
+  $('mnZones').classList.toggle('on',sheetOpen);
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function render(){
+  const W=cvs.width,H=cvs.height;
+  ctx.clearRect(0,0,W,H);
+  if(!img)return;
+  const a=toC(0,0),b=toC(imgW,imgH);
+  ctx.drawImage(img,a.x,a.y,b.x-a.x,b.y-a.y);
+  zones.forEach(drawZone);
+  if(curPts.length>0)drawInProg();
+  if(ref.pts.length>0)drawRef();
+}
+function drawZone(z){
+  if(z.pts.length<2)return;
+  const pts=z.pts.map(p=>toC(p.x,p.y)),sel=z.id===selId;
+  ctx.save();
+  ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+  for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);
+  ctx.closePath();
+  ctx.fillStyle=z.color+'2e';ctx.fill();
+  ctx.strokeStyle=sel?'#fff':z.color;ctx.lineWidth=sel?2.5:1.5;ctx.stroke();
+  if(sel)pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.strokeStyle=z.color;ctx.lineWidth=1.5;ctx.stroke();});
+  if(pts.length>=3){
+    const cx=pts.reduce((s,p)=>s+p.x,0)/pts.length;
+    const cy=pts.reduce((s,p)=>s+p.y,0)/pts.length;
+    drawLabel(cx,cy,mpp>0?[z.name,`${z.ping.toFixed(2)} 坪`]:[z.name],z.color);
+  }
+  ctx.restore();
+}
+function drawLabel(cx,cy,lines,color){
+  const fs=Math.max(10,Math.min(14,11*vp.z));
+  ctx.font=`bold ${fs}px system-ui,sans-serif`;
+  const lh=fs*1.5,th=lh*lines.length,mw=Math.max(...lines.map(l=>ctx.measureText(l).width)),p=5;
+  ctx.save();ctx.beginPath();ctx.roundRect(cx-mw/2-p,cy-th/2-p,mw+p*2,th+p*2,4);ctx.fillStyle='rgba(0,0,0,.7)';ctx.fill();
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  lines.forEach((l,i)=>{ctx.fillStyle=i===0?color:'#10b981';ctx.fillText(l,cx,cy-th/2+lh*(i+.5));});
+  ctx.restore();
+}
+function drawInProg(){
+  const pts=curPts.map(p=>toC(p.x,p.y));
+  ctx.save();
+  ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+  for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);
+  ctx.strokeStyle='#f59e0b';ctx.lineWidth=2;ctx.setLineDash([6,3]);ctx.stroke();ctx.setLineDash([]);
+  if(pts.length>=3){ctx.closePath();ctx.fillStyle='rgba(245,158,11,.08)';ctx.fill();}
+  pts.forEach((p,i)=>{ctx.beginPath();ctx.arc(p.x,p.y,i===0?8:5,0,Math.PI*2);ctx.fillStyle=i===0?'#f59e0b':'rgba(255,255,255,.8)';ctx.fill();if(i===0){ctx.strokeStyle='rgba(255,255,255,.5)';ctx.lineWidth=1.5;ctx.stroke();}});
+  ctx.restore();
+}
+function drawRef(){
+  const pts=ref.pts.map(p=>toC(p.x,p.y));
+  ctx.save();
+  if(pts.length>=2){ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);ctx.lineTo(pts[1].x,pts[1].y);ctx.strokeStyle='#f59e0b';ctx.lineWidth=2.5;ctx.setLineDash([8,4]);ctx.stroke();ctx.setLineDash([]);}
+  pts.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,6,0,Math.PI*2);ctx.fillStyle='#f59e0b';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();});
+  ctx.restore();
+}
+function renderPreview(cx,cy){
+  render();
+  if(!drawing||!curPts.length)return;
+  const last=toC(curPts[curPts.length-1].x,curPts[curPts.length-1].y);
+  ctx.save();ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(cx,cy);
+  ctx.strokeStyle='rgba(245,158,11,.4)';ctx.lineWidth=1.5;ctx.setLineDash([4,3]);ctx.stroke();ctx.restore();
+  if(curPts.length>=3){
+    const fc=toC(curPts[0].x,curPts[0].y);
+    if(dist({x:cx,y:cy},fc)<SNAP){ctx.save();ctx.beginPath();ctx.arc(fc.x,fc.y,13,0,Math.PI*2);ctx.strokeStyle='#10b981';ctx.lineWidth=2;ctx.stroke();ctx.restore();}
+  }
+  if(mpp>0&&curPts.length>=2){
+    const ip=toI(cx,cy),{m2,ping}=calcArea([...curPts,ip]);
+    setStatus(`繪製中 · ${curPts.length+1} 頂點 · 預估 ${ping.toFixed(2)} 坪`);
+  }
+}
+
+// ── Pointer (shared mouse/touch) ──────────────────────────────────────────
+function pDown(clientX,clientY){
+  const[cx,cy]=cxy(clientX,clientY),ip=toI(cx,cy);
+  if(ref.on){
+    ref.pts.push({x:ip.x,y:ip.y});
+    if(ref.pts.length>=2)ref.pts=ref.pts.slice(0,2);
+    syncRefUI();render();return;
+  }
+  if(tool==='draw'){
+    if(!img)return;
+    if(drawing&&curPts.length>=3){const fc=toC(curPts[0].x,curPts[0].y);if(dist({x:cx,y:cy},fc)<SNAP){closePoly();return;}}
+    curPts.push({x:ip.x,y:ip.y});drawing=true;
+    syncDrawBar();if(curPts.length===1)setStatus('繼續點擊，靠近起點閉合');
+    render();return;
+  }
+  if(tool==='select'){
+    if(selId){const vi=getVtxAt(ip.x,ip.y,selId);if(vi>=0){drag={zid:selId,pi:vi};return;}}
+    const z=getZoneAt(ip.x,ip.y);selId=z?z.id:null;syncUI();render();return;
+  }
+  if(tool==='view'){pan={sx:cx,sy:cy,vx:vp.x,vy:vp.y};cvs.style.cursor='grabbing';}
+}
+function pMove(clientX,clientY){
+  const[cx,cy]=cxy(clientX,clientY),ip=toI(cx,cy);
+  if(pan){vp.x=pan.vx-(cx-pan.sx)/vp.z;vp.y=pan.vy-(cy-pan.sy)/vp.z;render();return;}
+  if(drag){const z=zones.find(z=>z.id===drag.zid);if(z){z.pts[drag.pi]={x:ip.x,y:ip.y};reCalc(z);syncUI();}render();return;}
+  if(tool==='draw')renderPreview(cx,cy);
+}
+function pUp(){
+  if(pan){pan=null;cvs.style.cursor=tool==='view'?'grab':'crosshair';}
+  drag=null;
+}
+function cxy(cx,cy){const r=cvs.getBoundingClientRect();return[(cx-r.left)*dpr,(cy-r.top)*dpr];}
+
+// ── Mouse events ──────────────────────────────────────────────────────────
+cvs.addEventListener('mousedown',e=>{
+  if(e.button===1||(e.button===0&&e.altKey)){const[cx,cy]=cxy(e.clientX,e.clientY);pan={sx:cx,sy:cy,vx:vp.x,vy:vp.y};e.preventDefault();return;}
+  if(e.button!==0)return;pDown(e.clientX,e.clientY);
+});
+cvs.addEventListener('mousemove',e=>pMove(e.clientX,e.clientY));
+cvs.addEventListener('mouseup',pUp);
+cvs.addEventListener('dblclick',e=>{if(tool==='draw'&&drawing&&curPts.length>=3){curPts.pop();if(curPts.length>=3)closePoly();}});
+cvs.addEventListener('contextmenu',e=>{e.preventDefault();if(tool==='draw'&&drawing&&curPts.length>=3)closePoly();});
+cvs.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const[cx,cy]=cxy(e.clientX,e.clientY),ip=toI(cx,cy);
+  vp.z=Math.max(.04,Math.min(30,vp.z*(e.deltaY<0?1.15:1/1.15)));
+  vp.x=ip.x-cx/vp.z;vp.y=ip.y-cy/vp.z;render();
+},{passive:false});
+
+// ── Touch events ──────────────────────────────────────────────────────────
+const tDist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+cvs.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  if(e.touches.length===2){
+    const t=e.touches,mx=(t[0].clientX+t[1].clientX)/2,my=(t[0].clientY+t[1].clientY)/2;
+    pinch={d0:tDist(t),z0:vp.z,ip0:toI(...cxy(mx,my))};pan=null;return;
+  }
+  if(e.touches.length===1&&!pinch)pDown(e.touches[0].clientX,e.touches[0].clientY);
+},{passive:false});
+cvs.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  if(e.touches.length===2&&pinch){
+    const t=e.touches,mx=(t[0].clientX+t[1].clientX)/2,my=(t[0].clientY+t[1].clientY)/2;
+    vp.z=Math.max(.04,Math.min(30,pinch.z0*tDist(t)/pinch.d0));
+    const[cx,cy]=cxy(mx,my);vp.x=pinch.ip0.x-cx/vp.z;vp.y=pinch.ip0.y-cy/vp.z;
+    render();return;
+  }
+  if(e.touches.length===1&&!pinch)pMove(e.touches[0].clientX,e.touches[0].clientY);
+},{passive:false});
+cvs.addEventListener('touchend',e=>{
+  e.preventDefault();
+  if(e.touches.length<2)pinch=null;
+  if(e.touches.length===0){
+    pUp();
+    const now=Date.now();
+    if(now-lastTap<350&&tool==='draw'&&drawing&&curPts.length>=3)closePoly();
+    lastTap=now;
+  }
+},{passive:false});
+
+// ── Keyboard ──────────────────────────────────────────────────────────────
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if(drawing)cancelDraw();if(ref.on)toggleRef();}
+  if(e.key==='Enter'&&drawing&&curPts.length>=3)closePoly();
+  if((e.key==='Delete'||e.key==='Backspace')&&selId&&!e.target.matches('input'))deleteZone(selId);
+  if((e.key==='z'||e.key==='Z')&&(e.ctrlKey||e.metaKey)){e.preventDefault();undoPt();}
+});
+
+// ── Viewport ──────────────────────────────────────────────────────────────
+function zs(f){const cx=cvs.width/2,cy=cvs.height/2,ip=toI(cx,cy);vp.z=Math.max(.04,Math.min(30,vp.z*f));vp.x=ip.x-cx/vp.z;vp.y=ip.y-cy/vp.z;render();}
+function zoomFit(){if(!img)return;const W=cvs.width,H=cvs.height,z=Math.min(W/imgW,H/imgH)*.93;vp.z=z;vp.x=imgW/2-W/(2*z);vp.y=imgH/2-H/(2*z);render();}
+function resizeCanvas(){dpr=window.devicePixelRatio||1;const W=carea.clientWidth,H=carea.clientHeight;cvs.width=W*dpr;cvs.height=H*dpr;cvs.style.width=W+'px';cvs.style.height=H+'px';render();}
+
+// ── Image load ────────────────────────────────────────────────────────────
+function loadFile(file){
+  if(!file||!file.type.startsWith('image/')){alert('請上傳圖片（JPG/PNG）');return;}
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const image=new Image();
+    image.onload=()=>{
+      img=image;imgW=image.width;imgH=image.height;
+      $('emptyHint').style.display='none';
+      $('clearBtn').classList.remove('hidden');
+      zoomFit();setStatus(`已載入 ${file.name}（${imgW}×${imgH}）`);
+    };
+    image.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+$('fileInput').addEventListener('change',e=>{loadFile(e.target.files[0]);e.target.value='';});
+carea.addEventListener('dragover',e=>e.preventDefault());
+carea.addEventListener('drop',e=>{e.preventDefault();loadFile(e.dataTransfer.files[0]);});
+
+// ── UI sync ───────────────────────────────────────────────────────────────
+function zoneRow(z){
+  const ping=mpp>0?z.ping.toFixed(2):'?',m2=mpp>0?z.m2.toFixed(2):'?',sel=z.id===selId?' sel':'';
+  return`<div class="zi${sel}" onclick="selectZone('${z.id}')">
+    <div class="zdot" style="background:${z.color}"></div>
+    <div class="zinfo">
+      <div class="zname" ondblclick="event.stopPropagation();startRename('${z.id}',this)">${z.name}</div>
+      <div class="zarea"><b>${ping} 坪</b> · ${m2} m²</div>
+    </div>
+    <button class="zdel" onclick="event.stopPropagation();deleteZone('${z.id}')">✕</button>
+  </div>`;
+}
+const noZone='<div class="hint" style="text-align:center;padding:16px 0">尚無標記</div>';
+function syncUI(){
+  const html=zones.length?zones.map(zoneRow).join(''):noZone;
+  $('dZoneList').innerHTML=html;$('mZoneList').innerHTML=html;
+  const tp=zones.reduce((s,z)=>s+(z.ping||0),0),tm=zones.reduce((s,z)=>s+(z.m2||0),0),cn=zones.length;
+  $('dCnt').textContent=cn;$('dM2').textContent=tm.toFixed(2)+' m²';$('dPing').textContent=tp.toFixed(2)+' 坪';
+  $('mCnt').textContent=cn;$('mM2').textContent=tm.toFixed(2)+' m²';$('mPing').textContent=tp.toFixed(2)+' 坪';
+}
+function setStatus(msg){$('status').textContent=msg;}
+function selectZone(id){selId=id;setTool('select');syncUI();render();}
+function startRename(id,el){
+  const z=zones.find(z=>z.id===id);if(!z)return;
+  const inp=document.createElement('input');inp.className='znin';inp.value=z.name;
+  el.replaceWith(inp);inp.focus();inp.select();
+  const done=()=>{z.name=inp.value.trim()||z.name;syncUI();render();};
+  inp.addEventListener('blur',done);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();if(e.key==='Escape'){inp.value=z.name;inp.blur();}});
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();syncUI();syncRefUI();
+setStatus('就緒 · 請先上傳平面圖');
+</script>
+</body>
+</html>
