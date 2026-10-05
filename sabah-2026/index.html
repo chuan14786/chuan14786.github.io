@@ -2,26 +2,201 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b6d75">
 <title>沙巴雙人旅行｜2026/10/30–11/04</title>
 <style>
-:root{--bg:#f5f7f8;--card:#fff;--text:#172126;--muted:#637077;--line:#dde5e8;--accent:#0f766e;--accent2:#115e59;--soft:#e8f5f2;--warn:#fff7ed;--warntext:#9a3412;--shadow:0 12px 30px rgba(20,45,50,.08);--radius:20px}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:linear-gradient(180deg,#edf7f5 0,#f5f7f8 230px);color:var(--text);line-height:1.65}.wrap{max-width:980px;margin:0 auto;padding:28px 18px 70px}.hero{background:linear-gradient(135deg,#0f766e,#164e63);color:#fff;border-radius:28px;padding:34px 30px;box-shadow:var(--shadow)}.eyebrow{font-size:14px;letter-spacing:.08em;opacity:.82;font-weight:700}h1{font-size:clamp(30px,5vw,50px);line-height:1.12;margin:8px 0 14px}.hero p{margin:0;color:rgba(255,255,255,.9);font-size:17px}.hero-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}.stat{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.17);padding:13px;border-radius:14px}.stat b{display:block;font-size:17px}.stat span{font-size:12px;opacity:.8}.section{margin-top:30px}.section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:22px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.overview .item{padding:16px;border:1px solid var(--line);border-radius:16px;background:#fbfcfc}.overview b{display:block;margin-bottom:4px}.overview small{color:var(--muted)}.day{display:grid;grid-template-columns:115px 1fr;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:20px;margin:15px 0}.date{border-right:1px solid var(--line);padding-right:14px}.date .d{font-size:27px;font-weight:800;line-height:1}.date .w{font-size:13px;color:var(--muted);margin-top:6px}.pill{display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--accent2);font-size:12px;font-weight:800}.day h3{margin:0 0 5px;font-size:22px}.subtitle{color:var(--muted);margin-bottom:13px}.slots{display:grid;gap:9px}.slot{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:start}.time{font-weight:800;color:var(--accent2)}.slot div:last-child{padding-bottom:8px;border-bottom:1px dashed #e6ecee}.slot:last-child div:last-child{border-bottom:0}.highlight{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--soft);color:#174b46;font-weight:650}.warning{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--warn);color:var(--warntext)}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tag{font-size:12px;padding:6px 9px;border-radius:999px;border:1px solid var(--line);background:#fff}.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}ul{margin:10px 0 0;padding-left:20px}li{margin:6px 0}.route{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-weight:750}.route span{background:#f6fbfa;border:1px solid #d8ebe8;padding:9px 11px;border-radius:12px}.arrow{color:#8aa3a0}.footer{color:var(--muted);font-size:13px;text-align:center;margin-top:28px}.btn{display:inline-block;border:0;border-radius:12px;padding:10px 14px;background:#fff;color:var(--accent2);font-weight:800;cursor:pointer;margin-top:18px}.maplinks a{color:var(--accent2);text-decoration:none;font-weight:700}.maplinks a:hover{text-decoration:underline}@media(max-width:720px){.hero{padding:27px 20px}.hero-grid{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.day{grid-template-columns:1fr;padding:18px}.date{border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}.date .d{font-size:24px}.cols{grid-template-columns:1fr}.slot{grid-template-columns:78px 1fr}}@media print{body{background:#fff}.wrap{max-width:none;padding:0}.hero,.card,.day{box-shadow:none}.btn{display:none}.day{break-inside:avoid}}
+:root{--bg:#f4f8fa;--card:#fff;--ink:#17313f;--muted:#6a7d89;--line:#dfe9ee;--p:#0b7b84;--pd:#075c63;--soft:#e9f7f8;--gold:#f2b84b;--warn:#fff5e8;--shadow:0 14px 34px rgba(30,55,70,.09);--r:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:linear-gradient(180deg,#eaf5f7 0,#f6f9fb 270px);color:var(--ink);line-height:1.65}
+a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:20px 16px 72px}
+.hero{background:linear-gradient(135deg,#08636d,#0d8490);color:#fff;border-radius:30px;padding:34px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-100px;top:-120px;background:rgba(255,255,255,.08)}
+.kicker{font-size:12px;letter-spacing:.14em;font-weight:800;opacity:.84}.hero h1{font-size:clamp(34px,6vw,56px);line-height:1.08;margin:8px 0 10px}.hero p{margin:0;color:rgba(255,255,255,.9)}
+.herostats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.heroStat{padding:12px 14px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:rgba(255,255,255,.11)}.heroStat b{display:block;font-size:17px}.heroStat span{font-size:12px;opacity:.82}
+.heroBtns{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.heroBtn{border:0;background:#fff;color:var(--pd);padding:10px 13px;border-radius:12px;font-weight:800;cursor:pointer}.heroBtn.secondary{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.nav{position:sticky;top:8px;z-index:10;margin:14px 0;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 22px rgba(30,55,70,.06);padding:9px}.navin{display:flex;gap:8px;overflow:auto}.nav a{white-space:nowrap;padding:8px 11px;border-radius:11px;font-weight:800;font-size:13px}.nav a:hover{background:var(--soft);color:var(--pd)}
+.section{margin-top:28px}.title{font-size:25px;margin:0 0 13px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:21px;box-shadow:var(--shadow)}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.q{border:1px solid var(--line);border-radius:17px;padding:15px;background:#fbfdfe}.q b{display:block;margin-bottom:5px}.q small{color:var(--muted)}
+.route{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.route span{background:var(--soft);color:var(--pd);padding:8px 11px;border-radius:999px;font-size:13px;font-weight:800}.arrow{color:#9eb0ba}
+.days{display:grid;gap:16px}.day{display:grid;grid-template-columns:122px 1fr;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:21px;box-shadow:var(--shadow)}
+.date{border-right:1px solid var(--line);padding-right:15px}.date .num{font-size:30px;line-height:1;font-weight:900}.date .dow{font-size:13px;color:var(--muted);margin-top:7px}.tag{display:inline-block;margin-top:10px;padding:5px 9px;border-radius:999px;background:var(--soft);color:var(--pd);font-weight:800;font-size:11px}
+.day h3{font-size:23px;margin:0 0 5px}.sub{color:var(--muted);margin-bottom:12px}
+.timeline{display:grid;gap:7px}.trow{display:grid;grid-template-columns:105px 1fr;gap:12px;padding-bottom:8px;border-bottom:1px dashed #e5edf1}.trow:last-child{border:0}.time{font-weight:900;color:var(--pd)}
+.boxes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.mini{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fbfdfe}.mini b{display:block;margin-bottom:5px}.mini p{margin:0;color:var(--muted);font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn{display:inline-flex;align-items:center;gap:6px;background:var(--p);color:#fff;padding:8px 11px;border-radius:11px;font-weight:800;font-size:13px}.btn.alt{background:#eef6f8;color:var(--pd);border:1px solid #d8e8ec}
+.budget{font-weight:800;color:var(--pd)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.checklist{display:grid;gap:9px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);padding:11px 12px;border-radius:13px;background:#fff}.check input{margin-top:5px;width:18px;height:18px;accent-color:var(--p)}.check.done{opacity:.55;text-decoration:line-through}
+.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:13px;color:var(--muted);background:#f8fbfc}tr:last-child td{border:0}
+.notice{margin-top:12px;background:var(--warn);border:1px solid #f5d7aa;color:#81510f;padding:13px 14px;border-radius:14px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:28px}
+@media(max-width:820px){.herostats,.quick,.grid2{grid-template-columns:1fr 1fr}.day{grid-template-columns:1fr}.date{border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}.boxes{grid-template-columns:1fr}}
+@media(max-width:560px){.hero{padding:27px 20px}.herostats,.quick,.grid2{grid-template-columns:1fr}.trow{grid-template-columns:82px 1fr}.wrap{padding-left:12px;padding-right:12px}.card,.day{padding:17px}}
+@media print{body{background:#fff}.wrap{max-width:none}.nav,.heroBtns{display:none}.hero,.card,.day{box-shadow:none}.day{break-inside:avoid}}
 </style>
 </head>
-<body><div class="wrap">
-<header class="hero"><div class="eyebrow">SABAH · COUPLE TRIP</div><h1>沙巴雙人旅行<br>6天5夜行程</h1><p>神山輕健行 × 山上住宿 × 跳島 × 夕陽 × 美食｜2026/10/30–11/04</p><div class="hero-grid"><div class="stat"><b>10/30 22:50</b><span>抵達亞庇</span></div><div class="stat"><b>11/04 07:35</b><span>回程起飛</span></div><div class="stat"><b>4 個完整白天</b><span>10/31–11/03</span></div><div class="stat"><b>5 晚</b><span>亞庇＋神山</span></div></div><button class="btn" onclick="window.print()">列印 / 存成 PDF</button></header>
-<section class="section"><h2 class="section-title">🧭 行程主軸</h2><div class="card"><div class="route"><span>10/30 亞庇</span><b class="arrow">→</b><span>10/31 神山健行＋住山上</span><b class="arrow">→</b><span>11/1 昆達山＋回亞庇</span><b class="arrow">→</b><span>11/2 跳島</span><b class="arrow">→</b><span>11/3 市區放鬆＋夕陽</span><b class="arrow">→</b><span>11/4 回程</span></div><div class="highlight">核心原則：先完成神山，再安排跳島。11/3保留為市區放鬆日，同時可作為11/2海況不佳時的跳島備用日。</div></div></section>
-<section class="section"><h2 class="section-title">📌 一眼看懂</h2><div class="overview"><div class="item"><b>⛰ 神山</b><small>只安排約2–4小時輕健行，不登頂；住宿安排在 Kinabalu Park 區域。</small></div><div class="item"><b>🏝 跳島</b><small>以兩島為主，避免趕行程；建議 Sapi＋Manukan 或 Mamutik。</small></div><div class="item"><b>✈️ 回程</b><small>11/4 07:35起飛；前一晚一定住亞庇，約04:45前後離開飯店。</small></div></div></section>
-<section class="section"><h2 class="section-title">🗓 每日行程</h2>
-<article class="day"><div class="date"><div class="d">10/30</div><div class="w">星期五</div><span class="pill">抵達日</span></div><div><h3>抵達亞庇・直接休息</h3><div class="subtitle">第一晚以睡飽為主，不塞行程。</div><div class="slots"><div class="slot"><div class="time">22:50</div><div>抵達 Kota Kinabalu International Airport（BKI）</div></div><div class="slot"><div class="time">約23:40</div><div>完成入境、領行李後，搭 Grab 前往市區飯店</div></div><div class="slot"><div class="time">深夜</div><div>入住亞庇市區飯店，休息</div></div></div><div class="tags"><span class="tag">住宿：亞庇</span><span class="tag">建議區域：Imago / 市中心</span></div></div></article>
-<article class="day"><div class="date"><div class="d">10/31</div><div class="w">星期六</div><span class="pill">核心行程</span></div><div><h3>Kinabalu Park 神山・輕健行・住山上</h3><div class="subtitle">真正進入神山國家公園，安排2–4小時自然步道，不做登頂行程。</div><div class="slots"><div class="slot"><div class="time">08:00–08:30</div><div>亞庇出發前往 Kinabalu Park</div></div><div class="slot"><div class="time">約10:00</div><div>抵達 Kinabalu Park HQ，寄放行李／辦理入住相關手續</div></div><div class="slot"><div class="time">10:30–13:30</div><div><b>神山輕健行</b>：以 Silau-Silau Trail 為主；視體力再加短步道或觀景點</div></div><div class="slot"><div class="time">13:30–14:30</div><div>午餐、休息</div></div><div class="slot"><div class="time">下午</div><div>Botanical Garden／園區散步／拍照，不再塞長程景點</div></div><div class="slot"><div class="time">16:00後</div><div>入住 Kinabalu Park 區域住宿，享受山區低溫與安靜夜晚</div></div></div><div class="highlight">這天的重點是「真的走進神山森林＋直接住在山區」，而不是在昆達山遠拍神山。</div><div class="tags"><span class="tag">住宿：Kinabalu Park 區域</span><span class="tag">健行約2–4小時</span><span class="tag">不登頂</span></div></div></article>
-<article class="day"><div class="date"><div class="d">11/01</div><div class="w">星期日</div><span class="pill">神山晨景</span></div><div><h3>神山早晨・Desa牧場・昆達山・回亞庇</h3><div class="subtitle">利用住山區的優勢，早起看 Mount Kinabalu，再順路走昆達山景點。</div><div class="slots"><div class="slot"><div class="time">05:45–06:30</div><div>起床看神山晨景、拍照</div></div><div class="slot"><div class="time">07:00</div><div>早餐、整理行李</div></div><div class="slot"><div class="time">08:00–09:00</div><div>園區短散步／觀景；不再安排正式健行</div></div><div class="slot"><div class="time">09:00–09:30</div><div>退房，前往 Desa Cattle Dairy Farm</div></div><div class="slot"><div class="time">10:00–12:00</div><div>Desa牧場：草原、乳牛、神山背景、鮮奶／冰淇淋</div></div><div class="slot"><div class="time">中午</div><div>昆達山午餐；視狀況加入市集或咖啡</div></div><div class="slot"><div class="time">約14:00</div><div>出發返回亞庇</div></div><div class="slot"><div class="time">15:30–16:30</div><div>抵達亞庇，入住飯店</div></div><div class="slot"><div class="time">晚上</div><div>按摩／海鮮／Imago，安排輕鬆即可</div></div></div><div class="tags"><span class="tag">住宿：亞庇</span><span class="tag">重點：神山晨景</span></div></div></article>
-<article class="day"><div class="date"><div class="d">11/02</div><div class="w">星期一</div><span class="pill">海島日</span></div><div><h3>跳島・浮潛・海上活動</h3><div class="subtitle">安排兩島最剛好，保留度假感，不做三島趕場。</div><div class="slots"><div class="slot"><div class="time">08:00</div><div>早餐</div></div><div class="slot"><div class="time">09:00</div><div>前往 Jesselton Point</div></div><div class="slot"><div class="time">09:30–15:00</div><div>雙島跳島：<b>Sapi＋Manukan</b> 或 <b>Sapi＋Mamutik</b>；安排浮潛、沙灘與自由活動</div></div><div class="slot"><div class="time">15:30</div><div>回飯店洗澡、休息</div></div><div class="slot"><div class="time">晚上</div><div>Waterfront／海鮮／按摩</div></div></div><div class="warning">若當天海況或天氣不理想，可把跳島與11/3對調；因此11/3刻意不排不可取消的長途行程。</div><div class="tags"><span class="tag">住宿：亞庇</span><span class="tag">海況彈性調整</span></div></div></article>
-<article class="day"><div class="date"><div class="d">11/03</div><div class="w">星期二</div><span class="pill">放鬆收尾</span></div><div><h3>亞庇市區・按摩・丹絨亞路夕陽</h3><div class="subtitle">最後一天不跑遠，讓行程有餘裕，也為隔天07:35早班機做準備。</div><div class="slots"><div class="slot"><div class="time">09:00</div><div>自然醒、Brunch</div></div><div class="slot"><div class="time">上午</div><div>Gaya Street周邊／市區咖啡／伴手禮</div></div><div class="slot"><div class="time">下午</div><div>Imago購物或按摩1.5–2小時</div></div><div class="slot"><div class="time">17:00前後</div><div>前往 Tanjung Aru Beach 丹絨亞路</div></div><div class="slot"><div class="time">傍晚</div><div>看夕陽</div></div><div class="slot"><div class="time">晚餐</div><div>安排最後一頓海鮮或喜歡的餐廳</div></div><div class="slot"><div class="time">21:00前後</div><div>回飯店整理行李、早睡</div></div></div><div class="tags"><span class="tag">住宿：亞庇／機場方向</span><span class="tag">同時是跳島備用日</span></div></div></article>
-<article class="day"><div class="date"><div class="d">11/04</div><div class="w">星期三</div><span class="pill">回程日</span></div><div><h3>清晨前往機場</h3><div class="subtitle">這天不安排任何其他行程。</div><div class="slots"><div class="slot"><div class="time">04:15</div><div>起床</div></div><div class="slot"><div class="time">04:40–04:50</div><div>退房、前往 BKI 機場</div></div><div class="slot"><div class="time">約05:00–05:20</div><div>抵達機場，辦理報到、行李托運與出境</div></div><div class="slot"><div class="time">07:35</div><div>班機起飛</div></div></div><div class="warning">前一晚務必住在亞庇，不要從神山／昆達山直接趕早班機。</div></div></article>
+<body>
+<div class="wrap">
+<header class="hero">
+<div class="kicker">SABAH COUPLE TRIP · 2026</div>
+<h1>沙巴雙人旅行<br>實用行程版</h1>
+<p>每天一眼看懂｜導航、餐廳、住宿、待辦與雙人預算都放在同一頁</p>
+<div class="herostats">
+<div class="heroStat"><b>10/30 22:50</b><span>抵達亞庇</span></div>
+<div class="heroStat"><b>11/04 07:35</b><span>回程起飛</span></div>
+<div class="heroStat"><b>11/1–11/2</b><span>神山自駕 2 天 1 夜</span></div>
+<div class="heroStat"><b>11/2 晚</b><span>Shangri-La Tanjung Aru</span></div>
+</div>
+<div class="heroBtns"><button class="heroBtn" onclick="sharePage()">分享這份行程</button><button class="heroBtn secondary" onclick="window.print()">列印 / 存 PDF</button></div>
+</header>
+
+<nav class="nav"><div class="navin">
+<a href="#summary">總覽</a><a href="#days">每日行程</a><a href="#todo">待辦清單</a><a href="#packing">行李清單</a><a href="#budget">預算</a><a href="#maps">地圖</a>
+</div></nav>
+
+<section class="section" id="summary">
+<h2 class="title">📌 行程總覽</h2>
+<div class="quick">
+<div class="q"><b>🏝 10/31 海島</b><small>Manukan Island 一島慢玩，晚上接 Gaya Street 夜市。</small></div>
+<div class="q"><b>⛰ 11/1 神山 Day 1</b><small>取車、自駕上山、Kinabalu Park 輕健行、山景住宿。</small></div>
+<div class="q"><b>🐄 11/2 神山 Day 2</b><small>晨景、Desa Farm、回亞庇還車，下午入住香格里拉。</small></div>
+<div class="q"><b>🌴 11/3 放鬆</b><small>飯店半日、購物、按摩、海鮮，晚上住機場方向。</small></div>
+</div>
+<div class="card" style="margin-top:12px"><div class="route">
+<span>亞庇</span><b class="arrow">→</b><span>Manukan</span><b class="arrow">→</b><span>Gaya Street</span><b class="arrow">→</b><span>Kinabalu Park</span><b class="arrow">→</b><span>Kundasang</span><b class="arrow">→</b><span>Desa Farm</span><b class="arrow">→</b><span>Shangri-La</span><b class="arrow">→</b><span>回程</span>
+</div></div>
 </section>
-<section class="section"><h2 class="section-title">🎒 這趟最重要的準備</h2><div class="cols"><div class="card"><b>神山 / 高原</b><ul><li>薄外套或防風外套</li><li>好走、防滑的運動鞋</li><li>雨具</li><li>住宿優先選 Kinabalu Park 區域</li><li>不需要準備正式登頂裝備</li></ul></div><div class="card"><b>跳島 / 亞庇</b><ul><li>泳衣、快乾衣、防曬</li><li>防水袋／手機防水套</li><li>11/2行程盡量選可彈性取消或改期</li><li>11/3保留為海況備案</li></ul></div></div></section>
-<section class="section"><h2 class="section-title">🗺 地點快速連結</h2><div class="card maplinks"><ul><li><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kinabalu+Park+Headquarters+Sabah">Kinabalu Park Headquarters</a></li><li><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Desa+Cattle+Dairy+Farm+Kundasang">Desa Cattle Dairy Farm</a></li><li><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Jesselton+Point+Kota+Kinabalu">Jesselton Point</a></li><li><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Tanjung+Aru+Beach+Kota+Kinabalu">Tanjung Aru Beach</a></li><li><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kota+Kinabalu+International+Airport">Kota Kinabalu International Airport</a></li></ul></div></section>
-<section class="section"><h2 class="section-title">✅ 最終版本的旅行節奏</h2><div class="card"><b>山 → 海 → 城市放鬆 → 回家</b><p style="margin-bottom:0;color:var(--muted)">這個順序兼顧神山體驗、跳島天候彈性與早班機安全餘裕。時間皆為建議值，實際仍需依住宿入住規則、交通、天候與活動預約時段調整。</p></div></section>
-<div class="footer">Sabah Couple Trip · 2026/10/30–11/04 · 行程規劃版</div></div></body></html>
+
+<section class="section" id="days"><h2 class="title">🗓 每日行程</h2><div class="days">
+
+<article class="day"><div class="date"><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="tag">住亞庇市區</span></div><div>
+<h3>抵達亞庇・直接休息</h3><div class="sub">第一晚只做一件事：順利入住、睡飽。</div>
+<div class="timeline">
+<div class="trow"><div class="time">22:50</div><div>抵達 BKI 亞庇國際機場。</div></div>
+<div class="trow"><div class="time">23:30–00:00</div><div>入境、領行李，Grab 前往市區飯店。</div></div>
+<div class="trow"><div class="time">深夜</div><div>Check-in，休息。</div></div></div>
+<div class="boxes"><div class="mini"><b>🏨 住宿</b><p>Gaya Street／Jesselton Point／市中心一帶，方便隔天跳島。</p></div><div class="mini"><b>💰 預算</b><p><span class="budget">RM20–35</span>｜Grab</p></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kota+Kinabalu+International+Airport">📍 BKI 地圖</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">🏨 市區住宿區</a></div>
+</div></article>
+
+<article class="day"><div class="date"><div class="num">10/31</div><div class="dow">星期六｜海島＋夜市</div><span class="tag">Manukan + Gaya</span></div><div>
+<h3>Manukan Island・Gaya Street 夜市</h3><div class="sub">白天玩海，晚上直接吃夜市；不塞第二座島。</div>
+<div class="timeline">
+<div class="trow"><div class="time">08:00–09:00</div><div>早餐，推薦 Yee Fung Laksa 或附近咖啡店。</div></div>
+<div class="trow"><div class="time">09:30</div><div>抵達 Jesselton Point。</div></div>
+<div class="trow"><div class="time">10:00–15:00</div><div>Manukan Island：浮潛、沙灘、水上活動、午餐。</div></div>
+<div class="trow"><div class="time">15:30–16:30</div><div>回飯店洗澡、休息。</div></div>
+<div class="trow"><div class="time">18:30–21:30</div><div>Gaya Street 夜市，邊走邊吃。</div></div></div>
+<div class="boxes"><div class="mini"><b>🍜 吃什麼</b><p>早餐 Yee Fung；午餐島上簡單吃；晚餐留給 Gaya Street 的沙嗲、燒烤、炒粿條與甜點。</p></div><div class="mini"><b>💰 預算</b><p><span class="budget">RM345–495</span>｜兩人含跳島、餐飲與 Grab</p></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Jesselton+Point+Kota+Kinabalu">📍 Jesselton Point</a><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Manukan+Island+Sabah">🏝 Manukan</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Yee+Fung+Laksa+Kota+Kinabalu">🍜 Yee Fung</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">🌙 Gaya Street</a></div>
+</div></article>
+
+<article class="day"><div class="date"><div class="num">11/01</div><div class="dow">星期日｜神山 Day 1</div><span class="tag">租車開始</span></div><div>
+<h3>自駕神山・Kinabalu Park 輕健行・山景住宿</h3><div class="sub">健行約 2–2.5 小時，不攻頂；保留體力享受山上住宿。</div>
+<div class="timeline">
+<div class="trow"><div class="time">07:00</div><div>早餐。</div></div>
+<div class="trow"><div class="time">07:30–08:00</div><div>取車，建議 Myvi／Saga／Vios 自排。</div></div>
+<div class="trow"><div class="time">08:00–10:30</div><div>亞庇 → Kinabalu Park。</div></div>
+<div class="trow"><div class="time">10:30–13:00</div><div>Kinabalu Park 輕健行，Silau-Silau Trail 為主。</div></div>
+<div class="trow"><div class="time">13:15–14:15</div><div>午餐：The Farmers Restaurant 或 Liwagu Restaurant。</div></div>
+<div class="trow"><div class="time">15:00–16:00</div><div>Kundasang War Memorial／高原散步擇一。</div></div>
+<div class="trow"><div class="time">16:30後</div><div>入住山景房，看 Mount Kinabalu、晚餐、早睡。</div></div></div>
+<div class="boxes"><div class="mini"><b>🏨 住宿</b><p>優先選「房間或陽台可直接看神山」的 Kundasang 山景住宿。</p></div><div class="mini"><b>💰 預算</b><p><span class="budget">RM420–560</span>｜當日活動、租車均攤、餐飲；住宿另計</p></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=Kinabalu+Park+Headquarters+Sabah">🚗 導航到神山</a><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kinabalu+Park+Headquarters+Sabah">⛰ Kinabalu Park</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=The+Farmers+Restaurant+Kundasang">🍽 The Farmers</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kundasang+War+Memorial">📍 War Memorial</a></div>
+</div></article>
+
+<article class="day"><div class="date"><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="tag">Shangri-La</span></div><div>
+<h3>神山晨景・Desa Farm・回亞庇・入住香格里拉</h3><div class="sub">上午把高原玩完，下午正式切換成度假模式。</div>
+<div class="timeline">
+<div class="trow"><div class="time">05:45–06:30</div><div>看神山晨景、拍照。</div></div>
+<div class="trow"><div class="time">07:00</div><div>早餐、退房。</div></div>
+<div class="trow"><div class="time">08:00–09:30</div><div>Desa Cattle Dairy Farm，建議早場。</div></div>
+<div class="trow"><div class="time">10:30–13:30</div><div>下山回亞庇。</div></div>
+<div class="trow"><div class="time">13:30–14:00</div><div>加油、還車。</div></div>
+<div class="trow"><div class="time">15:00</div><div>入住 Shangri-La Tanjung Aru。</div></div>
+<div class="trow"><div class="time">17:00–18:30</div><div>Sunset Bar／海邊夕陽。</div></div>
+<div class="trow"><div class="time">19:00</div><div>飯店內晚餐，推薦 Coco-Joe's。</div></div></div>
+<div class="boxes"><div class="mini"><b>🍸 飯店安排</b><p>這晚不要再跑市區：Check-in → 泳池／房間 → Sunset Bar → 晚餐。</p></div><div class="mini"><b>💰 預算</b><p><span class="budget">RM490–890</span>｜當日活動、租車均攤、酒吧與晚餐；房價另計</p></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Desa+Cattle+Dairy+Farm+Kundasang">🐄 Desa Farm</a><a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=Shangri-La+Tanjung+Aru+Kota+Kinabalu">🚗 導航香格里拉</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sunset+Bar+Shangri-La+Tanjung+Aru">🌅 Sunset Bar</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Coco-Joe%27s+Bar+Grill+Shangri-La+Tanjung+Aru">🍽 Coco-Joe's</a></div>
+</div></article>
+
+<article class="day"><div class="date"><div class="num">11/03</div><div class="dow">星期二｜放鬆收尾</div><span class="tag">最後完整一天</span></div><div>
+<h3>香格里拉半日・Imago・按摩・海鮮</h3><div class="sub">最後一天不跑遠，保留舒適度與隔天早班機安全餘裕。</div>
+<div class="timeline">
+<div class="trow"><div class="time">08:00–09:30</div><div>飯店早餐。</div></div>
+<div class="trow"><div class="time">09:30–11:30</div><div>泳池、海邊、拍照、休息。</div></div>
+<div class="trow"><div class="time">12:00</div><div>退房，寄放行李。</div></div>
+<div class="trow"><div class="time">12:30–14:00</div><div>午餐＋Imago 購物。</div></div>
+<div class="trow"><div class="time">16:00–17:30</div><div>按摩。</div></div>
+<div class="trow"><div class="time">18:00–20:00</div><div>Welcome Seafood 最後一頓海鮮。</div></div>
+<div class="trow"><div class="time">20:30後</div><div>入住 Tanjung Aru／機場方向飯店，整理行李、早睡。</div></div></div>
+<div class="boxes"><div class="mini"><b>🍽 餐廳</b><p>午餐 Fatt Kee Seafood／Imago；晚餐 Welcome Seafood。</p></div><div class="mini"><b>💰 預算</b><p><span class="budget">RM305–595</span>｜餐飲、按摩與 Grab</p></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Imago+Shopping+Mall+Kota+Kinabalu">🛍 Imago</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Fatt+Kee+Seafood+Imago+Kota+Kinabalu">🍽 Fatt Kee</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Welcome+Seafood+Kota+Kinabalu">🦐 Welcome Seafood</a></div>
+</div></article>
+
+<article class="day"><div class="date"><div class="num">11/04</div><div class="dow">星期三｜回程</div><span class="tag">07:35 起飛</span></div><div>
+<h3>清晨前往機場</h3><div class="sub">不安排其他行程。</div>
+<div class="timeline">
+<div class="trow"><div class="time">04:15</div><div>起床。</div></div>
+<div class="trow"><div class="time">04:40–04:50</div><div>退房、Grab 前往 BKI。</div></div>
+<div class="trow"><div class="time">05:00–05:20</div><div>抵達機場、報到、托運。</div></div>
+<div class="trow"><div class="time">07:35</div><div>起飛。</div></div></div>
+<div class="actions"><a class="btn" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=Kota+Kinabalu+International+Airport">✈️ 導航 BKI</a></div>
+</div></article>
+</div></section>
+
+<section class="section" id="todo"><h2 class="title">✅ 出發前待辦清單</h2><div class="card"><div class="checklist" data-list="todo">
+<label class="check"><input type="checkbox"><span>訂好 10/30、10/31 亞庇市區住宿</span></label>
+<label class="check"><input type="checkbox"><span>訂好 11/1 Kundasang／神山山景住宿</span></label>
+<label class="check"><input type="checkbox"><span>訂好 11/2 Shangri-La Tanjung Aru</span></label>
+<label class="check"><input type="checkbox"><span>訂好 11/3 機場／Tanjung Aru 附近住宿</span></label>
+<label class="check"><input type="checkbox"><span>預訂 11/1–11/2 租車（自排）</span></label>
+<label class="check"><input type="checkbox"><span>預約 Desa Cattle Dairy Farm</span></label>
+<label class="check"><input type="checkbox"><span>確認 Manukan 跳島票務與浮潛裝備</span></label>
+<label class="check"><input type="checkbox"><span>確認香格里拉 Sunset Bar／晚餐是否要訂位</span></label>
+</div></div></section>
+
+<section class="section" id="packing"><h2 class="title">🎒 行李清單</h2><div class="grid2">
+<div class="card"><b>海島用品</b><div class="checklist" data-list="sea">
+<label class="check"><input type="checkbox"><span>泳衣</span></label><label class="check"><input type="checkbox"><span>防曬</span></label><label class="check"><input type="checkbox"><span>防水袋／手機防水套</span></label><label class="check"><input type="checkbox"><span>快乾衣物</span></label></div></div>
+<div class="card"><b>神山用品</b><div class="checklist" data-list="mountain">
+<label class="check"><input type="checkbox"><span>薄外套／防風外套</span></label><label class="check"><input type="checkbox"><span>好走的運動鞋</span></label><label class="check"><input type="checkbox"><span>輕便雨衣／折疊傘</span></label><label class="check"><input type="checkbox"><span>防蚊用品</span></label></div></div>
+</div></section>
+
+<section class="section" id="budget"><h2 class="title">💰 雙人預算總覽</h2><div class="card tableWrap"><table>
+<thead><tr><th>項目</th><th>預估 RM</th><th>備註</th></tr></thead>
+<tbody>
+<tr><td>亞庇一般飯店 3 晚</td><td>700–1,000</td><td>10/30、10/31、11/3</td></tr>
+<tr><td>神山住宿 1 晚</td><td>320–500</td><td>山景房</td></tr>
+<tr><td>香格里拉 1 晚</td><td>850–1,300</td><td>11/2</td></tr>
+<tr><td>租車 2 天</td><td>300–400</td><td>11/1–11/2</td></tr>
+<tr><td>油資／停車</td><td>100–150</td><td>神山來回</td></tr>
+<tr><td>Manukan 跳島</td><td>180–220</td><td>雙人</td></tr>
+<tr><td>神山＋Desa Farm 門票</td><td>150–200</td><td>雙人</td></tr>
+<tr><td>一般餐飲</td><td>600–800</td><td>非香格里拉</td></tr>
+<tr><td>香格里拉餐飲／酒吧</td><td>300–550</td><td>11/2 晚</td></tr>
+<tr><td>Grab＋按摩</td><td>220–400</td><td>市區交通與 11/3</td></tr>
+<tr><td><b>預估總額</b></td><td><b>3,720–5,520</b></td><td><b>建議準備 RM4,500–5,000</b></td></tr>
+</tbody></table></div><div class="notice">預算為雙人概估，不含國際機票與購物；高級海鮮、SPA、酒類、房型升級會另外增加。</div></section>
+
+<section class="section" id="maps"><h2 class="title">🗺 快速地圖</h2><div class="grid2">
+<div class="card"><b>亞庇</b><div class="actions"><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Jesselton+Point+Kota+Kinabalu">Jesselton Point</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">Gaya Street</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Imago+Shopping+Mall+Kota+Kinabalu">Imago</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Shangri-La+Tanjung+Aru">Shangri-La</a></div></div>
+<div class="card"><b>神山／Kundasang</b><div class="actions"><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kinabalu+Park+Headquarters+Sabah">Kinabalu Park</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Desa+Cattle+Dairy+Farm+Kundasang">Desa Farm</a><a class="btn alt" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kundasang+War+Memorial">War Memorial</a></div></div>
+</div></section>
+
+<div class="footer">Sabah Couple Trip · 2026/10/30–11/04 · Practical Edition B</div>
+</div>
+<script>
+function sharePage(){const data={title:document.title,text:"沙巴雙人旅行 2026/10/30–11/04",url:location.href};if(navigator.share){navigator.share(data).catch(()=>{})}else{navigator.clipboard.writeText(location.href).then(()=>alert("連結已複製"))}}
+document.querySelectorAll('.checklist').forEach((list,li)=>{
+  const name=list.dataset.list||('list'+li);
+  list.querySelectorAll('.check').forEach((row,i)=>{
+    const cb=row.querySelector('input');
+    const key='sabah26_'+name+'_'+i;
+    cb.checked=localStorage.getItem(key)==='1';
+    row.classList.toggle('done',cb.checked);
+    cb.addEventListener('change',()=>{localStorage.setItem(key,cb.checked?'1':'0');row.classList.toggle('done',cb.checked)})
+  })
+})
+</script>
+</body></html>
