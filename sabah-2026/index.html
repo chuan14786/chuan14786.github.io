@@ -69,7 +69,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .transferRoute{min-width:0}.transferRoute b{display:block;font-size:13px}.transferRoute span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .metrics{text-align:right;white-space:nowrap}.metrics b{display:block;color:var(--teal);font-size:13px}.metrics span{font-size:11px;color:var(--muted)}
 .mapBtn{display:inline-flex;align-items:center;justify-content:center;margin-top:4px;font-size:11px;font-weight:850;color:#fff;background:var(--teal);border-radius:9px;padding:5px 8px}
-.dayMeta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.dayMeta{display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px}
 .mini{padding:14px;border:1px solid var(--line);border-radius:17px;background:#fbfcfc}.mini b{display:block;margin-bottom:5px;font-size:13px}.mini p{margin:0;color:var(--muted);font-size:13px}.money{font-weight:900;color:var(--teal)}
 .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.action{padding:7px 10px;border-radius:10px;background:#f0f7f8;border:1px solid #dae9eb;color:#0a636b;font-size:12px;font-weight:850}
 .action.primary{background:var(--teal);color:white;border-color:var(--teal)}
@@ -77,6 +77,9 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .checklist{display:grid;gap:8px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff}.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--teal)}.check.done{opacity:.52;text-decoration:line-through}
 .tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:var(--muted);background:#f8fbfb}tr:last-child td{border-bottom:0}
+.safetyCard{margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#edf8f7,#fbfdfd);border:1px solid #d6e9e7}
+.safetyCard h4{margin:0 0 6px;font-size:15px}.safetyCard p{margin:0;color:var(--muted);font-size:13px}
+.safetyGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.safetyOpt{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}.safetyOpt b{display:block;font-size:13px;margin-bottom:4px}.safetyOpt small{display:block;color:var(--muted);line-height:1.55}
 .note{margin-top:12px;padding:13px 14px;border-radius:15px;background:var(--sand2);border:1px solid #eadcc4;color:#725d3f;font-size:13px}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 .backTop{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;border:0;border-radius:50%;background:var(--teal);color:#fff;font-size:18px;box-shadow:0 10px 24px rgba(13,111,120,.28);cursor:pointer;opacity:0;pointer-events:none;transition:.2s}.backTop.show{opacity:1;pointer-events:auto}
@@ -85,6 +88,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 @media(max-width:1100px){.dayJump{right:8px}.dayLink{width:66px;padding:7px 6px}.dayLink span{font-size:10px}.wrap{padding-right:92px}}
 @media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){
+  .safetyGrid{grid-template-columns:1fr}
   .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:27px 20px 24px}.heroStats{grid-template-columns:1fr 1fr}
   .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:46px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:10px}.dayLink span{display:none}.wrap{padding-right:58px}
   .sectionTitle{align-items:start;flex-direction:column;gap:2px}.sectionTitle h2{font-size:23px}.keyGrid,.grid2{grid-template-columns:1fr}
@@ -142,7 +146,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     </div>
     <div class="callout">
       <b>交通資訊怎麼看？</b>
-      <p>每個主要移動都標示「約略距離＋行程預留時間」。按「Google Maps」會直接開啟該段起點與終點，當天請以即時路況為準。神山山路會受天氣、車流影響，因此網站中的排程刻意留有緩衝。</p>
+      <p>每個主要移動都標示「約略距離＋行程預留時間」。按「Google Maps」會直接開啟該段起點與終點。海島段優先使用官方碼頭、飯店碼頭或持牌業者；道路接駁本身用飯店安排車輛或 Grab 都可以，真正更值得把關的是船公司、救生衣與天候判斷。</p>
     </div>
   </div>
 </section>
@@ -161,7 +165,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     <div class="transfers">
       <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>BKI → Gaya Street 市區</b><span>機場到市中心住宿區</span></div><div class="metrics"><b>約 8 km</b><span>預留 10–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kota+Kinabalu+International+Airport&destination=Gaya+Street+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>Gaya Street／Jesselton Point／市中心，方便隔天步行或 Grab 到碼頭。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM20–35</span>｜Grab</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>Gaya Street／Jesselton Point／市中心，方便隔天步行或 Grab 到碼頭。</p></div></div>
   </div>
 </article>
 
@@ -179,7 +183,16 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <div class="transfer"><div class="mode">🚶</div><div class="transferRoute"><b>Gaya Street → Jesselton Point</b><span>市中心前往跳島碼頭</span></div><div class="metrics"><b>約 1–1.5 km</b><span>步行約 15–20 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Gaya+Street+Kota+Kinabalu&destination=Jesselton+Point+Ferry+Terminal&travelmode=walking">Google Maps</a></div></div>
       <div class="transfer"><div class="mode">⛴</div><div class="transferRoute"><b>Jesselton Point → Manukan Island</b><span>快艇往返；實際班次依碼頭安排</span></div><div class="metrics"><b>約 15–20 分</b><span>海上交通</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Manukan+Island+Sabah">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🍜 餐飲</b><p>早餐 Yee Fung；午餐島上簡單吃；晚餐留給 Gaya Street。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM345–495</span>｜雙人含跳島、餐飲與市區交通</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>🍜 餐飲</b><p>早餐 Yee Fung；午餐島上簡單吃；晚餐留給 Gaya Street。</p></div></div>
+    <div class="safetyCard">
+      <h4>🛟 跳島交通安全建議</h4>
+      <p>目前 10/31 住市區，維持 Jesselton Point 很合理。飯店可協助叫車，或直接使用 Grab 前往官方碼頭；海上段請選持牌業者，不必為了「飯店車」特別增加轉乘。</p>
+      <div class="safetyGrid">
+        <div class="safetyOpt"><b>現行方案｜推薦保留</b><small>市區飯店 → 飯店叫車／Grab → Jesselton Point → 持牌船家。流程簡單、距離短，也能保留晚上 Gaya Street。</small></div>
+        <div class="safetyOpt"><b>舒適備案｜Shangri-La STAR Marina</b><small>若 10/31 因天候取消，可考慮 11/3 從香格里拉飯店內的 STAR Marina 直接搭飯店自營船到 Manukan，省掉前往公共碼頭的路段。</small></div>
+      </div>
+      <div class="actions"><a class="action" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina 官方資訊</a></div>
+    </div>
     <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Jesselton+Point+Ferry+Terminal">Jesselton Point</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Yee+Fung+Laksa+Kota+Kinabalu">Yee Fung</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">Gaya Street</a></div>
   </div>
 </article>
@@ -200,7 +213,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>亞庇市區 → Kinabalu Park HQ</b><span>神山主幹道上山</span></div><div class="metrics"><b>約 90–92 km</b><span>行程預留 2–2.5 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Gaya+Street+Kota+Kinabalu&destination=Kinabalu+Park+Headquarters+Sabah&travelmode=driving">Google Maps</a></div></div>
       <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Kinabalu Park → Kundasang War Memorial</b><span>公園前往 Kundasang 市區</span></div><div class="metrics"><b>約 10 km</b><span>約 12–20 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kinabalu+Park+Headquarters+Sabah&destination=Kundasang+War+Memorial&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>優先選房間或陽台可以看到 Mount Kinabalu 的 Kundasang 山景住宿。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM420–560</span>｜活動、租車均攤與餐飲；住宿另計</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>優先選房間或陽台可以看到 Mount Kinabalu 的 Kundasang 山景住宿。</p></div></div>
     <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kinabalu+Park+Headquarters+Sabah">Kinabalu Park</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=The+Farmers+Restaurant+Kundasang">The Farmers</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kundasang+War+Memorial">War Memorial</a></div>
   </div>
 </article>
@@ -222,7 +235,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Kundasang → Desa Farm</b><span>住宿區前往牧場</span></div><div class="metrics"><b>約 5–6 km</b><span>約 8–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kundasang+Sabah&destination=Desa+Cattle+Dairy+Farm+Kundasang&travelmode=driving">Google Maps</a></div></div>
       <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Desa Farm → Shangri-La Tanjung Aru</b><span>高原下山回亞庇</span></div><div class="metrics"><b>約 100–102 km</b><span>行程預留 2–2.5 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Desa+Cattle+Dairy+Farm+Kundasang&destination=Shangri-La+Tanjung+Aru+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🌅 飯店安排</b><p>Check-in → 房間／泳池 → Sunset Bar → 晚餐。把五星飯店住出完整價值。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM490–890</span>｜活動、租車均攤、酒吧與晚餐；房價另計</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>🌅 飯店安排</b><p>Check-in → 房間／泳池 → Sunset Bar → 晚餐。把五星飯店住出完整價值。</p></div></div>
     <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Desa+Cattle+Dairy+Farm+Kundasang">Desa Farm</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Shangri-La+Tanjung+Aru">Shangri-La</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sunset+Bar+Shangri-La+Tanjung+Aru">Sunset Bar</a></div>
   </div>
 </article>
@@ -243,7 +256,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Shangri-La → Imago Shopping Mall</b><span>Grab 前往市區購物</span></div><div class="metrics"><b>約 5–6 km</b><span>約 7–10 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Shangri-La+Tanjung+Aru+Kota+Kinabalu&destination=Imago+Shopping+Mall+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
       <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Imago → Welcome Seafood</b><span>市區短程移動</span></div><div class="metrics"><b>約 1 km</b><span>約 5–10 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Imago+Shopping+Mall+Kota+Kinabalu&destination=Welcome+Seafood+Restaurant+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🍽 餐飲</b><p>午餐 Fatt Kee／Imago；晚餐 Welcome Seafood。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM305–595</span>｜餐飲、按摩與 Grab</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>🍽 餐飲</b><p>午餐 Fatt Kee／Imago；晚餐 Welcome Seafood。</p></div></div>
     <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Imago+Shopping+Mall+Kota+Kinabalu">Imago</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Fatt+Kee+Seafood+Imago+Kota+Kinabalu">Fatt Kee</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Welcome+Seafood+Restaurant+Kota+Kinabalu">Welcome Seafood</a></div>
   </div>
 </article>
@@ -260,7 +273,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     <div class="transfers">
       <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Tanjung Aru → BKI</b><span>最後一晚建議住機場方向</span></div><div class="metrics"><b>約 5 km</b><span>約 5–10 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Tanjung+Aru+Kota+Kinabalu&destination=Kota+Kinabalu+International+Airport&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>✈️ 原則</b><p>05:00 左右抵達機場，比壓縮睡眠到最後一刻更安心。</p></div><div class="mini"><b>💰 當日預算</b><p><span class="money">RM15–30</span>｜Grab</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>✈️ 原則</b><p>05:00 左右抵達機場，比壓縮睡眠到最後一刻更安心。</p></div></div>
   </div>
 </article>
 
@@ -299,7 +312,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </section>
 
 <section class="section" id="budget">
-  <div class="sectionTitle"><div><h2>雙人預算</h2><p>不含國際機票與購物。</p></div></div>
+  <div class="sectionTitle"><div><h2>旅程總預算</h2><p>所有費用集中在這裡，不含國際機票與購物。</p></div></div>
   <div class="card tableWrap"><table>
     <thead><tr><th>項目</th><th>預估 RM</th><th>備註</th></tr></thead>
     <tbody>
@@ -308,7 +321,8 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <tr><td>香格里拉 1 晚</td><td>850–1,300</td><td>11/2</td></tr>
       <tr><td>租車 2 天</td><td>300–400</td><td>11/1–11/2</td></tr>
       <tr><td>油資／停車</td><td>100–150</td><td>神山來回</td></tr>
-      <tr><td>Manukan 跳島</td><td>180–220</td><td>雙人</td></tr>
+      <tr><td>Manukan 跳島｜Jesselton Point 方案</td><td>180–220</td><td>雙人概估，含船＋公園費＋基本裝備</td></tr>
+      <tr><td>Manukan 跳島｜Shangri-La STAR Marina 備案</td><td>約 240 起</td><td>2026 官方單島船票 RM95／成人 ×2，再加國際旅客公園費 RM25／人；裝備／餐飲另計</td></tr>
       <tr><td>神山＋Desa Farm 門票</td><td>150–200</td><td>雙人</td></tr>
       <tr><td>一般餐飲</td><td>600–800</td><td>非香格里拉</td></tr>
       <tr><td>香格里拉餐飲／酒吧</td><td>300–550</td><td>11/2 晚</td></tr>
@@ -316,7 +330,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <tr><td><b>總計</b></td><td><b>3,720–5,520</b></td><td><b>建議準備 RM4,500–5,000</b></td></tr>
     </tbody>
   </table></div>
-  <div class="note">交通距離與時間為規劃用途的約略值；實際出發時直接點各路段的 Google Maps，以當日道路、天候與即時車流為準。神山段已額外保留較多時間，避免山路行程過度壓縮。</div>
+  <div class="note">交通距離與時間為規劃用途的約略值；實際出發時直接點各路段的 Google Maps，以當日道路、天候與即時車流為準。跳島若採 Shangri-La STAR Marina，建議視為「舒適／天候備案」，不要和 Jesselton Point 方案重複計入總預算。</div>
 </section>
 
 <div class="footer">Sabah Couple Trip · 2026/10/30–11/04 · Travel Planner</div>
