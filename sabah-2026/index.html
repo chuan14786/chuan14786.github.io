@@ -41,11 +41,6 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .dayLink b{display:block;font-size:13px}.dayLink span{display:block;font-size:11px;color:var(--muted)}
 .dayLink.active{background:var(--teal);color:#fff;box-shadow:0 8px 20px rgba(13,111,120,.2)}
 .dayLink.active span{color:rgba(255,255,255,.78)}
-.railCurrency{margin-top:6px;padding-top:7px;border-top:1px solid var(--line)}
-.railCurrencyLabel{display:block;text-align:center;font-size:9px;color:var(--muted);font-weight:850;margin-bottom:5px;letter-spacing:.04em}
-.railCurrencyBtns{display:grid;grid-template-columns:1fr 1fr;gap:4px}
-.railCurrency .currencyBtn{padding:6px 3px;font-size:10px;border-radius:8px;background:#eef4f5;color:var(--muted)}
-.railCurrency .currencyBtn.active{background:var(--teal);color:#fff}
 
 .section{margin-top:28px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:13px}
 .sectionTitle h2{margin:0;font-size:26px;letter-spacing:-.02em}.sectionTitle p{margin:0;color:var(--muted);font-size:13px}
@@ -101,7 +96,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 @media(max-width:620px){
   .safetyGrid{grid-template-columns:1fr}
   .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:27px 20px 24px}.heroStats{grid-template-columns:1fr 1fr}
-  .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}.railCurrencyLabel{display:none}.railCurrency .currencyBtn{font-size:9px;padding:5px 1px}
+  .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}
   .sectionTitle{align-items:start;flex-direction:column;gap:2px}.sectionTitle h2{font-size:23px}.keyGrid,.grid2{grid-template-columns:1fr}
   .day{border-radius:22px}.dayHead{grid-template-columns:1fr;gap:10px;padding:18px}.dateBox{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px}.dateBox .num{font-size:29px}
   .dayBody{padding:16px 17px 20px}.step{grid-template-columns:76px 18px 1fr;gap:7px}.transfer{grid-template-columns:34px 1fr}.mode{width:34px;height:34px}.metrics{grid-column:2;text-align:left;display:flex;align-items:center;gap:7px}.metrics b{display:inline}.mapBtn{margin-top:0}
@@ -139,13 +134,6 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     <a class="dayLink" href="#todo"><b>✓</b><span>待辦</span></a>
     <a class="dayLink" href="#budget"><b>預算</b><span>總覽</span></a>
   </div>
-  <div class="railCurrency" aria-label="固定幣別切換">
-    <span class="railCurrencyLabel">幣別</span>
-    <div class="railCurrencyBtns">
-      <button type="button" class="currencyBtn active" data-currency="MYR">RM</button>
-      <button type="button" class="currencyBtn" data-currency="TWD">NT$</button>
-    </div>
-  </div>
 </nav>
 
 <section class="section">
@@ -169,7 +157,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
   </div>
 </section>
 
-<section class="section"><div class="sectionTitle"><div><h2>每日行程</h2><p>右側固定列可快速跳日期，也可隨時切換 RM／NT$。</p></div></div>
+<section class="section"><div class="sectionTitle"><div><h2>每日行程</h2><p>右側固定列可快速跳到指定日期；幣別切換集中在最下方預算區。</p></div></div>
 <div class="days">
 
 <article class="day" id="day1030">
@@ -339,7 +327,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     </div>
   </div>
   <div class="card tableWrap"><table>
-    <thead><tr><th>項目</th><th>預估 RM</th><th>備註</th></tr></thead>
+    <thead><tr><th>項目</th><th>預估金額</th><th>備註</th></tr></thead>
     <tbody>
       <tr><td>亞庇一般飯店 3 晚</td><td class="currencyValue" data-min="700" data-max="1000">RM700–1,000</td><td>10/30、10/31、11/3</td></tr>
       <tr><td>神山住宿 1 晚</td><td class="currencyValue" data-min="320" data-max="500">RM320–500</td><td>山景房</td></tr>
@@ -379,26 +367,29 @@ dayLinks.forEach(link=>{
     navLockUntil=Date.now()+900;
     setActiveDay(target.id);
     target.scrollIntoView({behavior:'smooth',block:'start'});
-    if(history.replaceState) history.replaceState(null,'','#'+target.id);
+    if(history.replaceState)history.replaceState(null,'','#'+target.id);
   });
 });
 
 function updateActiveDay(){
-  if(!daySections.length || Date.now()<navLockUntil)return;
+  if(!daySections.length||Date.now()<navLockUntil)return;
   const marker=120;
   let current=daySections[0];
   for(const section of daySections){
-    const rect=section.getBoundingClientRect();
-    if(rect.top<=marker) current=section;
+    if(section.getBoundingClientRect().top<=marker)current=section;
     else break;
   }
   setActiveDay(current.id);
 }
+
 let dayScrollTick=false;
 window.addEventListener('scroll',()=>{
   if(dayScrollTick)return;
   dayScrollTick=true;
-  requestAnimationFrame(()=>{updateActiveDay();dayScrollTick=false;});
+  requestAnimationFrame(()=>{
+    updateActiveDay();
+    dayScrollTick=false;
+  });
 },{passive:true});
 window.addEventListener('resize',updateActiveDay,{passive:true});
 updateActiveDay();
@@ -406,64 +397,88 @@ updateActiveDay();
 document.querySelectorAll('.checklist').forEach((list,li)=>{
   const name=list.dataset.list||('list'+li);
   list.querySelectorAll('.check').forEach((row,i)=>{
-    const cb=row.querySelector('input');const key='sabah26_'+name+'_'+i;
+    const cb=row.querySelector('input');
+    const key='sabah26_'+name+'_'+i;
     try{cb.checked=localStorage.getItem(key)==='1'}catch(e){}
     row.classList.toggle('done',cb.checked);
-    cb.addEventListener('change',()=>{try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}row.classList.toggle('done',cb.checked)})
+    cb.addEventListener('change',()=>{
+      try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
+      row.classList.toggle('done',cb.checked);
+    });
   });
 });
+
 const shareBtn=document.getElementById('shareBtn');
-shareBtn.addEventListener('click',async()=>{
-  const data={title:document.title,text:'沙巴雙人旅行 2026/10/30–11/04',url:location.href};
-  if(navigator.share){try{await navigator.share(data)}catch(e){}}
-  else{window.prompt('複製這個網址分享：',location.href)}
-});
+if(shareBtn){
+  shareBtn.addEventListener('click',async()=>{
+    const data={title:document.title,text:'沙巴雙人旅行 2026/10/30–11/04',url:location.href};
+    if(navigator.share){
+      try{await navigator.share(data)}catch(e){}
+    }else{
+      window.prompt('複製這個網址分享：',location.href);
+    }
+  });
+}
+
 const FX_MYR_TWD=7.78;
-const currencyButtons=[...document.querySelectorAll('.currencyBtn')];
-const currencyValues=[...document.querySelectorAll('.currencyValue')];
+const currencyButtons=[...document.querySelectorAll('#budget .currencyBtn')];
+const currencyValues=[...document.querySelectorAll('#budget .currencyValue')];
 
 function formatCurrencyNumber(n){
   return Math.round(n).toLocaleString('zh-TW');
 }
+
 function renderCurrency(currency){
-  currencyButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.currency===currency));
+  currencyButtons.forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.currency===currency);
+    btn.setAttribute('aria-pressed',btn.dataset.currency===currency?'true':'false');
+  });
+
   currencyValues.forEach(el=>{
     const min=Number(el.dataset.min);
-    const max=el.dataset.max?Number(el.dataset.max):null;
+    const hasMax=typeof el.dataset.max!=='undefined';
+    const max=hasMax?Number(el.dataset.max):null;
     const single=el.dataset.single==='true';
+
     if(currency==='TWD'){
-      const minTwd=formatCurrencyNumber(min*FX_MYR_TWD);
-      if(single){el.textContent='約 NT
-window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700),{passive:true});
-backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-</script>
-</body></html>+minTwd+' 起';}
-      else{
-        const maxTwd=formatCurrencyNumber(max*FX_MYR_TWD);
-        el.textContent='NT
-window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700),{passive:true});
-backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-</script>
-</body></html>+minTwd+'–'+maxTwd;
+      const minText=formatCurrencyNumber(min*FX_MYR_TWD);
+      if(single){
+        el.textContent='約 NT$'+minText+' 起';
+      }else{
+        const maxText=formatCurrencyNumber(max*FX_MYR_TWD);
+        el.textContent='NT$'+minText+'–'+maxText;
       }
     }else{
-      const minMyr=formatCurrencyNumber(min);
-      if(single){el.textContent='約 RM'+minMyr+' 起';}
-      else{
-        const maxMyr=formatCurrencyNumber(max);
-        el.textContent='RM'+minMyr+'–'+maxMyr;
+      const minText=formatCurrencyNumber(min);
+      if(single){
+        el.textContent='約 RM'+minText+' 起';
+      }else{
+        const maxText=formatCurrencyNumber(max);
+        el.textContent='RM'+minText+'–'+maxText;
       }
     }
   });
+
   try{localStorage.setItem('sabah26_currency',currency)}catch(e){}
 }
-currencyButtons.forEach(btn=>btn.addEventListener('click',()=>renderCurrency(btn.dataset.currency)));
+
+currencyButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    renderCurrency(btn.dataset.currency);
+  });
+});
+
 let savedCurrency='MYR';
-try{savedCurrency=localStorage.getItem('sabah26_currency')||'MYR'}catch(e){}
+try{
+  const stored=localStorage.getItem('sabah26_currency');
+  if(stored==='MYR'||stored==='TWD')savedCurrency=stored;
+}catch(e){}
 renderCurrency(savedCurrency);
 
 const backTop=document.getElementById('backTop');
-window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700),{passive:true});
-backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+if(backTop){
+  window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700),{passive:true});
+  backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+}
 </script>
 </body></html>
