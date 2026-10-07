@@ -41,6 +41,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .dayLink b{display:block;font-size:13px}.dayLink span{display:block;font-size:11px;color:var(--muted)}
 .dayLink.active{background:var(--teal);color:#fff;box-shadow:0 8px 20px rgba(13,111,120,.2)}
 .dayLink.active span{color:rgba(255,255,255,.78)}
+.mobileDayToggle,.mobileNavBackdrop{display:none}
 
 .section{margin-top:28px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:13px}
 .sectionTitle h2{margin:0;font-size:26px;letter-spacing:-.02em}.sectionTitle p{margin:0;color:var(--muted);font-size:13px}
@@ -102,7 +103,70 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
   .dayBody{padding:16px 17px 20px}.step{grid-template-columns:76px 18px 1fr;gap:7px}.transfer{grid-template-columns:34px 1fr}.mode{width:34px;height:34px}.metrics{grid-column:2;text-align:left;display:flex;align-items:center;gap:7px}.metrics b{display:inline}.mapBtn{margin-top:0}
   .dayMeta{grid-template-columns:1fr}.heroStat b{font-size:15px}.heroStat{padding:10px}.hero p{font-size:14px}
 }
-@media print{body{background:#fff}.wrap{max-width:none}.dayJump,.heroActions,.backTop{display:none}.hero,.card,.day{box-shadow:none}.day{break-inside:avoid}}
+@media(max-width:760px){
+  .wrap{max-width:none;width:100%;padding:10px 10px 92px!important}
+  .dayJump{
+    display:block;
+    position:fixed;
+    right:12px;
+    left:auto;
+    top:auto;
+    bottom:132px;
+    transform:translateY(10px) scale(.98);
+    width:min(82vw,280px);
+    max-height:68vh;
+    overflow:auto;
+    padding:9px;
+    border-radius:18px;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+    z-index:80
+  }
+  .dayJump.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1)}
+  .dayJumpInner{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .dayLink{width:auto!important;min-width:0;padding:10px 8px!important;border-radius:11px}
+  .dayLink b{font-size:12px!important}
+  .dayLink span{display:block!important;font-size:10px!important}
+  .mobileDayToggle{
+    position:fixed;
+    right:12px;
+    bottom:76px;
+    z-index:82;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    min-width:104px;
+    height:44px;
+    padding:0 12px;
+    border:0;
+    border-radius:999px;
+    background:var(--teal);
+    color:#fff;
+    font-weight:900;
+    font-size:12px;
+    box-shadow:0 12px 28px rgba(13,111,120,.30);
+    cursor:pointer
+  }
+  .mobileDayToggle .chev{font-size:11px;transition:transform .18s ease}
+  .mobileDayToggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .mobileNavBackdrop{
+    position:fixed;
+    inset:0;
+    z-index:70;
+    display:block;
+    background:rgba(18,38,45,.14);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .18s ease,visibility .18s ease
+  }
+  .mobileNavBackdrop.show{opacity:1;visibility:visible;pointer-events:auto}
+  .backTop{right:auto;left:14px;bottom:18px}
+}
+@media print{body{background:#fff}.wrap{max-width:none}.dayJump,.mobileDayToggle,.mobileNavBackdrop,.heroActions,.backTop{display:none}.hero,.card,.day{box-shadow:none}.day{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -123,7 +187,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
   </div>
 </header>
 
-<nav class="dayJump" aria-label="快速切換每日行程">
+<nav class="dayJump" id="mobileDayNav" aria-label="快速切換每日行程">
   <div class="dayJumpInner">
     <a class="dayLink active" href="#day1030" data-target="day1030"><b>10/30(五)</b><span>抵達</span></a>
     <a class="dayLink" href="#day1031" data-target="day1031"><b>10/31(六)</b><span>跳島</span></a>
@@ -135,6 +199,10 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     <a class="dayLink" href="#budget"><b>預算</b><span>總覽</span></a>
   </div>
 </nav>
+<button type="button" class="mobileDayToggle" id="mobileDayToggle" aria-expanded="false" aria-controls="mobileDayNav">
+  <span id="mobileDayCurrent">10/30(五)</span><span class="chev">▾</span>
+</button>
+<div class="mobileNavBackdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
 
 <section class="section">
   <div class="sectionTitle"><div><h2>旅程總覽</h2><p>把移動集中、把度假時間完整留下來。</p></div></div>
@@ -157,7 +225,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
   </div>
 </section>
 
-<section class="section"><div class="sectionTitle"><div><h2>每日行程</h2><p>右側固定列可快速跳到指定日期；幣別切換集中在最下方預算區。</p></div></div>
+<section class="section"><div class="sectionTitle"><div><h2>每日行程</h2><p>桌機使用右側日期列；手機會顯示右下角日期按鈕，點開後快速跳日，不壓縮行程寬度。</p></div></div>
 <div class="days">
 
 <article class="day" id="day1030">
@@ -355,8 +423,26 @@ const dayLinks=[...document.querySelectorAll('.dayLink[data-target]')];
 const daySections=dayLinks.map(a=>document.getElementById(a.dataset.target)).filter(Boolean);
 let navLockUntil=0;
 
+const mobileDayToggle=document.getElementById('mobileDayToggle');
+const mobileDayCurrent=document.getElementById('mobileDayCurrent');
+const mobileNavBackdrop=document.getElementById('mobileNavBackdrop');
+const dayJump=document.getElementById('mobileDayNav');
+
 function setActiveDay(id){
   dayLinks.forEach(a=>a.classList.toggle('active',a.dataset.target===id));
+  const active=dayLinks.find(a=>a.dataset.target===id);
+  if(active&&mobileDayCurrent){
+    const label=active.querySelector('b');
+    if(label)mobileDayCurrent.textContent=label.textContent;
+  }
+}
+
+function setMobileNav(open){
+  if(!dayJump||!mobileDayToggle||!mobileNavBackdrop)return;
+  dayJump.classList.toggle('open',open);
+  mobileNavBackdrop.classList.toggle('show',open);
+  mobileDayToggle.setAttribute('aria-expanded',open?'true':'false');
+  mobileNavBackdrop.setAttribute('aria-hidden',open?'false':'true');
 }
 
 dayLinks.forEach(link=>{
@@ -366,9 +452,26 @@ dayLinks.forEach(link=>{
     e.preventDefault();
     navLockUntil=Date.now()+900;
     setActiveDay(target.id);
+    setMobileNav(false);
     target.scrollIntoView({behavior:'smooth',block:'start'});
     if(history.replaceState)history.replaceState(null,'','#'+target.id);
   });
+});
+
+if(mobileDayToggle){
+  mobileDayToggle.addEventListener('click',()=>{
+    const open=mobileDayToggle.getAttribute('aria-expanded')==='true';
+    setMobileNav(!open);
+  });
+}
+if(mobileNavBackdrop){
+  mobileNavBackdrop.addEventListener('click',()=>setMobileNav(false));
+}
+document.querySelectorAll('#mobileDayNav a:not([data-target])').forEach(link=>{
+  link.addEventListener('click',()=>setMobileNav(false));
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')setMobileNav(false);
 });
 
 function updateActiveDay(){
@@ -391,7 +494,10 @@ window.addEventListener('scroll',()=>{
     dayScrollTick=false;
   });
 },{passive:true});
-window.addEventListener('resize',updateActiveDay,{passive:true});
+window.addEventListener('resize',()=>{
+  updateActiveDay();
+  if(window.innerWidth>760)setMobileNav(false);
+},{passive:true});
 updateActiveDay();
 
 document.querySelectorAll('.checklist').forEach((list,li)=>{
