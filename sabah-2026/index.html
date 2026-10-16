@@ -96,23 +96,16 @@ border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba
 .note{margin-top:12px;padding:13px 14px;border-radius:15px;background:var(--sand2);border:1px solid #eadcc4;color:#725d3f;font-size:13px}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
 .editorialEyebrow{display:block;margin-bottom:5px;color:var(--teal);font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
-.stayGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stayCard{position:relative;padding:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#fff,#fbfaf6);box-shadow:var(--shadowSoft)}
-.stayCard .stayNight{font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--teal);text-transform:uppercase}
-.stayCard h3{margin:5px 0 6px;font-size:16px}.stayCard p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
-.stayCard .stayMeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.stayCard .stayMeta span{padding:5px 8px;border-radius:999px;background:var(--tealSoft);color:var(--teal);font-size:10px;font-weight:800}
-.tripQuote{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:22px;line-height:1.55;color:var(--navy)}
 .backTop{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;border:0;border-radius:50%;background:var(--teal);color:#fff;font-size:18px;box-shadow:0 10px 24px rgba(13,111,120,.28);cursor:pointer;opacity:0;pointer-events:none;transition:.2s}.backTop.show{opacity:1;pointer-events:auto}
 
 @media(max-width:1320px){.wrap{padding-right:104px}}
 @media(max-width:1100px){.dayJump{right:8px}.dayLink{width:76px;padding:7px 6px}.dayLink span{font-size:10px}.wrap{padding-right:102px}}
-@media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}.stayGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){
   .safetyGrid,.resortGrid{grid-template-columns:1fr}
   .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:34px 22px 26px}.heroStats{grid-template-columns:1fr 1fr}
   .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}
-  .sectionTitle{align-items:start;flex-direction:column;gap:3px}.sectionTitle h2{font-size:25px}.keyGrid,.grid2,.stayGrid{grid-template-columns:1fr}
-  .day{border-radius:22px}.dayHead{grid-template-columns:1fr;gap:10px;padding:18px}.dateBox{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px}.dateBox .num{font-size:29px}
+  .sectionTitle{align-items:start;flex-direction:column;gap:3px}.sectionTitle h2{font-size:25px}.keyGrid,.grid2,  .day{border-radius:22px}.dayHead{grid-template-columns:1fr;gap:10px;padding:18px}.dateBox{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px}.dateBox .num{font-size:29px}
   .dayBody{padding:16px 17px 20px}.step{grid-template-columns:76px 18px 1fr;gap:7px}.transfer{grid-template-columns:34px 1fr}.mode{width:34px;height:34px}.metrics{grid-column:2;text-align:left;display:flex;align-items:center;gap:7px}.metrics b{display:inline}.mapBtn{margin-top:0}
   .dayMeta{grid-template-columns:1fr}.heroStat b{font-size:15px}.heroStat{padding:10px}.hero p{font-size:14px}
 }
@@ -235,16 +228,6 @@ border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba
       <b>旅程節奏</b>
       <p>前段先恢復體力，中段連續完成神山 2 天 1 夜，接著把香格里拉與跳島串成同一段度假動線。11/3 從飯店內 STAR Marina 出海，可省掉再跑 Jesselton Point 的轉乘。</p>
     </div>
-  </div>
-</section>
-
-<section class="section" id="stays">
-  <div class="sectionTitle"><div><span class="editorialEyebrow">Stay Journey</span><h2>住宿動線</h2><p>每一晚的住宿都服務下一段行程，減少折返，也讓移動更有節奏。</p></div></div>
-  <div class="stayGrid">
-    <div class="stayCard"><span class="stayNight">10/30–11/01 · City</span><h3>Horizon Hotel</h3><p>亞庇市中心基地，適合晚班機抵達與 10/31 Gaya Street 夜市。</p><div class="stayMeta"><span>市中心</span><span>步行夜市</span></div></div>
-    <div class="stayCard"><span class="stayNight">11/01–11/02 · Mountain</span><h3>Ausvilla</h3><p>神山景觀住宿，隔天前往 Desa Farm 動線短，早上看山也方便。</p><div class="stayMeta"><span>山景</span><span>Kundasang</span></div></div>
-    <div class="stayCard"><span class="stayNight">11/02–11/03 · Resort</span><h3>Shangri-La Tanjung Aru</h3><p>把夕陽、泳池、館內晚餐與隔天 STAR Marina 串成完整度假段。</p><div class="stayMeta"><span>Sunset</span><span>STAR Marina</span></div></div>
-    <div class="stayCard"><span class="stayNight">11/03–11/04 · Airport</span><h3>Eminent Hotel</h3><p>跳島後直接休息，隔天清晨快速前往 BKI，適合最後一晚收尾。</p><div class="stayMeta"><span>近機場</span><span>早班機</span></div></div>
   </div>
 </section>
 
