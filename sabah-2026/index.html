@@ -7,30 +7,31 @@
 <title>沙巴雙人旅行｜2026/10/30–11/04</title>
 <style>
 :root{
-  --bg:#f5f7f8;--paper:#fff;--ink:#18313c;--muted:#6f8189;--line:#dfe7ea;
-  --teal:#0d6f78;--teal2:#168793;--tealSoft:#e8f5f5;--sand:#f3e8d4;--sand2:#fbf6ee;
-  --sun:#e9aa44;--mount:#58786d;--sea:#3b7e93;--rose:#a66f69;--shadow:0 18px 45px rgba(25,53,64,.09);
-  --r:24px
+  --bg:#f3f1ec;--paper:#fffdfa;--ink:#17323a;--muted:#718087;--line:#e4e1da;
+  --teal:#0e6b70;--teal2:#1a8588;--tealSoft:#e8f3f1;--sand:#e8dbc5;--sand2:#f8f2e8;
+  --sun:#d7a04f;--mount:#667d72;--sea:#4b7f8f;--rose:#a67670;--navy:#183640;
+  --shadow:0 20px 50px rgba(31,49,55,.08);--shadowSoft:0 10px 28px rgba(31,49,55,.06);
+  --r:26px
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:24px}
 body{margin:0;background:
-radial-gradient(circle at 8% 0%,rgba(96,161,166,.16),transparent 30%),
-radial-gradient(circle at 95% 8%,rgba(233,170,68,.10),transparent 25%),
-linear-gradient(180deg,#edf5f5 0,#f7f8f8 360px,#f5f7f8 100%);
-color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.7}
+radial-gradient(circle at 12% -10%,rgba(14,107,112,.10),transparent 32%),
+radial-gradient(circle at 95% 0%,rgba(215,160,79,.09),transparent 24%),
+linear-gradient(180deg,#f5f2ec 0,#f7f6f2 360px,#f3f1ec 100%);
+color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.72}
 a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 80px}
 .hero{position:relative;overflow:hidden;background:
-linear-gradient(125deg,rgba(7,83,91,.97),rgba(13,111,120,.93) 55%,rgba(24,135,147,.90)),
-linear-gradient(180deg,#0d6f78,#07535b);
-border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba(18,70,78,.22)}
+linear-gradient(135deg,rgba(19,53,61,.98),rgba(14,107,112,.94) 56%,rgba(78,125,133,.90)),
+linear-gradient(180deg,#14343d,#0e6b70);
+border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba(24,52,61,.22)}
 .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
-.hero:before{width:330px;height:330px;right:-120px;top:-150px}.hero:after{width:180px;height:180px;right:70px;bottom:-110px}
-.kicker{font-size:12px;letter-spacing:.16em;font-weight:850;opacity:.82}.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.05;margin:8px 0 10px;letter-spacing:-.02em}
-.hero p{margin:0;color:rgba(255,255,255,.9);max-width:760px;font-size:16px}
-.heroStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:24px}
-.heroStat{padding:13px 14px;border-radius:17px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.17);backdrop-filter:blur(5px)}
-.heroStat b{display:block;font-size:17px}.heroStat span{font-size:12px;opacity:.82}
+.hero:before{width:420px;height:420px;right:-140px;top:-190px}.hero:after{width:240px;height:240px;right:90px;bottom:-145px}
+.kicker{font-size:11px;letter-spacing:.22em;font-weight:850;opacity:.78;text-transform:uppercase}.hero h1{font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:clamp(38px,6.5vw,68px);font-weight:600;line-height:1.02;margin:10px 0 12px;letter-spacing:-.035em}
+.hero p{margin:0;color:rgba(255,255,255,.88);max-width:700px;font-size:15px;line-height:1.8}
+.heroStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
+.heroStat{padding:14px 15px;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.heroStat b{display:block;font-size:16px;letter-spacing:-.01em}.heroStat span{font-size:11px;opacity:.76}
 .heroActions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
 .heroBtn{border:0;border-radius:12px;padding:10px 14px;font-weight:850;cursor:pointer;background:#fff;color:#07535b}
 .heroBtn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
@@ -43,9 +44,9 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .dayLink.active span{color:rgba(255,255,255,.78)}
 .mobileDayToggle,.mobileNavBackdrop{display:none}
 
-.section{margin-top:28px}.sectionTitle{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:13px}
-.sectionTitle h2{margin:0;font-size:26px;letter-spacing:-.02em}.sectionTitle p{margin:0;color:var(--muted);font-size:13px}
-.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:22px}
+.section{margin-top:40px}.sectionTitle{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.sectionTitle h2{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:30px;font-weight:600;letter-spacing:-.025em}.sectionTitle p{margin:0;color:var(--muted);font-size:13px;max-width:560px}
+.card{background:rgba(255,253,250,.97);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadowSoft);padding:24px}
 .overview{display:grid;grid-template-columns:1.4fr .9fr;gap:15px}
 .journeyLine{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
 .stop{padding:8px 11px;border-radius:999px;background:var(--tealSoft);color:#0a626a;font-weight:850;font-size:12px}.arr{color:#9caeb4}
@@ -53,12 +54,12 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .key{padding:13px;border-radius:16px;border:1px solid var(--line);background:#fbfcfc}.key b{display:block;font-size:13px}.key small{color:var(--muted)}
 .callout{background:linear-gradient(135deg,#f7efe1,#fffaf2);border:1px solid #eadcc4;border-radius:20px;padding:18px}.callout b{display:block;margin-bottom:6px}.callout p{margin:0;color:#6f6250;font-size:14px}
 
-.days{display:grid;gap:18px}.day{scroll-margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
-.dayHead{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:23px 24px 17px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fbfdfd,#fff)}
-.dateBox{border-right:1px solid var(--line);padding-right:18px}.dateBox .num{font-weight:950;font-size:34px;line-height:1}.dateBox .dow{font-size:12px;color:var(--muted);margin-top:7px}
+.days{display:grid;gap:22px}.day{position:relative;scroll-margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);overflow:hidden}.day:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--teal),rgba(215,160,79,.8))}
+.dayHead{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:27px 28px 20px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fafaf7,#fffdfa)}
+.dateBox{border-right:1px solid var(--line);padding-right:18px}.dateBox .num{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:38px;line-height:1}.dateBox .dow{font-size:12px;color:var(--muted);margin-top:7px}
 .dayTag{display:inline-block;margin-top:10px;font-size:11px;font-weight:850;padding:5px 9px;border-radius:999px;background:var(--tealSoft);color:var(--teal)}
-.dayTitle h3{margin:0;font-size:25px;letter-spacing:-.02em}.dayTitle p{margin:5px 0 0;color:var(--muted)}
-.dayBody{padding:20px 24px 24px}
+.dayTitle h3{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:27px;font-weight:600;letter-spacing:-.025em}.dayTitle p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.dayBody{padding:22px 28px 28px}
 .timeline{display:grid;gap:2px}
 .step{display:grid;grid-template-columns:98px 20px 1fr;gap:10px;align-items:start;padding:9px 0}
 .time{font-weight:900;color:var(--teal);font-size:13px;padding-top:1px}.dotcol{display:flex;flex-direction:column;align-items:center;height:100%}.dot{width:11px;height:11px;border-radius:50%;background:var(--teal2);box-shadow:0 0 0 4px var(--tealSoft);margin-top:4px}.line{width:1px;background:#dfe8ea;flex:1;min-height:24px;margin-top:5px}.step:last-child .line{display:none}
@@ -94,16 +95,23 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .currencyValue{font-weight:850;white-space:nowrap}
 .note{margin-top:12px;padding:13px 14px;border-radius:15px;background:var(--sand2);border:1px solid #eadcc4;color:#725d3f;font-size:13px}
 .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.editorialEyebrow{display:block;margin-bottom:5px;color:var(--teal);font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.stayGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stayCard{position:relative;padding:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#fff,#fbfaf6);box-shadow:var(--shadowSoft)}
+.stayCard .stayNight{font-size:10px;font-weight:900;letter-spacing:.12em;color:var(--teal);text-transform:uppercase}
+.stayCard h3{margin:5px 0 6px;font-size:16px}.stayCard p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.stayCard .stayMeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.stayCard .stayMeta span{padding:5px 8px;border-radius:999px;background:var(--tealSoft);color:var(--teal);font-size:10px;font-weight:800}
+.tripQuote{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:22px;line-height:1.55;color:var(--navy)}
 .backTop{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;border:0;border-radius:50%;background:var(--teal);color:#fff;font-size:18px;box-shadow:0 10px 24px rgba(13,111,120,.28);cursor:pointer;opacity:0;pointer-events:none;transition:.2s}.backTop.show{opacity:1;pointer-events:auto}
 
 @media(max-width:1320px){.wrap{padding-right:104px}}
 @media(max-width:1100px){.dayJump{right:8px}.dayLink{width:76px;padding:7px 6px}.dayLink span{font-size:10px}.wrap{padding-right:102px}}
-@media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}}
+@media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}.stayGrid{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){
   .safetyGrid,.resortGrid{grid-template-columns:1fr}
-  .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:27px 20px 24px}.heroStats{grid-template-columns:1fr 1fr}
+  .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:34px 22px 26px}.heroStats{grid-template-columns:1fr 1fr}
   .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}
-  .sectionTitle{align-items:start;flex-direction:column;gap:2px}.sectionTitle h2{font-size:23px}.keyGrid,.grid2{grid-template-columns:1fr}
+  .sectionTitle{align-items:start;flex-direction:column;gap:3px}.sectionTitle h2{font-size:25px}.keyGrid,.grid2,.stayGrid{grid-template-columns:1fr}
   .day{border-radius:22px}.dayHead{grid-template-columns:1fr;gap:10px;padding:18px}.dateBox{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px}.dateBox .num{font-size:29px}
   .dayBody{padding:16px 17px 20px}.step{grid-template-columns:76px 18px 1fr;gap:7px}.transfer{grid-template-columns:34px 1fr}.mode{width:34px;height:34px}.metrics{grid-column:2;text-align:left;display:flex;align-items:center;gap:7px}.metrics b{display:inline}.mapBtn{margin-top:0}
   .dayMeta{grid-template-columns:1fr}.heroStat b{font-size:15px}.heroStat{padding:10px}.hero p{font-size:14px}
@@ -177,14 +185,14 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 <body>
 <div class="wrap" id="top">
 <header class="hero">
-  <div class="kicker">SABAH · KOTA KINABALU · KUNDASANG</div>
-  <h1>沙巴雙人旅行</h1>
-  <p>亞庇慢遊、神山 2 天 1 夜、香格里拉度假與 STAR Marina 跳島。每一天都附交通距離、預留時間與 Google Maps 一鍵導航。</p>
+  <div class="kicker">SABAH · 2026 · COUPLE JOURNEY</div>
+  <h1>Sabah Couple Escape</h1>
+  <p>Kota Kinabalu · Kundasang · Manukan Island<br>一趟把山景、海島、城市慢遊與度假村時光串在一起的雙人旅行。</p>
   <div class="heroStats">
-    <div class="heroStat"><b>10/30 22:50</b><span>抵達 BKI</span></div>
-    <div class="heroStat"><b>11/04 07:35</b><span>回程起飛</span></div>
-    <div class="heroStat"><b>2 天 1 夜</b><span>神山自駕</span></div>
-    <div class="heroStat"><b>11/2 晚</b><span>Shangri-La Tanjung Aru</span></div>
+    <div class="heroStat"><b>6 Days / 5 Nights</b><span>10/30–11/04</span></div>
+    <div class="heroStat"><b>Kota Kinabalu + Kundasang</b><span>城市 × 高原</span></div>
+    <div class="heroStat"><b>Mountain + Island</b><span>神山 × Manukan</span></div>
+    <div class="heroStat"><b>Relaxed Pace</b><span>自駕 × Resort</span></div>
   </div>
   <div class="heroActions">
     <button class="heroBtn" id="shareBtn">分享行程</button>
@@ -210,7 +218,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 <div class="mobileNavBackdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
 
 <section class="section">
-  <div class="sectionTitle"><div><h2>旅程總覽</h2><p>把移動集中、把度假時間完整留下來。</p></div></div>
+  <div class="sectionTitle"><div><span class="editorialEyebrow">Journey Overview</span><h2>旅程總覽</h2><p>把移動安排得更順，把最好的時間留給風景、休息與兩個人的旅行節奏。</p></div></div>
   <div class="overview">
     <div class="card">
       <div class="journeyLine">
@@ -224,17 +232,27 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       </div>
     </div>
     <div class="callout">
-      <b>新版行程節奏</b>
+      <b>旅程節奏</b>
       <p>前段先恢復體力，中段連續完成神山 2 天 1 夜，接著把香格里拉與跳島串成同一段度假動線。11/3 從飯店內 STAR Marina 出海，可省掉再跑 Jesselton Point 的轉乘。</p>
     </div>
   </div>
 </section>
 
-<section class="section"><div class="sectionTitle"><div><h2>每日行程</h2><p>桌機使用右側日期列；手機會顯示右下角日期按鈕，點開後快速跳日，不壓縮行程寬度。</p></div></div>
+<section class="section" id="stays">
+  <div class="sectionTitle"><div><span class="editorialEyebrow">Stay Journey</span><h2>住宿動線</h2><p>每一晚的住宿都服務下一段行程，減少折返，也讓移動更有節奏。</p></div></div>
+  <div class="stayGrid">
+    <div class="stayCard"><span class="stayNight">10/30–11/01 · City</span><h3>Horizon Hotel</h3><p>亞庇市中心基地，適合晚班機抵達與 10/31 Gaya Street 夜市。</p><div class="stayMeta"><span>市中心</span><span>步行夜市</span></div></div>
+    <div class="stayCard"><span class="stayNight">11/01–11/02 · Mountain</span><h3>Ausvilla</h3><p>神山景觀住宿，隔天前往 Desa Farm 動線短，早上看山也方便。</p><div class="stayMeta"><span>山景</span><span>Kundasang</span></div></div>
+    <div class="stayCard"><span class="stayNight">11/02–11/03 · Resort</span><h3>Shangri-La Tanjung Aru</h3><p>把夕陽、泳池、館內晚餐與隔天 STAR Marina 串成完整度假段。</p><div class="stayMeta"><span>Sunset</span><span>STAR Marina</span></div></div>
+    <div class="stayCard"><span class="stayNight">11/03–11/04 · Airport</span><h3>Eminent Hotel</h3><p>跳島後直接休息，隔天清晨快速前往 BKI，適合最後一晚收尾。</p><div class="stayMeta"><span>近機場</span><span>早班機</span></div></div>
+  </div>
+</section>
+
+<section class="section"><div class="sectionTitle"><div><span class="editorialEyebrow">Day by Day</span><h2>每日行程</h2><p>桌機使用右側日期列；手機以右下角日期按鈕快速切換，閱讀時維持滿版。</p></div></div>
 <div class="days">
 
 <article class="day" id="day1030">
-  <div class="dayHead"><div class="dateBox"><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="dayTag">亞庇市區</span></div><div class="dayTitle"><h3>抵達亞庇・直接休息</h3><p>晚班機抵達，今晚只追求順利入住與睡飽。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 0 · Arrival</span><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="dayTag">亞庇市區</span></div><div class="dayTitle"><h3>抵達亞庇・直接休息</h3><p>晚班機抵達，今晚只追求順利入住與睡飽。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">22:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>抵達 BKI</b><p>入境、領行李。</p></div></div>
@@ -249,7 +267,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1031">
-  <div class="dayHead"><div class="dateBox"><div class="num">10/31</div><div class="dow">星期六｜亞庇慢遊＋夜市</div><span class="dayTag">休息日＋Gaya Street</span></div><div class="dayTitle"><h3>睡飽・城市散步・按摩・Gaya Street</h3><p>白天刻意放慢，晚上再逛夜市，兼顧休息與亞庇在地感。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 1 · Kota Kinabalu</span><div class="num">10/31</div><div class="dow">星期六｜亞庇慢遊＋夜市</div><span class="dayTag">休息日＋Gaya Street</span></div><div class="dayTitle"><h3>睡飽・城市散步・按摩・Gaya Street</h3><p>白天刻意放慢，晚上再逛夜市，兼顧休息與亞庇在地感。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">09:00–09:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>自然醒</b><p>前一晚接近午夜才入住，今天不排早起。</p></div></div>
@@ -272,7 +290,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1101">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/01</div><div class="dow">星期日｜神山 Day 1</div><span class="dayTag">租車開始</span></div><div class="dayTitle"><h3>亞庇 → Kinabalu Park・輕健行・山景住宿</h3><p>神山兩天正式開始，第一天把重點放在森林步道與高原住宿。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 2 · Kinabalu</span><div class="num">11/01</div><div class="dow">星期日｜神山 Day 1</div><span class="dayTag">租車開始</span></div><div class="dayTitle"><h3>亞庇 → Kinabalu Park・輕健行・山景住宿</h3><p>神山兩天正式開始，第一天把重點放在森林步道與高原住宿。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">07:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐</b><p>吃完後辦理取車。</p></div></div>
@@ -293,7 +311,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1102">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="dayTag">Shangri-La Resort Day</span></div><div class="dayTitle"><h3>神山晨景・Desa Farm・下山入住香格里拉</h3><p>上午完成高原行程，下午把節奏完全切換成度假模式。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 3 · Resort</span><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="dayTag">Shangri-La Resort Day</span></div><div class="dayTitle"><h3>神山晨景・Desa Farm・下山入住香格里拉</h3><p>上午完成高原行程，下午把節奏完全切換成度假模式。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">05:45–06:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Ausvilla 看神山晨景</b><p>天氣允許就在住宿附近看山、拍照。</p></div></div>
@@ -316,8 +334,8 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     </div>
 
     <div class="resortCard">
-      <h4>🌴 Shangri-La Tanjung Aru｜這一晚怎麼玩最值得</h4>
-      <p>飯店位在南中國海半島型園區，這晚的價值在「留在 Resort 裡」，把泳池、Sunset Beach、Sunset Bar、餐廳與隔天 STAR Marina 串在一起。</p>
+      <h4>🌴 Shangri-La Tanjung Aru｜Resort Highlights</h4>
+      <p>這晚把移動停下來，讓泳池、Sunset Beach、Sunset Bar、館內晚餐與隔天 STAR Marina 自然接在一起。香格里拉是整趟旅程最完整的度假段。</p>
       <div class="resortGrid">
         <div class="resortFact"><b>🏊 泳池</b><small>官方目前泳池開放約 07:00–21:00；旅程期間飯店仍有翻新工程，入住時以現場實際開放區域為準。</small></div>
         <div class="resortFact"><b>🌅 Sunset Bar</b><small>約 17:00–21:00、視天候營業。建議 17:00 左右就入座，避免為了座位壓縮看夕陽的時間。</small></div>
@@ -332,7 +350,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1103">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/03</div><div class="dow">星期二｜香格里拉＋跳島＋Chill Night</div><span class="dayTag">STAR Marina → Manukan</span></div><div class="dayTitle"><h3>悠閒早餐・退房後跳島・丹絨亞路夕陽</h3><p>早上把香格里拉住滿，再去 Manukan；晚上用海灘、夜市與散步替旅程收尾。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 4 · Island</span><div class="num">11/03</div><div class="dow">星期二｜香格里拉＋跳島＋Chill Night</div><span class="dayTag">STAR Marina → Manukan</span></div><div class="dayTitle"><h3>悠閒早餐・退房後跳島・丹絨亞路夕陽</h3><p>早上把香格里拉住滿，再去 Manukan；晚上用海灘、夜市與散步替旅程收尾。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">08:30–10:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>香格里拉悠閒早餐</b><p>睡飽再吃，不安排清晨行程。</p></div></div>
@@ -376,7 +394,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1104">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/04</div><div class="dow">星期三｜回程日</div><span class="dayTag">07:35 起飛</span></div><div class="dayTitle"><h3>清晨前往機場・回台灣</h3><p>最後一天只留機場流程，避免任何不必要風險。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 5 · Departure</span><div class="num">11/04</div><div class="dow">星期三｜回程日</div><span class="dayTag">07:35 起飛</span></div><div class="dayTitle"><h3>清晨前往機場・回台灣</h3><p>最後一天只留機場流程，避免任何不必要風險。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
       <div class="step"><div class="time">04:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>起床</b><p>最後檢查護照、行李。</p></div></div>
@@ -455,7 +473,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
   <div class="note">交通距離與時間為規劃用途的約略值；實際出發時直接點各路段的 Google Maps，以當日道路、天候與即時車流為準。11/3 跳島已改為 Shangri-La STAR Marina 主方案；若當日海況取消，未使用的船票／活動費以飯店實際規則處理。</div>
 </section>
 
-<div class="footer">Sabah Couple Trip · 2026/10/30–11/04 · Travel Planner · Revised Route</div>
+<div class="footer">Sabah Couple Escape · 2026/10/30–11/04 · Travel Guide</div>
 </div>
 <button class="backTop" id="backTop" aria-label="回到最上方">↑</button>
 
