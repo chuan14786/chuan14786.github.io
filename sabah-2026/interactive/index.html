@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b6771">
+<title>Sabah Couple Escape｜Interactive Edition</title>
+<style>
+:root{
+  --bg:#f3f1ec;--paper:#fffdfa;--ink:#17323a;--muted:#718087;--line:#e4e1da;
+  --teal:#0e6b70;--teal2:#1a8588;--tealSoft:#e8f3f1;--sand:#e8dbc5;--sand2:#f8f2e8;
+  --sun:#d7a04f;--mount:#667d72;--sea:#4b7f8f;--rose:#a67670;--navy:#183640;
+  --shadow:0 20px 50px rgba(31,49,55,.08);--shadowSoft:0 10px 28px rgba(31,49,55,.06);
+  --r:26px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:
+radial-gradient(circle at 12% -10%,rgba(14,107,112,.10),transparent 32%),
+radial-gradient(circle at 95% 0%,rgba(215,160,79,.09),transparent 24%),
+linear-gradient(180deg,#f5f2ec 0,#f7f6f2 360px,#f3f1ec 100%);
+color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.72}
+a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 80px}
+.hero{position:relative;overflow:hidden;background:
+linear-gradient(135deg,rgba(19,53,61,.98),rgba(14,107,112,.94) 56%,rgba(78,125,133,.90)),
+linear-gradient(180deg,#14343d,#0e6b70);
+border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba(24,52,61,.22)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.14)}
+.hero:before{width:420px;height:420px;right:-140px;top:-190px}.hero:after{width:240px;height:240px;right:90px;bottom:-145px}
+.kicker{font-size:11px;letter-spacing:.22em;font-weight:850;opacity:.78;text-transform:uppercase}.hero h1{font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:clamp(38px,6.5vw,68px);font-weight:600;line-height:1.02;margin:10px 0 12px;letter-spacing:-.035em}
+.hero p{margin:0;color:rgba(255,255,255,.88);max-width:700px;font-size:15px;line-height:1.8}
+.heroStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px}
+.heroStat{padding:14px 15px;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px)}
+.heroStat b{display:block;font-size:16px;letter-spacing:-.01em}.heroStat span{font-size:11px;opacity:.76}
+.heroActions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.heroBtn{border:0;border-radius:12px;padding:10px 14px;font-weight:850;cursor:pointer;background:#fff;color:#07535b}
+.heroBtn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
+
+.dayJump{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:50;margin:0;padding:7px;border:1px solid rgba(212,224,228,.95);background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-radius:18px;box-shadow:0 16px 36px rgba(26,53,63,.13)}
+.dayJumpInner{display:flex;flex-direction:column;gap:5px;overflow:visible}
+.dayLink{flex:0 0 auto;width:82px;padding:8px 8px;border-radius:12px;border:1px solid transparent;text-align:center;transition:.2s ease}
+.dayLink b{display:block;font-size:13px}.dayLink span{display:block;font-size:11px;color:var(--muted)}
+.dayLink.active{background:var(--teal);color:#fff;box-shadow:0 8px 20px rgba(13,111,120,.2)}
+.dayLink.active span{color:rgba(255,255,255,.78)}
+.mobileDayToggle,.mobileNavBackdrop{display:none}
+
+.section{margin-top:40px}.sectionTitle{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}
+.sectionTitle h2{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:30px;font-weight:600;letter-spacing:-.025em}.sectionTitle p{margin:0;color:var(--muted);font-size:13px;max-width:560px}
+.card{background:rgba(255,253,250,.97);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadowSoft);padding:24px}
+.overview{display:grid;grid-template-columns:1.4fr .9fr;gap:15px}
+.journeyLine{display:flex;align-items:center;flex-wrap:wrap;gap:7px}
+.stop{padding:8px 11px;border-radius:999px;background:var(--tealSoft);color:#0a626a;font-weight:850;font-size:12px}.arr{color:#9caeb4}
+.keyGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}
+.key{padding:13px;border-radius:16px;border:1px solid var(--line);background:#fbfcfc}.key b{display:block;font-size:13px}.key small{color:var(--muted)}
+.callout{background:linear-gradient(135deg,#f7efe1,#fffaf2);border:1px solid #eadcc4;border-radius:20px;padding:18px}.callout b{display:block;margin-bottom:6px}.callout p{margin:0;color:#6f6250;font-size:14px}
+
+.days{display:grid;gap:22px}.day{position:relative;scroll-margin-top:24px;background:var(--paper);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);overflow:hidden}.day:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--teal),rgba(215,160,79,.8))}
+.dayHead{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:27px 28px 20px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fafaf7,#fffdfa)}
+.dateBox{border-right:1px solid var(--line);padding-right:18px}.dateBox .num{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:38px;line-height:1}.dateBox .dow{font-size:12px;color:var(--muted);margin-top:7px}
+.dayTag{display:inline-block;margin-top:10px;font-size:11px;font-weight:850;padding:5px 9px;border-radius:999px;background:var(--tealSoft);color:var(--teal)}
+.dayTitle h3{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:27px;font-weight:600;letter-spacing:-.025em}.dayTitle p{margin:7px 0 0;color:var(--muted);font-size:14px}
+.dayBody{padding:22px 28px 28px}
+.timeline{display:grid;gap:2px}
+.step{display:grid;grid-template-columns:98px 20px 1fr;gap:10px;align-items:start;padding:9px 0}
+.time{font-weight:900;color:var(--teal);font-size:13px;padding-top:1px}.dotcol{display:flex;flex-direction:column;align-items:center;height:100%}.dot{width:11px;height:11px;border-radius:50%;background:var(--teal2);box-shadow:0 0 0 4px var(--tealSoft);margin-top:4px}.line{width:1px;background:#dfe8ea;flex:1;min-height:24px;margin-top:5px}.step:last-child .line{display:none}
+.stepText b{font-size:14px}.stepText p{margin:1px 0 0;color:var(--muted);font-size:13px}
+
+.transfers{display:grid;gap:9px;margin:15px 0 2px}
+.transfer{display:grid;grid-template-columns:38px 1fr auto;gap:11px;align-items:center;padding:11px 12px;border:1px solid #dce8ea;background:linear-gradient(90deg,#f7fbfb,#fff);border-radius:16px}
+.mode{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--tealSoft);font-size:18px}
+.transferRoute{min-width:0}.transferRoute b{display:block;font-size:13px}.transferRoute span{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.metrics{text-align:right;white-space:nowrap}.metrics b{display:block;color:var(--teal);font-size:13px}.metrics span{font-size:11px;color:var(--muted)}
+.mapBtn{display:inline-flex;align-items:center;justify-content:center;margin-top:4px;font-size:11px;font-weight:850;color:#fff;background:var(--teal);border-radius:9px;padding:5px 8px}
+.dayMeta{display:grid;grid-template-columns:1fr;gap:10px;margin-top:15px}
+.mini{padding:14px;border:1px solid var(--line);border-radius:17px;background:#fbfcfc}.mini b{display:block;margin-bottom:5px;font-size:13px}.mini p{margin:0;color:var(--muted);font-size:13px}.money{font-weight:900;color:var(--teal)}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.action{padding:7px 10px;border-radius:10px;background:#f0f7f8;border:1px solid #dae9eb;color:#0a636b;font-size:12px;font-weight:850}
+.action.primary{background:var(--teal);color:white;border-color:var(--teal)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.checklist{display:grid;gap:8px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff}.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--teal)}.check.done{opacity:.52;text-decoration:line-through}
+.tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:var(--muted);background:#f8fbfb}tr:last-child td{border-bottom:0}
+.safetyCard{margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#edf8f7,#fbfdfd);border:1px solid #d6e9e7}
+.safetyCard h4{margin:0 0 6px;font-size:15px}.safetyCard p{margin:0;color:var(--muted);font-size:13px}
+.resortCard{margin-top:15px;padding:17px;border-radius:20px;background:linear-gradient(135deg,#eef8f7,#fffaf3);border:1px solid #d9e8e6}
+.resortCard h4{margin:0 0 7px;font-size:16px}.resortCard>p{margin:0;color:var(--muted);font-size:13px}
+.resortGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:11px}
+.resortFact{padding:12px;border-radius:14px;background:rgba(255,255,255,.92);border:1px solid var(--line)}
+.resortFact b{display:block;font-size:13px;margin-bottom:3px}.resortFact small{display:block;color:var(--muted);line-height:1.55}
+.safetyGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.safetyOpt{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}.safetyOpt b{display:block;font-size:13px;margin-bottom:4px}.safetyOpt small{display:block;color:var(--muted);line-height:1.55}
+.currencyBar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.currencyBar .currencyInfo{font-size:12px;color:var(--muted)}
+.currencySwitch{display:inline-flex;padding:4px;border-radius:12px;background:#eef4f5;border:1px solid #dce7e9}
+.currencyBtn{border:0;background:transparent;color:var(--muted);font-weight:850;font-size:12px;padding:8px 12px;border-radius:9px;cursor:pointer}
+.currencyBtn.active{background:var(--teal);color:#fff;box-shadow:0 5px 14px rgba(13,111,120,.18)}
+.currencyValue{font-weight:850;white-space:nowrap}
+.note{margin-top:12px;padding:13px 14px;border-radius:15px;background:var(--sand2);border:1px solid #eadcc4;color:#725d3f;font-size:13px}
+.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px}
+.editorialEyebrow{display:block;margin-bottom:5px;color:var(--teal);font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.backTop{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;border:0;border-radius:50%;background:var(--teal);color:#fff;font-size:18px;box-shadow:0 10px 24px rgba(13,111,120,.28);cursor:pointer;opacity:0;pointer-events:none;transition:.2s}.backTop.show{opacity:1;pointer-events:auto}
+
+@media(max-width:1320px){.wrap{padding-right:104px}}
+@media(max-width:1100px){.dayJump{right:8px}.dayLink{width:76px;padding:7px 6px}.dayLink span{font-size:10px}.wrap{padding-right:102px}}
+@media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){
+  .safetyGrid,.resortGrid{grid-template-columns:1fr}
+  .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:34px 22px 26px}.heroStats{grid-template-columns:1fr 1fr}
+  .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}
+  .sectionTitle{align-items:start;flex-direction:column;gap:3px}.sectionTitle h2{font-size:25px}.keyGrid,.grid2,  .day{border-radius:22px}.dayHead{grid-template-columns:1fr;gap:10px;padding:18px}.dateBox{border-right:0;border-bottom:1px solid var(--line);padding:0 0 10px}.dateBox .num{font-size:29px}
+  .dayBody{padding:16px 17px 20px}.step{grid-template-columns:76px 18px 1fr;gap:7px}.transfer{grid-template-columns:34px 1fr}.mode{width:34px;height:34px}.metrics{grid-column:2;text-align:left;display:flex;align-items:center;gap:7px}.metrics b{display:inline}.mapBtn{margin-top:0}
+  .dayMeta{grid-template-columns:1fr}.heroStat b{font-size:15px}.heroStat{padding:10px}.hero p{font-size:14px}
+}
+@media(max-width:760px){
+  .wrap{max-width:none;width:100%;padding:10px 10px 92px!important}
+  .dayJump{
+    display:block;
+    position:fixed;
+    right:12px;
+    left:auto;
+    top:auto;
+    bottom:132px;
+    transform:translateY(10px) scale(.98);
+    width:min(82vw,280px);
+    max-height:68vh;
+    overflow:auto;
+    padding:9px;
+    border-radius:18px;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease,visibility .18s ease;
+    z-index:80
+  }
+  .dayJump.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0) scale(1)}
+  .dayJumpInner{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .dayLink{width:auto!important;min-width:0;padding:10px 8px!important;border-radius:11px}
+  .dayLink b{font-size:12px!important}
+  .dayLink span{display:block!important;font-size:10px!important}
+  .mobileDayToggle{
+    position:fixed;
+    right:12px;
+    bottom:76px;
+    z-index:82;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    min-width:104px;
+    height:44px;
+    padding:0 12px;
+    border:0;
+    border-radius:999px;
+    background:var(--teal);
+    color:#fff;
+    font-weight:900;
+    font-size:12px;
+    box-shadow:0 12px 28px rgba(13,111,120,.30);
+    cursor:pointer
+  }
+  .mobileDayToggle .chev{font-size:11px;transition:transform .18s ease}
+  .mobileDayToggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .mobileNavBackdrop{
+    position:fixed;
+    inset:0;
+    z-index:70;
+    display:block;
+    background:rgba(18,38,45,.14);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity .18s ease,visibility .18s ease
+  }
+  .mobileNavBackdrop.show{opacity:1;visibility:visible;pointer-events:auto}
+  .backTop{right:auto;left:14px;bottom:18px}
+}
+.interactiveDock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.iDockBtn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);color:#fff;border-radius:16px;padding:13px 12px;text-align:left;cursor:pointer;backdrop-filter:blur(7px);transition:.18s}
+.iDockBtn:hover{transform:translateY(-2px);background:rgba(255,255,255,.14)}
+.iDockBtn b{display:block;font-size:13px}.iDockBtn small{display:block;margin-top:2px;font-size:10px;opacity:.74}
+.interactiveSection{margin-top:32px}
+.routeCard,.sunsetCard,.passportCard{background:rgba(255,253,250,.98);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadowSoft);padding:22px}
+.routeTop,.passportTop,.sunsetTop{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:15px}
+.routeTop h3,.passportTop h3,.sunsetTop h3{margin:0;font-family:Georgia,"Times New Roman","Noto Serif TC",serif;font-size:24px;font-weight:600}
+.routeTop p,.passportTop p,.sunsetTop p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.routeFilters{display:flex;gap:6px;flex-wrap:wrap}
+.routeFilter{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:850;cursor:pointer}
+.routeFilter.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.routeCanvas{position:relative;min-height:310px;border-radius:22px;overflow:hidden;background:
+radial-gradient(circle at 18% 18%,rgba(85,130,115,.16),transparent 26%),
+radial-gradient(circle at 82% 78%,rgba(75,127,143,.16),transparent 30%),
+linear-gradient(135deg,#f7f3ea,#eef6f3)}
+.routeCanvas svg{position:absolute;inset:0;width:100%;height:100%}
+.routePath{fill:none;stroke:#c7d5d2;stroke-width:4;stroke-linecap:round;stroke-dasharray:7 9}
+.routeNode{position:absolute;transform:translate(-50%,-50%);width:88px;min-height:58px;border:1px solid #dce5e3;background:rgba(255,255,255,.94);border-radius:16px;padding:7px 8px;color:var(--ink);font-size:10px;font-weight:800;line-height:1.25;box-shadow:0 8px 18px rgba(27,51,58,.09);cursor:pointer;transition:.18s}
+.routeNode span{display:block;margin-top:2px;color:var(--muted);font-size:8px;font-weight:700}
+.routeNode.active{background:var(--teal);color:#fff;border-color:var(--teal);transform:translate(-50%,-50%) scale(1.06)}
+.routeNode.active span{color:rgba(255,255,255,.75)}
+.routeNode.dim{opacity:.28;filter:saturate(.4)}
+.routeDetail{margin-top:12px;padding:13px 14px;border-radius:16px;background:var(--sand2);border:1px solid #eadcc4;font-size:12px;color:#675b47}
+.sunsetGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sunsetMoment{position:relative;overflow:hidden;padding:20px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(145deg,#f8ead2,#f8f1e8 48%,#e7eff0)}
+.sunsetMoment:after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-50px;top:-45px;background:radial-gradient(circle,#e7a750 0,#e7a750 28%,rgba(231,167,80,.16) 30%,transparent 68%)}
+.sunsetMoment b{position:relative;z-index:1;display:block;font-size:14px}.sunsetMoment .sunsetPlace{position:relative;z-index:1;color:var(--muted);font-size:11px}
+.sunsetMoment .countdown{position:relative;z-index:1;margin-top:13px;font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:700;color:var(--navy)}
+.sunsetMoment .sunsetSub{position:relative;z-index:1;margin-top:2px;color:var(--muted);font-size:10px}
+.passportGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stamp{position:relative;min-height:112px;border:1px dashed #c6b79f;background:#fffaf1;border-radius:50% 47% 52% 45%;padding:18px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;transition:.2s;user-select:none}
+.stamp .stampIcon{font-size:24px;filter:grayscale(.9);opacity:.6}.stamp b{font-size:11px;margin-top:4px}.stamp small{font-size:9px;color:var(--muted);margin-top:2px}
+.stamp.done{border:2px solid #9d5c4c;color:#8d4d40;background:#fff8ef;transform:rotate(-2deg)}
+.stamp.done .stampIcon{filter:none;opacity:1}.stamp.done:after{content:"VISITED";position:absolute;inset:auto 12px 14px;border:2px solid currentColor;border-radius:999px;font-size:8px;font-weight:950;letter-spacing:.14em;padding:2px}
+.stamp.pop{animation:stampPop .35s ease}
+@keyframes stampPop{0%{transform:scale(.75) rotate(-7deg)}70%{transform:scale(1.08) rotate(1deg)}100%{transform:scale(1) rotate(-2deg)}}
+.step.tripDone{opacity:.42}.step.tripDone .dot{background:#8aa29a;box-shadow:0 0 0 4px #eef3f1}.step.tripNow{position:relative;margin:3px -8px;padding:12px 8px;border-radius:16px;background:linear-gradient(90deg,rgba(14,107,112,.10),transparent)}.step.tripNow .dot{background:var(--sun);box-shadow:0 0 0 5px rgba(215,160,79,.18);animation:pulseDot 1.8s infinite}.step.tripNow .stepText:before{content:"NOW";display:inline-block;margin-right:7px;padding:2px 6px;border-radius:999px;background:var(--sun);color:#fff;font-size:8px;font-weight:950;letter-spacing:.1em}
+@keyframes pulseDot{50%{box-shadow:0 0 0 9px rgba(215,160,79,.05)}}
+.travelFab{position:fixed;right:18px;bottom:76px;z-index:88;border:0;border-radius:999px;background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;padding:12px 16px;font-weight:900;box-shadow:0 14px 34px rgba(20,62,69,.28);cursor:pointer}
+.travelFab .liveDot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;background:#e9b356;box-shadow:0 0 0 4px rgba(233,179,86,.15)}
+.travelSheetBackdrop{position:fixed;inset:0;z-index:89;background:rgba(16,34,40,.28);backdrop-filter:blur(2px);opacity:0;visibility:hidden;pointer-events:none;transition:.18s}
+.travelSheetBackdrop.show{opacity:1;visibility:visible;pointer-events:auto}
+.travelSheet{position:fixed;right:18px;bottom:130px;z-index:90;width:min(390px,calc(100vw - 24px));max-height:72vh;overflow:auto;background:#fffdfa;border:1px solid var(--line);border-radius:26px;box-shadow:0 28px 70px rgba(20,45,53,.24);padding:20px;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(10px) scale(.98);transition:.18s}
+.travelSheet.show{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.travelSheetTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.travelSheetTop h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:23px}.travelClose{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:#fff;cursor:pointer}
+.travelStatus{margin-top:14px;padding:14px;border-radius:18px;background:var(--tealSoft);border:1px solid #d7e8e5}.travelStatus .eyebrow{font-size:9px;letter-spacing:.14em;font-weight:900;color:var(--teal)}.travelStatus strong{display:block;font-size:17px;margin-top:2px}.travelStatus p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.travelProgress{height:7px;background:#e5ecea;border-radius:999px;overflow:hidden;margin-top:12px}.travelProgress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--sun));transition:.3s}
+.travelNext{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:18px}.travelNext small{color:var(--muted)}.travelNext b{display:block;margin-top:2px}
+.travelActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.travelActions a,.travelActions button{border:0;border-radius:11px;padding:9px 11px;font-size:11px;font-weight:850;cursor:pointer}.travelActions .primary{background:var(--teal);color:#fff}.travelActions .secondary{background:#eef3f2;color:var(--teal)}
+.originalBadge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);font-size:10px;font-weight:850;margin-top:12px}
+@media(max-width:760px){
+  .interactiveDock{grid-template-columns:1fr 1fr}
+  .sunsetGrid{grid-template-columns:1fr}
+  .passportGrid{grid-template-columns:1fr 1fr}
+  .routeCanvas{min-height:390px}
+  .routeNode{width:76px;font-size:9px}
+  .travelFab{right:12px;bottom:126px}
+  .travelSheet{right:12px;bottom:180px}
+}
+@media(max-width:420px){.passportGrid{grid-template-columns:1fr 1fr}.interactiveDock{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){.stamp.pop,.step.tripNow .dot{animation:none}}
+@media print{body{background:#fff}.wrap{max-width:none}.dayJump,.mobileDayToggle,.mobileNavBackdrop,.heroActions,.backTop{display:none}.hero,.card,.day{box-shadow:none}.day{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap" id="top">
+<header class="hero">
+  <div class="kicker">SABAH · 2026 · INTERACTIVE EDITION</div>
+  <h1>Sabah Couple Escape</h1>
+  <p>Kota Kinabalu · Kundasang · Manukan Island<br>一趟把山景、海島、城市慢遊與度假村時光串在一起的雙人旅行。</p>
+  <div class="heroStats">
+    <div class="heroStat"><b>6 Days / 5 Nights</b><span>10/30–11/04</span></div>
+    <div class="heroStat"><b>Kota Kinabalu + Kundasang</b><span>城市 × 高原</span></div>
+    <div class="heroStat"><b>Mountain + Island</b><span>神山 × Manukan</span></div>
+    <div class="heroStat"><b>Relaxed Pace</b><span>自駕 × Resort</span></div>
+  </div>
+  <div class="heroActions">
+    <a class="heroBtn ghost" href="../" aria-label="回到原版行程">← 原版行程</a>
+    <button class="heroBtn" id="shareBtn">分享行程</button>
+    <button class="heroBtn ghost" onclick="window.print()">列印 / 存 PDF</button>
+  </div>
+  <div class="interactiveDock" aria-label="互動功能">
+    <button type="button" class="iDockBtn" data-open-travel><b>✦ Travel Mode</b><small>現在／下一站</small></button>
+    <button type="button" class="iDockBtn" data-jump="#journeyMap"><b>⌁ Journey Map</b><small>點選每日路線</small></button>
+    <button type="button" class="iDockBtn" data-jump="#passport"><b>◎ Travel Passport</b><small>旅行蓋章收藏</small></button>
+    <button type="button" class="iDockBtn" data-jump="#sunsetExperience"><b>◐ Sunset</b><small>兩次夕陽倒數</small></button>
+  </div>
+  <div class="originalBadge">Interactive Lab · 原版網站完全保留</div>
+</header>
+
+<nav class="dayJump" id="mobileDayNav" aria-label="快速切換每日行程">
+  <div class="dayJumpInner">
+    <a class="dayLink active" href="#day1030" data-target="day1030"><b>10/30(五)</b><span>抵達</span></a>
+    <a class="dayLink" href="#day1031" data-target="day1031"><b>10/31(六)</b><span>亞庇</span></a>
+    <a class="dayLink" href="#day1101" data-target="day1101"><b>11/01(日)</b><span>神山 D1</span></a>
+    <a class="dayLink" href="#day1102" data-target="day1102"><b>11/02(一)</b><span>神山 D2</span></a>
+    <a class="dayLink" href="#day1103" data-target="day1103"><b>11/03(二)</b><span>跳島</span></a>
+    <a class="dayLink" href="#day1104" data-target="day1104"><b>11/04(三)</b><span>回程</span></a>
+    <a class="dayLink" href="#todo"><b>✓</b><span>待辦</span></a>
+    <a class="dayLink" href="#budget"><b>預算</b><span>總覽</span></a>
+  </div>
+</nav>
+<button type="button" class="mobileDayToggle" id="mobileDayToggle" aria-expanded="false" aria-controls="mobileDayNav">
+  <span id="mobileDayCurrent">10/30(五)</span><span class="chev">▾</span>
+</button>
+<div class="mobileNavBackdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
+
+<section class="section">
+  <div class="sectionTitle"><div><span class="editorialEyebrow">Journey Overview</span><h2>旅程總覽</h2><p>把移動安排得更順，把最好的時間留給風景、休息與兩個人的旅行節奏。</p></div></div>
+  <div class="overview">
+    <div class="card">
+      <div class="journeyLine">
+        <span class="stop">亞庇</span><span class="arr">→</span><span class="stop">城市放鬆</span><span class="arr">→</span><span class="stop">Kinabalu Park</span><span class="arr">→</span><span class="stop">Kundasang</span><span class="arr">→</span><span class="stop">Desa Farm</span><span class="arr">→</span><span class="stop">Shangri-La</span><span class="arr">→</span><span class="stop">STAR Marina</span><span class="arr">→</span><span class="stop">Manukan</span><span class="arr">→</span><span class="stop">BKI</span>
+      </div>
+      <div class="keyGrid">
+        <div class="key"><b>🌴 10/31 亞庇慢遊</b><small>白天睡飽、購物與按摩，晚上逛 Gaya Street 夜市，為神山行程保留體力。</small></div>
+        <div class="key"><b>⛰ 11/1–11/2 神山</b><small>Kinabalu Park 輕健行＋Kundasang 山景住宿＋Desa Farm。</small></div>
+        <div class="key"><b>🌅 11/2 香格里拉</b><small>下午入住後留在飯店，Sunset Bar＋晚餐。</small></div>
+        <div class="key"><b>🏝 11/3 STAR Marina</b><small>退房寄行李後從飯店碼頭直達 Manukan，再入住機場方向飯店。</small></div>
+      </div>
+    </div>
+    <div class="callout">
+      <b>旅程節奏</b>
+      <p>前段先恢復體力，中段連續完成神山 2 天 1 夜，接著把香格里拉與跳島串成同一段度假動線。11/3 從飯店內 STAR Marina 出海，可省掉再跑 Jesselton Point 的轉乘。</p>
+    </div>
+  </div>
+</section>
+
+<section class="interactiveSection" id="journeyMap">
+  <div class="routeCard">
+    <div class="routeTop"><div><span class="editorialEyebrow">Interactive Journey</span><h3>旅程路線圖</h3><p>示意路線圖｜點日期看當天動線，點地點看旅行提示。</p></div>
+      <div class="routeFilters">
+        <button type="button" class="routeFilter active" data-route-day="all">全部</button>
+        <button type="button" class="routeFilter" data-route-day="1">Day 1</button>
+        <button type="button" class="routeFilter" data-route-day="2">Day 2</button>
+        <button type="button" class="routeFilter" data-route-day="3">Day 3</button>
+        <button type="button" class="routeFilter" data-route-day="4">Day 4</button>
+      </div>
+    </div>
+    <div class="routeCanvas">
+      <svg viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true">
+        <path class="routePath" d="M70 205 C160 75 235 290 330 155 S500 80 575 205 S740 310 805 155 S900 80 950 190"></path>
+      </svg>
+      <button class="routeNode" style="left:7%;top:57%" data-route-days="1" data-route-note="Horizon Hotel｜10/30–11/1 的亞庇基地，Gaya Street 步行可達。">Horizon<span>City Base</span></button>
+      <button class="routeNode" style="left:18%;top:29%" data-route-days="1" data-route-note="Gaya Street｜10/31 晚上慢慢逛夜市，逛完直接步行回飯店。">Gaya Street<span>Night Market</span></button>
+      <button class="routeNode" style="left:34%;top:49%" data-route-days="2" data-route-note="Kinabalu Park｜11/1 輕健行主場，保留 2–2.5 小時車程緩衝。">Kinabalu Park<span>Mountain</span></button>
+      <button class="routeNode" style="left:47%;top:27%" data-route-days="2,3" data-route-note="Ausvilla｜神山景觀住宿，11/2 清晨值得早起看山。">Ausvilla<span>Mountain Stay</span></button>
+      <button class="routeNode" style="left:58%;top:58%" data-route-days="3" data-route-note="Desa Farm｜早場進入，結束後回 Ausvilla 拿行李再下山。">Desa Farm<span>Morning</span></button>
+      <button class="routeNode" style="left:72%;top:76%" data-route-days="3,4" data-route-note="Shangri-La Tanjung Aru｜Sunset Bar、泳池、STAR Marina 都留在 Resort 內完成。">Shangri-La<span>Resort</span></button>
+      <button class="routeNode" style="left:82%;top:43%" data-route-days="4" data-route-note="Manukan｜浮潛、午餐、沙灘自由活動；建議 15:20 左右回程。">Manukan<span>Island</span></button>
+      <button class="routeNode" style="left:91%;top:24%" data-route-days="4" data-route-note="Tanjung Aru｜最後一晚看夕陽、夜市晚餐與海邊散步。">Tanjung Aru<span>Sunset</span></button>
+      <button class="routeNode" style="left:94%;top:66%" data-route-days="4" data-route-note="Eminent / BKI｜最後一晚靠近機場，隔天清晨快速前往 BKI。">Eminent / BKI<span>Final Night</span></button>
+    </div>
+    <div class="routeDetail" id="routeDetail">點一個地點，這裡會顯示旅行提示。</div>
+  </div>
+</section>
+
+<section class="interactiveSection" id="sunsetExperience">
+  <div class="sunsetCard">
+    <div class="sunsetTop"><div><span class="editorialEyebrow">Golden Hour</span><h3>兩次夕陽時刻</h3><p>倒數會依現在時間自動更新；時間以約 17:56 規劃，當天仍以天候與現場為準。</p></div></div>
+    <div class="sunsetGrid">
+      <div class="sunsetMoment" data-sunset="2026-11-02T17:56:00+08:00">
+        <b>11/02 · Sunset Bar</b><span class="sunsetPlace">Shangri-La Tanjung Aru</span>
+        <div class="countdown">—</div><div class="sunsetSub">距離 Sunset Moment</div>
+      </div>
+      <div class="sunsetMoment" data-sunset="2026-11-03T17:56:00+08:00">
+        <b>11/03 · Tanjung Aru Beach</b><span class="sunsetPlace">最後一晚的海邊夕陽</span>
+        <div class="countdown">—</div><div class="sunsetSub">距離 Sunset Moment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section"><div class="sectionTitle"><div><span class="editorialEyebrow">Day by Day</span><h2>每日行程</h2><p>桌機使用右側日期列；手機以右下角日期按鈕快速切換，閱讀時維持滿版。</p></div></div>
+<div class="days">
+
+<article class="day" id="day1030">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 0 · Arrival</span><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="dayTag">亞庇市區</span></div><div class="dayTitle"><h3>抵達亞庇・直接休息</h3><p>晚班機抵達，今晚只追求順利入住與睡飽。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">22:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>抵達 BKI</b><p>入境、領行李。</p></div></div>
+      <div class="step"><div class="time">23:30–00:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 前往市區</b><p>建議住 Gaya Street／Jesselton Point 一帶。</p></div></div>
+      <div class="step"><div class="time">深夜</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>Check-in・休息</b><p>隔天不要排太早。</p></div></div>
+    </div>
+    <div class="transfers">
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>BKI → Gaya Street 市區</b><span>機場到市中心住宿區</span></div><div class="metrics"><b>約 8 km</b><span>預留 10–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kota+Kinabalu+International+Airport&destination=Gaya+Street+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+    </div>
+    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>Gaya Street／Jesselton Point／市中心，方便隔天步行或 Grab 到碼頭。</p></div></div>
+  </div>
+</article>
+
+<article class="day" id="day1031">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 1 · Kota Kinabalu</span><div class="num">10/31</div><div class="dow">星期六｜亞庇慢遊＋夜市</div><span class="dayTag">休息日＋Gaya Street</span></div><div class="dayTitle"><h3>睡飽・城市散步・按摩・Gaya Street</h3><p>白天刻意放慢，晚上再逛夜市，兼顧休息與亞庇在地感。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">09:00–09:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>自然醒</b><p>前一晚接近午夜才入住，今天不排早起。</p></div></div>
+      <div class="step"><div class="time">09:30–10:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐／早午餐</b><p>可選 Yee Fung Laksa 或飯店周邊咖啡店。</p></div></div>
+      <div class="step"><div class="time">11:00–13:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>亞庇市區輕鬆走走</b><p>海邊、咖啡或商場依當天天氣調整。</p></div></div>
+      <div class="step"><div class="time">13:00–14:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>午餐</b><p>市區簡單吃，避免吃太飽影響晚上的夜市。</p></div></div>
+      <div class="step"><div class="time">14:30–15:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Imago／咖啡</b><p>補採買、吹冷氣、慢慢逛。</p></div></div>
+      <div class="step"><div class="time">16:00–17:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>按摩</b><p>選評價穩定的市區店，放鬆腿部與肩頸。</p></div></div>
+      <div class="step"><div class="time">17:30–18:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回飯店休息・洗澡</b><p>先把白天行程收掉，再輕裝出門逛夜市。</p></div></div>
+      <div class="step"><div class="time">18:30–21:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Gaya Street Api-Api Night Food Market</b><p>把晚餐留給夜市，慢慢吃沙嗲、燒烤、炒粿條、甜點與飲料。</p></div></div>
+      <div class="step"><div class="time">21:30–22:00</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>回飯店・整理神山行李</b><p>今晚不續攤，準備隔天 07:30 左右取車。</p></div></div>
+    </div>
+    <div class="transfers">
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>市區飯店 → Imago</b><span>Grab 短程移動</span></div><div class="metrics"><b>約 3–5 km</b><span>約 8–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Gaya+Street+Kota+Kinabalu&destination=Imago+Shopping+Mall+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚶</div><div class="transferRoute"><b>市區飯店 → Gaya Street</b><span>若住宿就在 Gaya Street 周邊，建議直接步行</span></div><div class="metrics"><b>約 0.5–1.5 km</b><span>步行約 5–20 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">Google Maps</a></div></div>
+    </div>
+    <div class="dayMeta"><div class="mini"><b>🧘 安排原則</b><p>白天保留大量休息時間，晚上才把 Gaya Street 放進來；逛完直接回飯店，不再安排第二個夜間行程。</p></div></div>
+    <div class="actions"><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Imago+Shopping+Mall+Kota+Kinabalu">Imago</a><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Gaya+Street+Kota+Kinabalu">Gaya Street</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Yee+Fung+Laksa+Kota+Kinabalu">Yee Fung</a></div>
+  </div>
+</article>
+
+<article class="day" id="day1101">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 2 · Kinabalu</span><div class="num">11/01</div><div class="dow">星期日｜神山 Day 1</div><span class="dayTag">租車開始</span></div><div class="dayTitle"><h3>亞庇 → Kinabalu Park・輕健行・山景住宿</h3><p>神山兩天正式開始，第一天把重點放在森林步道與高原住宿。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">07:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐</b><p>吃完後辦理取車。</p></div></div>
+      <div class="step"><div class="time">07:30–08:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>取車</b><p>建議自排 Myvi／Saga／Vios；可優先詢問飯店交車、隔天 BKI 還車。</p></div></div>
+      <div class="step"><div class="time">08:00–10:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>亞庇 → Kinabalu Park</b><p>山路約 90 km，預留 2–2.5 小時。</p></div></div>
+      <div class="step"><div class="time">10:30–13:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Kinabalu Park 輕健行</b><p>以 Silau-Silau Trail 類型自然步道為主，維持 2～2.5 小時。</p></div></div>
+      <div class="step"><div class="time">13:15–14:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>午餐</b><p>The Farmers Restaurant 或 Liwagu Restaurant。</p></div></div>
+      <div class="step"><div class="time">14:45–15:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Kundasang War Memorial／高原散步</b><p>二選一即可，不再多塞景點。</p></div></div>
+      <div class="step"><div class="time">16:15–16:30</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>入住山景住宿</b><p>看神山、晚餐、早睡，準備隔天晨景。</p></div></div>
+    </div>
+    <div class="transfers">
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>亞庇市區 → Kinabalu Park HQ</b><span>神山主幹道上山</span></div><div class="metrics"><b>約 90–92 km</b><span>預留 2–2.5 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Gaya+Street+Kota+Kinabalu&destination=Kinabalu+Park+Headquarters+Sabah&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Kinabalu Park → Kundasang</b><span>公園前往高原住宿區</span></div><div class="metrics"><b>約 10–15 km</b><span>約 15–25 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kinabalu+Park+Headquarters+Sabah&destination=Kundasang+Sabah&travelmode=driving">Google Maps</a></div></div>
+    </div>
+    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>優先選房間或陽台可以直接看到 Mount Kinabalu 的 Kundasang 山景住宿。</p></div></div>
+    <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kinabalu+Park+Headquarters+Sabah">Kinabalu Park</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=The+Farmers+Restaurant+Kundasang">The Farmers</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kundasang+War+Memorial">War Memorial</a></div>
+  </div>
+</article>
+
+<article class="day" id="day1102">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 3 · Resort</span><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="dayTag">Shangri-La Resort Day</span></div><div class="dayTitle"><h3>神山晨景・Desa Farm・下山入住香格里拉</h3><p>上午完成高原行程，下午把節奏完全切換成度假模式。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">05:45–06:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Ausvilla 看神山晨景</b><p>天氣允許就在住宿附近看山、拍照。</p></div></div>
+      <div class="step"><div class="time">06:30–07:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐</b><p>不急著退房，行李先留在房內。</p></div></div>
+      <div class="step"><div class="time">07:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Desa Farm</b><p>Ausvilla 到牧場約 10–15 分鐘。</p></div></div>
+      <div class="step"><div class="time">08:00–09:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Desa Cattle Dairy Farm</b><p>草原、神山、鮮奶與冰淇淋，早場完成後回住宿收行李。</p></div></div>
+      <div class="step"><div class="time">09:35–10:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回 Ausvilla・整理・退房</b><p>上廁所、換衣服、把行李收好再下山。</p></div></div>
+      <div class="step"><div class="time">10:15–13:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>下山回亞庇</b><p>山路抓 2.5–3 小時，途中視情況短休。</p></div></div>
+      <div class="step"><div class="time">13:00–13:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>加油・還車</b><p>優先在 BKI／Tanjung Aru 一帶完成還車，避免折返。</p></div></div>
+      <div class="step"><div class="time">13:45–14:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Shangri-La Tanjung Aru</b><p>若房間尚未準備好，先寄放行李、吃點東西或在園區散步。</p></div></div>
+      <div class="step"><div class="time">15:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>正式 Check-in</b><p>先回房放鬆，再把下午留給飯店設施。</p></div></div>
+      <div class="step"><div class="time">15:20–15:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>先到 STAR Marina 確認隔天船班</b><p>確認 11/3 Manukan 去回程、海況、裝備與報到時間。</p></div></div>
+      <div class="step"><div class="time">15:40–16:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>泳池／Sunset Beach／園區散步</b><p>依當天開放區域選一個，不再往市區跑。</p></div></div>
+      <div class="step"><div class="time">17:00–18:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Sunset Bar</b><p>提早入座看海景與夕陽；官方營業約 17:00–21:00，視天候開放。</p></div></div>
+      <div class="step"><div class="time">19:00–20:15</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>館內晚餐・回房休息</b><p>Coco-Joe's 或其他館內餐廳，今晚不再安排外出。</p></div></div>
+    </div>
+    <div class="transfers">
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Ausvilla → Desa Farm</b><span>早場牧場</span></div><div class="metrics"><b>約 10–15 分</b><span>短程山路</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Ausvilla+Kundasang&destination=Desa+Cattle+Dairy+Farm+Kundasang&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Ausvilla → BKI／Tanjung Aru</b><span>高原下山回亞庇</span></div><div class="metrics"><b>約 90–100 km</b><span>預留 2.5–3 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Ausvilla+Kundasang&destination=Shangri-La+Tanjung+Aru+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+    </div>
+
+    <div class="resortCard">
+      <h4>🌴 Shangri-La Tanjung Aru｜Resort Highlights</h4>
+      <p>這晚把移動停下來，讓泳池、Sunset Beach、Sunset Bar、館內晚餐與隔天 STAR Marina 自然接在一起。香格里拉是整趟旅程最完整的度假段。</p>
+      <div class="resortGrid">
+        <div class="resortFact"><b>🏊 泳池</b><small>官方目前泳池開放約 07:00–21:00；旅程期間飯店仍有翻新工程，入住時以現場實際開放區域為準。</small></div>
+        <div class="resortFact"><b>🌅 Sunset Bar</b><small>約 17:00–21:00、視天候營業。建議 17:00 左右就入座，避免為了座位壓縮看夕陽的時間。</small></div>
+        <div class="resortFact"><b>⛴ STAR Marina</b><small>就在度假村內。11/2 下午先完成 11/3 Manukan 船班確認，隔天退房後直接步行去碼頭。</small></div>
+        <div class="resortFact"><b>💆 Chi, The Spa</b><small>官方目前約 11:30–21:00。若 10/31 已按摩，這晚可留作選配，避免行程太滿。</small></div>
+      </div>
+      <div class="note">2026/11 入住期間飯店正進行分階段翻新，官方列出的工程時段約 09:00–18:00；餐廳酒吧、Sunset Beach、STAR Marina、Chi Spa 與多項休閒設施維持營運。Check-in 時可再詢問房間位置與當日施工影響。</div>
+    </div>
+
+    <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Shangri-La+Tanjung+Aru">Shangri-La</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sunset+Bar+Shangri-La+Tanjung+Aru">Sunset Bar</a><a class="action" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a></div>
+  </div>
+</article>
+
+<article class="day" id="day1103">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 4 · Island</span><div class="num">11/03</div><div class="dow">星期二｜香格里拉＋跳島＋Chill Night</div><span class="dayTag">STAR Marina → Manukan</span></div><div class="dayTitle"><h3>悠閒早餐・退房後跳島・丹絨亞路夕陽</h3><p>早上把香格里拉住滿，再去 Manukan；晚上用海灘、夜市與散步替旅程收尾。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">08:30–10:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>香格里拉悠閒早餐</b><p>睡飽再吃，不安排清晨行程。</p></div></div>
+      <div class="step"><div class="time">10:00–10:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>最後享受飯店・整理行李</b><p>Sunset Beach 散步、拍照、回房換海島服裝。</p></div></div>
+      <div class="step"><div class="time">10:50–11:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Check-out・寄放行李</b><p>大行李交 Concierge，帶防水袋、毛巾與必要物品出海。</p></div></div>
+      <div class="step"><div class="time">11:10–11:25</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>STAR Marina 報到</b><p>依前一天確認的班次辦理報到、救生衣與裝備。</p></div></div>
+      <div class="step"><div class="time">約 11:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>搭船前往 Manukan</b><p>飯店碼頭直接出發，船程約 15–20 分。</p></div></div>
+
+      <div class="step"><div class="time">11:50–12:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>上島・找回程集合點</b><p>先確認 15:20 回程集合位置，再擦防曬、準備浮潛。</p></div></div>
+      <div class="step"><div class="time">12:10–13:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>第一輪浮潛</b><p>先把體力最好的時段留給水下活動，約 45–60 分鐘即可。</p></div></div>
+      <div class="step"><div class="time">13:10–13:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>島上午餐＋休息</b><p>簡單吃炒飯、炒麵或小食，補水後坐陰涼處休息。</p></div></div>
+      <div class="step"><div class="time">13:50–14:35</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>自由選一項</b><p>沙灘拍照／再浮潛一次／若事先預約則選 Parasailing、Sea Walking 等一項水上活動。</p></div></div>
+      <div class="step"><div class="time">14:35–15:05</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>沖洗・換乾衣服・回碼頭</b><p>預留緩衝，不把最後活動壓到登船前。</p></div></div>
+      <div class="step"><div class="time">約 15:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回程船</b><p>約 15:40 回到香格里拉，取寄放行李。</p></div></div>
+
+      <div class="step"><div class="time">15:50–16:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Shangri-La → Eminent Hotel</b><p>Grab 前往最後一晚住宿。</p></div></div>
+      <div class="step"><div class="time">16:20–17:05</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Eminent Check-in・洗澡休息</b><p>把跳島後的濕衣物整理好，再輕裝出門。</p></div></div>
+
+      <div class="step"><div class="time">17:10–17:25</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 前往 Tanjung Aru Beach</b><p>最後一晚只安排近距離 chill 行程。</p></div></div>
+      <div class="step"><div class="time">17:25–18:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Tanjung Aru Beach 看夕陽</b><p>慢慢散步、拍照、吹海風，不追行程。</p></div></div>
+      <div class="step"><div class="time">18:10–19:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Tanjung Aru Beach Night Market 晚餐</b><p>夜市約 17:00–22:00，簡單吃烤物、沙嗲、海鮮與飲料。</p></div></div>
+      <div class="step"><div class="time">19:10–19:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Prince Philip Park 海邊散步</b><p>買杯飲料、坐一下，讓旅程舒服收尾。</p></div></div>
+      <div class="step"><div class="time">19:45–20:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 回 Eminent Hotel</b><p>不再續攤。</p></div></div>
+      <div class="step"><div class="time">20:00–20:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>整理行李・預約機場接送</b><p>確認護照、行李、04:40 左右的接駁／Grab。</p></div></div>
+      <div class="step"><div class="time">20:45–21:15</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>上床休息</b><p>隔天 04:15 起床。</p></div></div>
+    </div>
+
+    <div class="transfers">
+      <div class="transfer"><div class="mode">⛴</div><div class="transferRoute"><b>Shangri-La STAR Marina → Manukan</b><span>飯店內碼頭直達海島</span></div><div class="metrics"><b>約 15–20 分</b><span>船班以前一天確認為準</span><a class="mapBtn" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a></div></div>
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Shangri-La → Eminent Hotel</b><span>取行李後前往最後一晚住宿</span></div><div class="metrics"><b>約 15–25 分</b><span>視交通狀況</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Shangri-La+Tanjung+Aru+Kota+Kinabalu&destination=Eminent+Hotel+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Eminent Hotel → Tanjung Aru Beach</b><span>最後一晚夕陽＋夜市</span></div><div class="metrics"><b>約 10–20 分</b><span>Grab 短程移動</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Eminent+Hotel+Kota+Kinabalu&destination=Tanjung+Aru+Beach+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+    </div>
+
+    <div class="safetyCard">
+      <h4>🛟 11/3 操作重點</h4>
+      <p>11/2 入住後先到 STAR Marina 確認隔天船班。11/3 退房後把大行李寄在香格里拉，只帶防水袋出海；回程後取行李直接去 Eminent。若海況取消跳島，上午就留在香格里拉，下午提早去 Tanjung Aru 放鬆。</p>
+    </div>
+
+    <div class="actions"><a class="action primary" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Manukan+Island+Sabah">Manukan</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Tanjung+Aru+Beach+Kota+Kinabalu">Tanjung Aru Beach</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Tanjung+Aru+Beach+Night+Market">Night Market</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Prince+Philip+Park+Kota+Kinabalu">Prince Philip Park</a></div>
+  </div>
+</article>
+
+<article class="day" id="day1104">
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 5 · Departure</span><div class="num">11/04</div><div class="dow">星期三｜回程日</div><span class="dayTag">07:35 起飛</span></div><div class="dayTitle"><h3>清晨前往機場・回台灣</h3><p>最後一天只留機場流程，避免任何不必要風險。</p></div></div>
+  <div class="dayBody">
+    <div class="timeline">
+      <div class="step"><div class="time">04:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>起床</b><p>最後檢查護照、行李。</p></div></div>
+      <div class="step"><div class="time">04:40–04:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>退房・Grab</b><p>前往 BKI。</p></div></div>
+      <div class="step"><div class="time">05:00–05:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>抵達機場</b><p>報到、托運、安檢。</p></div></div>
+      <div class="step"><div class="time">07:35</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>班機起飛</b><p>返回台灣。</p></div></div>
+    </div>
+    <div class="transfers">
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Tanjung Aru → BKI</b><span>最後一晚建議住機場方向</span></div><div class="metrics"><b>約 5 km</b><span>約 5–10 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Tanjung+Aru+Kota+Kinabalu&destination=Kota+Kinabalu+International+Airport&travelmode=driving">Google Maps</a></div></div>
+    </div>
+    <div class="dayMeta"><div class="mini"><b>✈️ 原則</b><p>05:00 左右抵達機場，比壓縮睡眠到最後一刻更安心。</p></div></div>
+  </div>
+</article>
+
+</div></section>
+
+<section class="interactiveSection" id="passport">
+  <div class="passportCard">
+    <div class="passportTop"><div><span class="editorialEyebrow">Travel Passport</span><h3>Sabah Passport</h3><p>抵達一個地方就蓋一個章；狀態只存在這台裝置，原版網站不受影響。</p></div><button type="button" class="routeFilter" id="resetPassport">清除印章</button></div>
+    <div class="passportGrid">
+      <button type="button" class="stamp" data-stamp="gaya"><span class="stampIcon">🌃</span><b>Gaya Street</b><small>10/31</small></button>
+      <button type="button" class="stamp" data-stamp="kinabalu"><span class="stampIcon">⛰️</span><b>Kinabalu Park</b><small>11/01</small></button>
+      <button type="button" class="stamp" data-stamp="ausvilla"><span class="stampIcon">🏡</span><b>Mountain Stay</b><small>11/01</small></button>
+      <button type="button" class="stamp" data-stamp="desa"><span class="stampIcon">🐄</span><b>Desa Farm</b><small>11/02</small></button>
+      <button type="button" class="stamp" data-stamp="sunsetbar"><span class="stampIcon">🌅</span><b>Sunset Bar</b><small>11/02</small></button>
+      <button type="button" class="stamp" data-stamp="manukan"><span class="stampIcon">🤿</span><b>Manukan</b><small>11/03</small></button>
+      <button type="button" class="stamp" data-stamp="tanjungaru"><span class="stampIcon">🌴</span><b>Tanjung Aru</b><small>11/03</small></button>
+      <button type="button" class="stamp" data-stamp="home"><span class="stampIcon">✈️</span><b>Back Home</b><small>11/04</small></button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="todo">
+  <div class="sectionTitle"><div><h2>出發前待辦</h2><p>勾選狀態會保留在這台裝置。</p></div></div>
+  <div class="card"><div class="checklist" data-list="todo">
+    <label class="check"><input type="checkbox"><span>訂好 10/30、10/31 亞庇市區同一家飯店</span></label>
+    <label class="check"><input type="checkbox"><span>訂好 11/1 Kundasang／神山山景住宿</span></label>
+    <label class="check"><input type="checkbox"><span>訂好 11/2 Shangri-La Tanjung Aru（優先 Tanjung Wing）</span></label>
+    <label class="check"><input type="checkbox"><span>訂好 11/3 Tanjung Aru／BKI 附近住宿</span></label>
+    <label class="check"><input type="checkbox"><span>預訂 11/1–11/2 自排租車，優先確認市區交車／BKI 還車</span></label>
+    <label class="check"><input type="checkbox"><span>預約 Desa Cattle Dairy Farm 11/2 早場</span></label>
+    <label class="check"><input type="checkbox"><span>向 Shangri-La／STAR Marina 確認 11/3 Manukan 船班與預約方式</span></label>
+    <label class="check"><input type="checkbox"><span>確認 11/3 退房後可寄放行李至跳島回來</span></label>
+    <label class="check"><input type="checkbox"><span>確認 Sunset Bar／香格里拉晚餐是否需要訂位</span></label>
+    <label class="check"><input type="checkbox"><span>11/3 入住 Eminent 時預約 11/4 凌晨機場接送／確認 Grab 備案</span></label>
+  </div></div>
+</section>
+
+<section class="section" id="packing">
+  <div class="sectionTitle"><div><h2>行李清單</h2><p>海島與高原溫差都顧到。</p></div></div>
+  <div class="grid2">
+    <div class="card"><b>🏝 海島</b><div class="checklist" data-list="sea">
+      <label class="check"><input type="checkbox"><span>泳衣</span></label>
+      <label class="check"><input type="checkbox"><span>防曬</span></label>
+      <label class="check"><input type="checkbox"><span>手機防水套／防水袋</span></label>
+      <label class="check"><input type="checkbox"><span>快乾衣物</span></label>
+    </div></div>
+    <div class="card"><b>⛰ 神山</b><div class="checklist" data-list="mountain">
+      <label class="check"><input type="checkbox"><span>薄外套／防風外套</span></label>
+      <label class="check"><input type="checkbox"><span>止滑運動鞋</span></label>
+      <label class="check"><input type="checkbox"><span>輕便雨衣／折疊傘</span></label>
+      <label class="check"><input type="checkbox"><span>防蚊用品</span></label>
+    </div></div>
+  </div>
+</section>
+
+<section class="section" id="budget">
+  <div class="sectionTitle"><div><h2>旅程總預算</h2><p>所有費用集中在這裡，不含國際機票與購物。</p></div></div>
+  <div class="currencyBar">
+    <div class="currencyInfo">幣別切換｜台幣換算採規劃匯率 <b>1 MYR ≈ NT$7.78</b>，實際刷卡／換匯仍以當日匯率為準。</div>
+    <div class="currencySwitch" role="group" aria-label="預算幣別">
+      <button type="button" class="currencyBtn active" data-currency="MYR">MYR 馬幣</button>
+      <button type="button" class="currencyBtn" data-currency="TWD">TWD 台幣</button>
+    </div>
+  </div>
+  <div class="card tableWrap"><table>
+    <thead><tr><th>項目</th><th>預估金額</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td>亞庇一般飯店 3 晚</td><td class="currencyValue" data-min="700" data-max="1000">RM700–1,000</td><td>10/30、10/31、11/3</td></tr>
+      <tr><td>神山住宿 1 晚</td><td class="currencyValue" data-min="320" data-max="500">RM320–500</td><td>山景房</td></tr>
+      <tr><td>香格里拉 1 晚</td><td class="currencyValue" data-min="850" data-max="1300">RM850–1,300</td><td>11/2</td></tr>
+      <tr><td>租車 2 天</td><td class="currencyValue" data-min="300" data-max="400">RM300–400</td><td>11/1–11/2</td></tr>
+      <tr><td>油資／停車</td><td class="currencyValue" data-min="100" data-max="150">RM100–150</td><td>神山來回</td></tr>
+      <tr><td>Manukan 跳島｜Shangri-La STAR Marina</td><td class="currencyValue" data-min="240" data-max="380">RM240–380</td><td>雙人估算；基本船票＋公園費起算，裝備／餐飲依實際使用增加</td></tr>
+      <tr><td>神山＋Desa Farm 門票</td><td class="currencyValue" data-min="150" data-max="200">RM150–200</td><td>雙人</td></tr>
+      <tr><td>一般餐飲</td><td class="currencyValue" data-min="600" data-max="850">RM600–850</td><td>含 10/31 Gaya Street 與 11/3 Tanjung Aru 夜市</td></tr>
+      <tr><td>香格里拉餐飲／酒吧</td><td class="currencyValue" data-min="300" data-max="550">RM300–550</td><td>11/2 晚</td></tr>
+      <tr><td>Grab＋按摩</td><td class="currencyValue" data-min="220" data-max="400">RM220–400</td><td>市區交通與 11/3</td></tr>
+      <tr><td><b>總計</b></td><td><b class="currencyValue" data-min="3830" data-max="5780">RM3,830–5,780</b></td><td><b>建議準備 <span class="currencyValue" data-min="4700" data-max="5200">RM4,700–5,200</span></b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">交通距離與時間為規劃用途的約略值；實際出發時直接點各路段的 Google Maps，以當日道路、天候與即時車流為準。11/3 跳島已改為 Shangri-La STAR Marina 主方案；若當日海況取消，未使用的船票／活動費以飯店實際規則處理。</div>
+</section>
+
+<div class="footer">Sabah Couple Escape · 2026/10/30–11/04 · Travel Guide</div>
+</div>
+<button type="button" class="travelFab" id="travelFab"><span class="liveDot"></span>旅行模式</button>
+<div class="travelSheetBackdrop" id="travelBackdrop" aria-hidden="true"></div>
+<aside class="travelSheet" id="travelSheet" aria-label="旅行模式">
+  <div class="travelSheetTop"><div><span class="editorialEyebrow">Travel Mode</span><h3>現在去哪裡？</h3></div><button type="button" class="travelClose" id="travelClose" aria-label="關閉">×</button></div>
+  <div class="travelStatus"><span class="eyebrow" id="travelPhase">TRIP STATUS</span><strong id="travelNow">載入中…</strong><p id="travelNowMeta">正在判斷目前旅程位置。</p><div class="travelProgress"><span id="travelProgressBar"></span></div></div>
+  <div class="travelNext"><small>UP NEXT</small><b id="travelNext">—</b><small id="travelNextMeta">—</small></div>
+  <div class="travelActions"><a href="#day1030" class="primary" id="travelJump">看今天行程</a><button type="button" class="secondary" id="travelMapJump">看旅程地圖</button></div>
+</aside>
+<button class="backTop" id="backTop" aria-label="回到最上方">↑</button>
+
+<script>
+const dayLinks=[...document.querySelectorAll('.dayLink[data-target]')];
+const daySections=dayLinks.map(a=>document.getElementById(a.dataset.target)).filter(Boolean);
+let navLockUntil=0;
+
+const mobileDayToggle=document.getElementById('mobileDayToggle');
+const mobileDayCurrent=document.getElementById('mobileDayCurrent');
+const mobileNavBackdrop=document.getElementById('mobileNavBackdrop');
+const dayJump=document.getElementById('mobileDayNav');
+
+function setActiveDay(id){
+  dayLinks.forEach(a=>a.classList.toggle('active',a.dataset.target===id));
+  const active=dayLinks.find(a=>a.dataset.target===id);
+  if(active&&mobileDayCurrent){
+    const label=active.querySelector('b');
+    if(label)mobileDayCurrent.textContent=label.textContent;
+  }
+}
+
+function setMobileNav(open){
+  if(!dayJump||!mobileDayToggle||!mobileNavBackdrop)return;
+  dayJump.classList.toggle('open',open);
+  mobileNavBackdrop.classList.toggle('show',open);
+  mobileDayToggle.setAttribute('aria-expanded',open?'true':'false');
+  mobileNavBackdrop.setAttribute('aria-hidden',open?'false':'true');
+}
+
+dayLinks.forEach(link=>{
+  link.addEventListener('click',e=>{
+    const target=document.getElementById(link.dataset.target);
+    if(!target)return;
+    e.preventDefault();
+    navLockUntil=Date.now()+900;
+    setActiveDay(target.id);
+    setMobileNav(false);
+    target.scrollIntoView({behavior:'smooth',block:'start'});
+    if(history.replaceState)history.replaceState(null,'','#'+target.id);
+  });
+});
+
+if(mobileDayToggle){
+  mobileDayToggle.addEventListener('click',()=>{
+    const open=mobileDayToggle.getAttribute('aria-expanded')==='true';
+    setMobileNav(!open);
+  });
+}
+if(mobileNavBackdrop){
+  mobileNavBackdrop.addEventListener('click',()=>setMobileNav(false));
+}
+document.querySelectorAll('#mobileDayNav a:not([data-target])').forEach(link=>{
+  link.addEventListener('click',()=>setMobileNav(false));
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')setMobileNav(false);
+});
+
+function updateActiveDay(){
+  if(!daySections.length||Date.now()<navLockUntil)return;
+  const marker=120;
+  let current=daySections[0];
+  for(const section of daySections){
+    if(section.getBoundingClientRect().top<=marker)current=section;
+    else break;
+  }
+  setActiveDay(current.id);
+}
+
+let dayScrollTick=false;
+window.addEventListener('scroll',()=>{
+  if(dayScrollTick)return;
+  dayScrollTick=true;
+  requestAnimationFrame(()=>{
+    updateActiveDay();
+    dayScrollTick=false;
+  });
+},{passive:true});
+window.addEventListener('resize',()=>{
+  updateActiveDay();
+  if(window.innerWidth>760)setMobileNav(false);
+},{passive:true});
+updateActiveDay();
+
+document.querySelectorAll('.checklist').forEach((list,li)=>{
+  const name=list.dataset.list||('list'+li);
+  list.querySelectorAll('.check').forEach((row,i)=>{
+    const cb=row.querySelector('input');
+    const key='sabah26_'+name+'_'+i;
+    try{cb.checked=localStorage.getItem(key)==='1'}catch(e){}
+    row.classList.toggle('done',cb.checked);
+    cb.addEventListener('change',()=>{
+      try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
+      row.classList.toggle('done',cb.checked);
+    });
+  });
+});
+
+const shareBtn=document.getElementById('shareBtn');
+if(shareBtn){
+  shareBtn.addEventListener('click',async()=>{
+    const data={title:document.title,text:'沙巴雙人旅行 2026/10/30–11/04',url:location.href};
+    if(navigator.share){
+      try{await navigator.share(data)}catch(e){}
+    }else{
+      window.prompt('複製這個網址分享：',location.href);
+    }
+  });
+}
+
+const FX_MYR_TWD=7.78;
+const currencyButtons=[...document.querySelectorAll('#budget .currencyBtn')];
+const currencyValues=[...document.querySelectorAll('#budget .currencyValue')];
+
+function formatCurrencyNumber(n){
+  return Math.round(n).toLocaleString('zh-TW');
+}
+
+function renderCurrency(currency){
+  currencyButtons.forEach(btn=>{
+    btn.classList.toggle('active',btn.dataset.currency===currency);
+    btn.setAttribute('aria-pressed',btn.dataset.currency===currency?'true':'false');
+  });
+
+  currencyValues.forEach(el=>{
+    const min=Number(el.dataset.min);
+    const hasMax=typeof el.dataset.max!=='undefined';
+    const max=hasMax?Number(el.dataset.max):null;
+    const single=el.dataset.single==='true';
+
+    if(currency==='TWD'){
+      const minText=formatCurrencyNumber(min*FX_MYR_TWD);
+      if(single){
+        el.textContent='約 NT$'+minText+' 起';
+      }else{
+        const maxText=formatCurrencyNumber(max*FX_MYR_TWD);
+        el.textContent='NT$'+minText+'–'+maxText;
+      }
+    }else{
+      const minText=formatCurrencyNumber(min);
+      if(single){
+        el.textContent='約 RM'+minText+' 起';
+      }else{
+        const maxText=formatCurrencyNumber(max);
+        el.textContent='RM'+minText+'–'+maxText;
+      }
+    }
+  });
+
+  try{localStorage.setItem('sabah26_currency',currency)}catch(e){}
+}
+
+currencyButtons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    renderCurrency(btn.dataset.currency);
+  });
+});
+
+let savedCurrency='MYR';
+try{
+  const stored=localStorage.getItem('sabah26_currency');
+  if(stored==='MYR'||stored==='TWD')savedCurrency=stored;
+}catch(e){}
+renderCurrency(savedCurrency);
+
+// Interactive edition helpers
+document.querySelectorAll('[data-jump]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const el=document.querySelector(btn.dataset.jump);
+    if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+const routeFilters=[...document.querySelectorAll('.routeFilter[data-route-day]')];
+const routeNodes=[...document.querySelectorAll('.routeNode')];
+const routeDetail=document.getElementById('routeDetail');
+routeFilters.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    routeFilters.forEach(b=>b.classList.toggle('active',b===btn));
+    const day=btn.dataset.routeDay;
+    routeNodes.forEach(node=>{
+      const days=(node.dataset.routeDays||'').split(',');
+      node.classList.toggle('dim',day!=='all'&&!days.includes(day));
+      node.classList.remove('active');
+    });
+    if(routeDetail)routeDetail.textContent=day==='all'?'完整旅程已顯示。點一個地點看旅行提示。':'Day '+day+' 路線已亮起。點一個地點看旅行提示。';
+  });
+});
+routeNodes.forEach(node=>{
+  node.addEventListener('click',()=>{
+    routeNodes.forEach(n=>n.classList.remove('active'));
+    node.classList.add('active');
+    if(routeDetail)routeDetail.textContent=node.dataset.routeNote||node.textContent.trim();
+  });
+});
+
+const stampButtons=[...document.querySelectorAll('.stamp[data-stamp]')];
+function stampKey(id){return 'sabah26_interactive_stamp_'+id}
+stampButtons.forEach(btn=>{
+  try{btn.classList.toggle('done',localStorage.getItem(stampKey(btn.dataset.stamp))==='1')}catch(e){}
+  btn.addEventListener('click',()=>{
+    const next=!btn.classList.contains('done');
+    btn.classList.toggle('done',next);
+    btn.classList.remove('pop');
+    void btn.offsetWidth;
+    if(next)btn.classList.add('pop');
+    try{localStorage.setItem(stampKey(btn.dataset.stamp),next?'1':'0')}catch(e){}
+  });
+});
+const resetPassport=document.getElementById('resetPassport');
+if(resetPassport)resetPassport.addEventListener('click',()=>{
+  stampButtons.forEach(btn=>{
+    btn.classList.remove('done','pop');
+    try{localStorage.removeItem(stampKey(btn.dataset.stamp))}catch(e){}
+  });
+});
+
+function formatCountdown(ms){
+  if(ms<=0)return '已抵達這個時刻';
+  const total=Math.floor(ms/1000);
+  const d=Math.floor(total/86400);
+  const h=Math.floor((total%86400)/3600);
+  const m=Math.floor((total%3600)/60);
+  const s=total%60;
+  if(d>0)return d+'天 '+h+'小時 '+m+'分';
+  return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function updateSunsets(){
+  const now=Date.now();
+  document.querySelectorAll('.sunsetMoment').forEach(card=>{
+    const target=new Date(card.dataset.sunset).getTime();
+    const out=card.querySelector('.countdown');
+    if(out)out.textContent=formatCountdown(target-now);
+  });
+}
+updateSunsets();
+setInterval(updateSunsets,1000);
+
+// Dynamic timeline: parse the first HH:MM in each step and highlight today's position.
+const tripDates={
+  day1030:'2026-10-30',
+  day1031:'2026-10-31',
+  day1101:'2026-11-01',
+  day1102:'2026-11-02',
+  day1103:'2026-11-03',
+  day1104:'2026-11-04'
+};
+function sabahNowParts(){
+  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kuala_Lumpur',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+  const v={};parts.forEach(p=>v[p.type]=p.value);
+  return {date:v.year+'-'+v.month+'-'+v.day,minutes:Number(v.hour)*60+Number(v.minute)};
+}
+function stepMinute(step){
+  const t=step.querySelector('.time');
+  if(!t)return null;
+  const m=t.textContent.match(/(\d{1,2}):(\d{2})/);
+  return m?Number(m[1])*60+Number(m[2]):null;
+}
+function updateTimeline(){
+  const now=sabahNowParts();
+  Object.entries(tripDates).forEach(([id,date])=>{
+    const day=document.getElementById(id);
+    if(!day)return;
+    const steps=[...day.querySelectorAll('.step')];
+    steps.forEach(s=>s.classList.remove('tripDone','tripNow'));
+    if(now.date!==date)return;
+    const timed=steps.map((s,i)=>({s,i,m:stepMinute(s)})).filter(x=>x.m!==null);
+    let current=null;
+    timed.forEach((x,idx)=>{
+      const next=timed[idx+1];
+      if(now.minutes>=x.m && (!next||now.minutes<next.m))current=x;
+      if(now.minutes>=x.m && next&&now.minutes>=next.m)x.s.classList.add('tripDone');
+    });
+    if(current)current.s.classList.add('tripNow');
+  });
+}
+updateTimeline();
+setInterval(updateTimeline,60000);
+
+// Travel Mode
+const travelFab=document.getElementById('travelFab');
+const travelSheet=document.getElementById('travelSheet');
+const travelBackdrop=document.getElementById('travelBackdrop');
+const travelClose=document.getElementById('travelClose');
+const travelNow=document.getElementById('travelNow');
+const travelNowMeta=document.getElementById('travelNowMeta');
+const travelNext=document.getElementById('travelNext');
+const travelNextMeta=document.getElementById('travelNextMeta');
+const travelPhase=document.getElementById('travelPhase');
+const travelProgressBar=document.getElementById('travelProgressBar');
+const travelJump=document.getElementById('travelJump');
+const travelMapJump=document.getElementById('travelMapJump');
+function setTravelSheet(open){
+  if(!travelSheet||!travelBackdrop)return;
+  travelSheet.classList.toggle('show',open);
+  travelBackdrop.classList.toggle('show',open);
+  travelBackdrop.setAttribute('aria-hidden',open?'false':'true');
+}
+if(travelFab)travelFab.addEventListener('click',()=>{refreshTravelMode();setTravelSheet(true)});
+document.querySelectorAll('[data-open-travel]').forEach(b=>b.addEventListener('click',()=>{refreshTravelMode();setTravelSheet(true)}));
+if(travelClose)travelClose.addEventListener('click',()=>setTravelSheet(false));
+if(travelBackdrop)travelBackdrop.addEventListener('click',()=>setTravelSheet(false));
+if(travelMapJump)travelMapJump.addEventListener('click',()=>{setTravelSheet(false);document.getElementById('journeyMap')?.scrollIntoView({behavior:'smooth'})});
+
+function getTripEvents(){
+  const events=[];
+  Object.entries(tripDates).forEach(([id,date])=>{
+    const day=document.getElementById(id);
+    if(!day)return;
+    [...day.querySelectorAll('.step')].forEach(step=>{
+      const min=stepMinute(step);
+      if(min===null)return;
+      const text=step.querySelector('.stepText b')?.textContent.trim()||'行程';
+      const meta=step.querySelector('.stepText p')?.textContent.trim()||'';
+      const hh=String(Math.floor(min/60)).padStart(2,'0');
+      const mm=String(min%60).padStart(2,'0');
+      const ts=new Date(date+'T'+hh+':'+mm+':00+08:00').getTime();
+      events.push({id,date,min,ts,text,meta});
+    });
+  });
+  return events.sort((a,b)=>a.ts-b.ts);
+}
+function refreshTravelMode(){
+  const events=getTripEvents();
+  if(!events.length)return;
+  const now=Date.now(), first=events[0], last=events[events.length-1];
+  let current=null,next=null;
+  for(let i=0;i<events.length;i++){
+    if(events[i].ts<=now)current=events[i];
+    if(events[i].ts>now){next=events[i];break}
+  }
+  if(now<first.ts){
+    const diff=first.ts-now;
+    if(travelPhase)travelPhase.textContent='COUNTDOWN';
+    if(travelNow)travelNow.textContent='旅程還沒開始';
+    if(travelNowMeta)travelNowMeta.textContent='距離第一個行程還有 '+formatCountdown(diff);
+    if(travelNext)travelNext.textContent=first.text;
+    if(travelNextMeta)travelNextMeta.textContent=first.date+' · '+String(Math.floor(first.min/60)).padStart(2,'0')+':'+String(first.min%60).padStart(2,'0');
+    if(travelProgressBar)travelProgressBar.style.width='0%';
+    if(travelJump){travelJump.href='#'+first.id;travelJump.textContent='看第一天行程'}
+    return;
+  }
+  if(now>last.ts+5*60*60*1000){
+    if(travelPhase)travelPhase.textContent='TRIP COMPLETE';
+    if(travelNow)travelNow.textContent='Sabah Journey Completed ✓';
+    if(travelNowMeta)travelNowMeta.textContent='所有主要行程已完成，Passport 還可以繼續蓋章收藏。';
+    if(travelNext)travelNext.textContent='回味旅程';
+    if(travelNextMeta)travelNextMeta.textContent='可以從 Day 1 再慢慢看一次。';
+    if(travelProgressBar)travelProgressBar.style.width='100%';
+    if(travelJump){travelJump.href='#day1031';travelJump.textContent='回看旅程'}
+    return;
+  }
+  const done=events.filter(e=>e.ts<=now).length;
+  const pct=Math.max(1,Math.min(100,Math.round(done/events.length*100)));
+  if(travelPhase)travelPhase.textContent='LIVE JOURNEY';
+  if(travelNow)travelNow.textContent=current?current.text:'旅程進行中';
+  if(travelNowMeta)travelNowMeta.textContent=current?current.meta:'';
+  if(travelNext)travelNext.textContent=next?next.text:'今天主要行程已完成';
+  if(travelNextMeta)travelNextMeta.textContent=next?'還有 '+formatCountdown(next.ts-now):'今晚可以好好休息。';
+  if(travelProgressBar)travelProgressBar.style.width=pct+'%';
+  const target=current||next||first;
+  if(travelJump&&target){travelJump.href='#'+target.id;travelJump.textContent='看現在這一天'}
+}
+refreshTravelMode();
+setInterval(refreshTravelMode,60000);
+
+const backTop=document.getElementById('backTop');
+if(backTop){
+  window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700),{passive:true});
+  backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+}
+</script>
+</body></html>
