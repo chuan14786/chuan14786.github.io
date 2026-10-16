@@ -80,6 +80,11 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 .tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:var(--muted);background:#f8fbfb}tr:last-child td{border-bottom:0}
 .safetyCard{margin-top:14px;padding:16px;border-radius:18px;background:linear-gradient(135deg,#edf8f7,#fbfdfd);border:1px solid #d6e9e7}
 .safetyCard h4{margin:0 0 6px;font-size:15px}.safetyCard p{margin:0;color:var(--muted);font-size:13px}
+.resortCard{margin-top:15px;padding:17px;border-radius:20px;background:linear-gradient(135deg,#eef8f7,#fffaf3);border:1px solid #d9e8e6}
+.resortCard h4{margin:0 0 7px;font-size:16px}.resortCard>p{margin:0;color:var(--muted);font-size:13px}
+.resortGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:11px}
+.resortFact{padding:12px;border-radius:14px;background:rgba(255,255,255,.92);border:1px solid var(--line)}
+.resortFact b{display:block;font-size:13px;margin-bottom:3px}.resortFact small{display:block;color:var(--muted);line-height:1.55}
 .safetyGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.safetyOpt{padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}.safetyOpt b{display:block;font-size:13px;margin-bottom:4px}.safetyOpt small{display:block;color:var(--muted);line-height:1.55}
 .currencyBar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff}
 .currencyBar .currencyInfo{font-size:12px;color:var(--muted)}
@@ -95,7 +100,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 @media(max-width:1100px){.dayJump{right:8px}.dayLink{width:76px;padding:7px 6px}.dayLink span{font-size:10px}.wrap{padding-right:102px}}
 @media(max-width:880px){.heroStats{grid-template-columns:1fr 1fr}.overview{grid-template-columns:1fr}.dayHead{grid-template-columns:110px 1fr}.grid2{grid-template-columns:1fr 1fr}}
 @media(max-width:620px){
-  .safetyGrid{grid-template-columns:1fr}
+  .safetyGrid,.resortGrid{grid-template-columns:1fr}
   .wrap{padding:10px 10px 70px}.hero{border-radius:24px;padding:27px 20px 24px}.heroStats{grid-template-columns:1fr 1fr}
   .dayJump{right:4px;top:50%;transform:translateY(-50%);padding:4px;border-radius:13px}.dayJumpInner{gap:3px}.dayLink{width:57px;padding:7px 3px;border-radius:9px}.dayLink b{font-size:9px}.dayLink span{display:none}.wrap{padding-right:68px}
   .sectionTitle{align-items:start;flex-direction:column;gap:2px}.sectionTitle h2{font-size:23px}.keyGrid,.grid2{grid-template-columns:1fr}
@@ -288,52 +293,85 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
 </article>
 
 <article class="day" id="day1102">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="dayTag">Shangri-La</span></div><div class="dayTitle"><h3>神山晨景・Desa Farm・下山入住香格里拉</h3><p>上午完成高原行程，下午開始正式度假。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><div class="num">11/02</div><div class="dow">星期一｜神山 Day 2</div><span class="dayTag">Shangri-La Resort Day</span></div><div class="dayTitle"><h3>神山晨景・Desa Farm・下山入住香格里拉</h3><p>上午完成高原行程，下午把節奏完全切換成度假模式。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
-      <div class="step"><div class="time">05:45–06:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>神山晨景</b><p>天氣允許就在住宿附近看山、拍照。</p></div></div>
-      <div class="step"><div class="time">07:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐・退房</b><p>行李上車後前往 Desa Farm。</p></div></div>
-      <div class="step"><div class="time">08:00–09:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Desa Cattle Dairy Farm</b><p>早場看草原、神山、鮮奶與冰淇淋。</p></div></div>
-      <div class="step"><div class="time">09:45–12:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>下山回亞庇</b><p>不再塞景點，山路慢慢開。</p></div></div>
-      <div class="step"><div class="time">12:30–13:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>加油・還車</b><p>若可選，優先 BKI 或香格里拉附近還車，減少折返。</p></div></div>
-      <div class="step"><div class="time">13:45–15:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Shangri-La Tanjung Aru</b><p>提早到可先寄行李、吃午餐、熟悉飯店。</p></div></div>
-      <div class="step"><div class="time">15:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>正式入住</b><p>優先 Tanjung Wing；下午完全留在飯店。</p></div></div>
-      <div class="step"><div class="time">17:00–18:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Sunset Bar</b><p>看夕陽、喝飲料。</p></div></div>
-      <div class="step"><div class="time">19:00</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>飯店晚餐</b><p>Coco-Joe's 或館內餐廳，今晚不再回市區。</p></div></div>
+      <div class="step"><div class="time">05:45–06:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Ausvilla 看神山晨景</b><p>天氣允許就在住宿附近看山、拍照。</p></div></div>
+      <div class="step"><div class="time">06:30–07:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>早餐</b><p>不急著退房，行李先留在房內。</p></div></div>
+      <div class="step"><div class="time">07:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Desa Farm</b><p>Ausvilla 到牧場約 10–15 分鐘。</p></div></div>
+      <div class="step"><div class="time">08:00–09:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Desa Cattle Dairy Farm</b><p>草原、神山、鮮奶與冰淇淋，早場完成後回住宿收行李。</p></div></div>
+      <div class="step"><div class="time">09:35–10:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回 Ausvilla・整理・退房</b><p>上廁所、換衣服、把行李收好再下山。</p></div></div>
+      <div class="step"><div class="time">10:15–13:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>下山回亞庇</b><p>山路抓 2.5–3 小時，途中視情況短休。</p></div></div>
+      <div class="step"><div class="time">13:00–13:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>加油・還車</b><p>優先在 BKI／Tanjung Aru 一帶完成還車，避免折返。</p></div></div>
+      <div class="step"><div class="time">13:45–14:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Shangri-La Tanjung Aru</b><p>若房間尚未準備好，先寄放行李、吃點東西或在園區散步。</p></div></div>
+      <div class="step"><div class="time">15:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>正式 Check-in</b><p>先回房放鬆，再把下午留給飯店設施。</p></div></div>
+      <div class="step"><div class="time">15:20–15:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>先到 STAR Marina 確認隔天船班</b><p>確認 11/3 Manukan 去回程、海況、裝備與報到時間。</p></div></div>
+      <div class="step"><div class="time">15:40–16:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>泳池／Sunset Beach／園區散步</b><p>依當天開放區域選一個，不再往市區跑。</p></div></div>
+      <div class="step"><div class="time">17:00–18:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Sunset Bar</b><p>提早入座看海景與夕陽；官方營業約 17:00–21:00，視天候開放。</p></div></div>
+      <div class="step"><div class="time">19:00–20:15</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>館內晚餐・回房休息</b><p>Coco-Joe's 或其他館內餐廳，今晚不再安排外出。</p></div></div>
     </div>
     <div class="transfers">
-      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Kundasang → Desa Farm</b><span>住宿區前往牧場</span></div><div class="metrics"><b>約 5–6 km</b><span>約 8–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kundasang+Sabah&destination=Desa+Cattle+Dairy+Farm+Kundasang&travelmode=driving">Google Maps</a></div></div>
-      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Desa Farm → BKI／Tanjung Aru</b><span>高原下山回亞庇</span></div><div class="metrics"><b>約 100 km</b><span>預留 2.5–3 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Desa+Cattle+Dairy+Farm+Kundasang&destination=Shangri-La+Tanjung+Aru+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Ausvilla → Desa Farm</b><span>早場牧場</span></div><div class="metrics"><b>約 10–15 分</b><span>短程山路</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Ausvilla+Kundasang&destination=Desa+Cattle+Dairy+Farm+Kundasang&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚗</div><div class="transferRoute"><b>Ausvilla → BKI／Tanjung Aru</b><span>高原下山回亞庇</span></div><div class="metrics"><b>約 90–100 km</b><span>預留 2.5–3 小時</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Ausvilla+Kundasang&destination=Shangri-La+Tanjung+Aru+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🌅 飯店安排</b><p>Check-in → 房間／泳池 → Sunset Bar → 晚餐。今天下山後不再安排城市行程。</p></div></div>
-    <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Desa+Cattle+Dairy+Farm+Kundasang">Desa Farm</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Shangri-La+Tanjung+Aru">Shangri-La</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sunset+Bar+Shangri-La+Tanjung+Aru">Sunset Bar</a></div>
+
+    <div class="resortCard">
+      <h4>🌴 Shangri-La Tanjung Aru｜這一晚怎麼玩最值得</h4>
+      <p>飯店位在南中國海半島型園區，這晚的價值在「留在 Resort 裡」，把泳池、Sunset Beach、Sunset Bar、餐廳與隔天 STAR Marina 串在一起。</p>
+      <div class="resortGrid">
+        <div class="resortFact"><b>🏊 泳池</b><small>官方目前泳池開放約 07:00–21:00；旅程期間飯店仍有翻新工程，入住時以現場實際開放區域為準。</small></div>
+        <div class="resortFact"><b>🌅 Sunset Bar</b><small>約 17:00–21:00、視天候營業。建議 17:00 左右就入座，避免為了座位壓縮看夕陽的時間。</small></div>
+        <div class="resortFact"><b>⛴ STAR Marina</b><small>就在度假村內。11/2 下午先完成 11/3 Manukan 船班確認，隔天退房後直接步行去碼頭。</small></div>
+        <div class="resortFact"><b>💆 Chi, The Spa</b><small>官方目前約 11:30–21:00。若 10/31 已按摩，這晚可留作選配，避免行程太滿。</small></div>
+      </div>
+      <div class="note">2026/11 入住期間飯店正進行分階段翻新，官方列出的工程時段約 09:00–18:00；餐廳酒吧、Sunset Beach、STAR Marina、Chi Spa 與多項休閒設施維持營運。Check-in 時可再詢問房間位置與當日施工影響。</div>
+    </div>
+
+    <div class="actions"><a class="action primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Shangri-La+Tanjung+Aru">Shangri-La</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Sunset+Bar+Shangri-La+Tanjung+Aru">Sunset Bar</a><a class="action" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a></div>
   </div>
 </article>
 
 <article class="day" id="day1103">
-  <div class="dayHead"><div class="dateBox"><div class="num">11/03</div><div class="dow">星期二｜香格里拉＋跳島</div><span class="dayTag">STAR Marina</span></div><div class="dayTitle"><h3>早餐・退房寄行李・Manukan Island</h3><p>利用飯店內 STAR Marina 直接出海，省掉公共碼頭轉乘。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><div class="num">11/03</div><div class="dow">星期二｜香格里拉＋跳島＋Chill Night</div><span class="dayTag">STAR Marina → Manukan</span></div><div class="dayTitle"><h3>悠閒早餐・退房後跳島・丹絨亞路夕陽</h3><p>早上把香格里拉住滿，再去 Manukan；晚上用海灘、夜市與散步替旅程收尾。</p></div></div>
   <div class="dayBody">
     <div class="timeline">
-      <div class="step"><div class="time">06:45–08:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>香格里拉早餐</b><p>慢慢吃，保留退房與登船緩衝。</p></div></div>
-      <div class="step"><div class="time">08:00–09:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>整理行李・最後享受飯店</b><p>拍照、散步、回房換海島服裝。</p></div></div>
-      <div class="step"><div class="time">09:10–09:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>提早 Check-out・寄放行李</b><p>行李交 Concierge，輕裝前往 STAR Marina。</p></div></div>
-      <div class="step"><div class="time">09:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>STAR Marina 報到</b><p>確認救生衣、船班與回程時間。</p></div></div>
-      <div class="step"><div class="time">10:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>搭船前往 Manukan</b><p>飯店碼頭直達海島。</p></div></div>
-      <div class="step"><div class="time">10:20–13:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Manukan Island</b><p>浮潛、沙灘、拍照與簡單午餐。</p></div></div>
-      <div class="step"><div class="time">13:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>搭船返回香格里拉</b><p>回飯店取寄放行李。</p></div></div>
-      <div class="step"><div class="time">14:00–14:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>前往 Tanjung Aru／機場方向飯店</b><p>最後一晚以靠近 BKI、方便早班機為優先。</p></div></div>
-      <div class="step"><div class="time">15:00–17:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>洗澡・休息</b><p>跳島後補眠、整理行李。</p></div></div>
-      <div class="step"><div class="time">17:30–19:00</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>簡單晚餐・早睡</b><p>今晚不再安排按摩或大餐，為隔天 04:15 起床做準備。</p></div></div>
+      <div class="step"><div class="time">08:30–10:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>香格里拉悠閒早餐</b><p>睡飽再吃，不安排清晨行程。</p></div></div>
+      <div class="step"><div class="time">10:00–10:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>最後享受飯店・整理行李</b><p>Sunset Beach 散步、拍照、回房換海島服裝。</p></div></div>
+      <div class="step"><div class="time">10:50–11:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Check-out・寄放行李</b><p>大行李交 Concierge，帶防水袋、毛巾與必要物品出海。</p></div></div>
+      <div class="step"><div class="time">11:10–11:25</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>STAR Marina 報到</b><p>依前一天確認的班次辦理報到、救生衣與裝備。</p></div></div>
+      <div class="step"><div class="time">約 11:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>搭船前往 Manukan</b><p>飯店碼頭直接出發，船程約 15–20 分。</p></div></div>
+
+      <div class="step"><div class="time">11:50–12:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>上島・找回程集合點</b><p>先確認 15:20 回程集合位置，再擦防曬、準備浮潛。</p></div></div>
+      <div class="step"><div class="time">12:10–13:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>第一輪浮潛</b><p>先把體力最好的時段留給水下活動，約 45–60 分鐘即可。</p></div></div>
+      <div class="step"><div class="time">13:10–13:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>島上午餐＋休息</b><p>簡單吃炒飯、炒麵或小食，補水後坐陰涼處休息。</p></div></div>
+      <div class="step"><div class="time">13:50–14:35</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>自由選一項</b><p>沙灘拍照／再浮潛一次／若事先預約則選 Parasailing、Sea Walking 等一項水上活動。</p></div></div>
+      <div class="step"><div class="time">14:35–15:05</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>沖洗・換乾衣服・回碼頭</b><p>預留緩衝，不把最後活動壓到登船前。</p></div></div>
+      <div class="step"><div class="time">約 15:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回程船</b><p>約 15:40 回到香格里拉，取寄放行李。</p></div></div>
+
+      <div class="step"><div class="time">15:50–16:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Shangri-La → Eminent Hotel</b><p>Grab 前往最後一晚住宿。</p></div></div>
+      <div class="step"><div class="time">16:20–17:05</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Eminent Check-in・洗澡休息</b><p>把跳島後的濕衣物整理好，再輕裝出門。</p></div></div>
+
+      <div class="step"><div class="time">17:10–17:25</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 前往 Tanjung Aru Beach</b><p>最後一晚只安排近距離 chill 行程。</p></div></div>
+      <div class="step"><div class="time">17:25–18:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Tanjung Aru Beach 看夕陽</b><p>慢慢散步、拍照、吹海風，不追行程。</p></div></div>
+      <div class="step"><div class="time">18:10–19:10</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Tanjung Aru Beach Night Market 晚餐</b><p>夜市約 17:00–22:00，簡單吃烤物、沙嗲、海鮮與飲料。</p></div></div>
+      <div class="step"><div class="time">19:10–19:45</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Prince Philip Park 海邊散步</b><p>買杯飲料、坐一下，讓旅程舒服收尾。</p></div></div>
+      <div class="step"><div class="time">19:45–20:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 回 Eminent Hotel</b><p>不再續攤。</p></div></div>
+      <div class="step"><div class="time">20:00–20:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>整理行李・預約機場接送</b><p>確認護照、行李、04:40 左右的接駁／Grab。</p></div></div>
+      <div class="step"><div class="time">20:45–21:15</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>上床休息</b><p>隔天 04:15 起床。</p></div></div>
     </div>
+
     <div class="transfers">
-      <div class="transfer"><div class="mode">⛴</div><div class="transferRoute"><b>Shangri-La STAR Marina → Manukan</b><span>飯店內碼頭直達海島</span></div><div class="metrics"><b>約 15–20 分</b><span>以當日船班為準</span><a class="mapBtn" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a></div></div>
-      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Shangri-La → Tanjung Aru／BKI 飯店</b><span>取行李後 Grab 前往最後一晚住宿</span></div><div class="metrics"><b>約 3–6 km</b><span>約 5–12 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Shangri-La+Tanjung+Aru+Kota+Kinabalu&destination=Kota+Kinabalu+International+Airport&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">⛴</div><div class="transferRoute"><b>Shangri-La STAR Marina → Manukan</b><span>飯店內碼頭直達海島</span></div><div class="metrics"><b>約 15–20 分</b><span>船班以前一天確認為準</span><a class="mapBtn" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a></div></div>
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Shangri-La → Eminent Hotel</b><span>取行李後前往最後一晚住宿</span></div><div class="metrics"><b>約 15–25 分</b><span>視交通狀況</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Shangri-La+Tanjung+Aru+Kota+Kinabalu&destination=Eminent+Hotel+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>Eminent Hotel → Tanjung Aru Beach</b><span>最後一晚夕陽＋夜市</span></div><div class="metrics"><b>約 10–20 分</b><span>Grab 短程移動</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Eminent+Hotel+Kota+Kinabalu&destination=Tanjung+Aru+Beach+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
+
     <div class="safetyCard">
-      <h4>🛟 STAR Marina 安排</h4>
-      <p>這天直接使用香格里拉自營碼頭，把道路接駁與公共碼頭轉乘拿掉。建議出發前一天在飯店再次確認 10:00 去程、13:20 回程及當日海況；若船班調整，以飯店通知為準。</p>
+      <h4>🛟 11/3 操作重點</h4>
+      <p>11/2 入住後先到 STAR Marina 確認隔天船班。11/3 退房後把大行李寄在香格里拉，只帶防水袋出海；回程後取行李直接去 Eminent。若海況取消跳島，上午就留在香格里拉，下午提早去 Tanjung Aru 放鬆。</p>
     </div>
-    <div class="actions"><a class="action primary" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Manukan+Island+Sabah">Manukan Island</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kota+Kinabalu+International+Airport">BKI</a></div>
+
+    <div class="actions"><a class="action primary" target="_blank" href="https://www.shangri-la.com/kotakinabalu/tanjungaruresort/sports-recreation/star-marina/">STAR Marina</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Manukan+Island+Sabah">Manukan</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Tanjung+Aru+Beach+Kota+Kinabalu">Tanjung Aru Beach</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Tanjung+Aru+Beach+Night+Market">Night Market</a><a class="action" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Prince+Philip+Park+Kota+Kinabalu">Prince Philip Park</a></div>
   </div>
 </article>
 
@@ -367,6 +405,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
     <label class="check"><input type="checkbox"><span>向 Shangri-La／STAR Marina 確認 11/3 Manukan 船班與預約方式</span></label>
     <label class="check"><input type="checkbox"><span>確認 11/3 退房後可寄放行李至跳島回來</span></label>
     <label class="check"><input type="checkbox"><span>確認 Sunset Bar／香格里拉晚餐是否需要訂位</span></label>
+    <label class="check"><input type="checkbox"><span>11/3 入住 Eminent 時預約 11/4 凌晨機場接送／確認 Grab 備案</span></label>
   </div></div>
 </section>
 
@@ -407,7 +446,7 @@ border-radius:32px;padding:38px 34px 32px;color:#fff;box-shadow:0 24px 60px rgba
       <tr><td>油資／停車</td><td class="currencyValue" data-min="100" data-max="150">RM100–150</td><td>神山來回</td></tr>
       <tr><td>Manukan 跳島｜Shangri-La STAR Marina</td><td class="currencyValue" data-min="240" data-max="380">RM240–380</td><td>雙人估算；基本船票＋公園費起算，裝備／餐飲依實際使用增加</td></tr>
       <tr><td>神山＋Desa Farm 門票</td><td class="currencyValue" data-min="150" data-max="200">RM150–200</td><td>雙人</td></tr>
-      <tr><td>一般餐飲</td><td class="currencyValue" data-min="600" data-max="850">RM600–850</td><td>含 10/31 Gaya Street 夜市與 11/3 簡單晚餐</td></tr>
+      <tr><td>一般餐飲</td><td class="currencyValue" data-min="600" data-max="850">RM600–850</td><td>含 10/31 Gaya Street 與 11/3 Tanjung Aru 夜市</td></tr>
       <tr><td>香格里拉餐飲／酒吧</td><td class="currencyValue" data-min="300" data-max="550">RM300–550</td><td>11/2 晚</td></tr>
       <tr><td>Grab＋按摩</td><td class="currencyValue" data-min="220" data-max="400">RM220–400</td><td>市區交通與 11/3</td></tr>
       <tr><td><b>總計</b></td><td><b class="currencyValue" data-min="3830" data-max="5780">RM3,830–5,780</b></td><td><b>建議準備 <span class="currencyValue" data-min="4700" data-max="5200">RM4,700–5,200</span></b></td></tr>
