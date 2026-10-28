@@ -669,21 +669,21 @@ html{scroll-padding-top:112px}
 
   <div class="creditCard" id="resortCredit">
     <span class="editorialEyebrow" style="color:#f3d7a5">Interactive Resort Credit</span>
-    <h3>US$300 香格里拉額度計算器</h3>
-    <p>先用 RM1,225 作旅行規劃值。勾選想使用額度的項目，網站會即時計算餘額。</p>
+    <h3>US$100 香格里拉額度計算器</h3>
+    <p>先用 RM410 作旅行規劃值。勾選想使用額度的項目，網站會即時計算餘額。</p>
     <div class="creditSummary">
-      <div class="creditStat"><b>RM1,225</b><small>規劃額度</small></div>
+      <div class="creditStat"><b>RM410</b><small>規劃額度</small></div>
       <div class="creditStat"><b id="creditUsed">RM0</b><small>已規劃使用</small></div>
-      <div class="creditStat"><b id="creditRemain">RM1,225</b><small>剩餘額度</small></div>
+      <div class="creditStat"><b id="creditRemain">RM410</b><small>剩餘額度</small></div>
     </div>
     <div class="creditItems">
       <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="120"><span><b>Sunset Bar｜RM120</b><small>兩人各一杯 Cocktail／Mocktail。</small></span></label>
-      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="550"><span><b>Coco-Joe's 晚餐｜RM550</b><small>海鮮分享餐＋飲品，優先推薦。</small></span></label>
+      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="140"><span><b>Coco-Joe's 晚餐折抵｜RM140</b><small>把剩餘額度拿來補貼晚餐，其餘自付。</small></span></label>
       <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="150"><span><b>11/3 輕午餐｜RM150</b><small>13:00 出海前先吃。</small></span></label>
-      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="240"><span><b>STAR Marina｜RM240</b><small>先向飯店確認你的 credit 是否可抵。</small></span></label>
-      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="300"><span><b>Chi Spa 備用｜RM300</b><small>若 STAR Marina 不可抵，可拿剩餘額度做短療程。</small></span></label>
+      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="140"><span><b>STAR Marina 折抵｜RM140</b><small>若可抵，就把剩餘額度改用在船票／活動。</small></span></label>
+      <label class="creditItem creditCheck"><input type="checkbox" class="creditSpend" data-amount="140"><span><b>Chi Spa 折抵｜RM140</b><small>若船票不能抵，也可把餘額用來補貼 Spa。</small></span></label>
     </div>
-    <div class="creditNote" id="creditMessage">推薦先勾 Sunset Bar＋Coco-Joe's＋11/3 午餐，再依飯店回覆決定 STAR Marina 或 Spa。</div>
+    <div class="creditNote" id="creditMessage">推薦先勾 Sunset Bar＋11/3 午餐，再把剩餘額度用在 Coco-Joe's、STAR Marina 或 Spa 三選一。</div>
   </div>
 </section>
 
@@ -1164,7 +1164,7 @@ const creditChecks=[...document.querySelectorAll('.creditSpend')];
 const creditUsed=document.getElementById('creditUsed');
 const creditRemain=document.getElementById('creditRemain');
 const creditMessage=document.getElementById('creditMessage');
-const CREDIT_TOTAL=1225;
+const CREDIT_TOTAL=410;
 function updateCredit(){
   let used=0;
   creditChecks.forEach((cb,i)=>{
