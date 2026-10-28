@@ -76,6 +76,17 @@ border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba
 .actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.action{padding:7px 10px;border-radius:10px;background:#f0f7f8;border:1px solid #dae9eb;color:#0a636b;font-size:12px;font-weight:850}
 .action.primary{background:var(--teal);color:white;border-color:var(--teal)}
 
+
+.arrivalLegend{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.arrivalPill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;font-size:10px;font-weight:900;border:1px solid var(--line)}
+.arrivalPill.solo{background:#f5ebe6;color:#8d655f;border-color:#ead9d3}.arrivalPill.meet{background:#fbf2df;color:#916a2f;border-color:#ecdcb9}.arrivalPill.together{background:var(--tealSoft);color:var(--teal);border-color:#d6e8e5}
+.arrivalGroup{position:relative;margin:10px 0 16px;padding:15px 15px 8px;border-radius:20px;border:1px solid var(--line)}
+.arrivalGroup.solo{background:linear-gradient(135deg,#fcf5f0,#fffdfa);border-color:#eadbd5}.arrivalGroup.together{background:linear-gradient(135deg,#eef7f5,#fffdfa);border-color:#d7e8e4}
+.arrivalGroupHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:3px}.arrivalGroupHead b{font-size:13px}.arrivalGroupHead span{font-size:10px;color:var(--muted)}
+.meetPoint{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;margin:14px 0;padding:15px 16px;border-radius:18px;background:linear-gradient(135deg,#fbf1dc,#fffaf1);border:1px solid #ead7b1}
+.meetIcon{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#9a623b;font-size:20px;box-shadow:0 7px 18px rgba(112,82,50,.08)}.meetPoint b{display:block;font-size:14px}.meetPoint p{margin:2px 0 0;color:var(--muted);font-size:11px}
+.soloQuickLinks{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 4px}.soloQuickLinks a{display:inline-flex;padding:6px 8px;border-radius:9px;background:#fff;border:1px solid var(--line);font-size:10px;font-weight:850;color:var(--teal)}
+
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .checklist{display:grid;gap:8px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:11px;background:#fff}.check input{width:18px;height:18px;margin-top:4px;accent-color:var(--teal)}.check.done{opacity:.52;text-decoration:line-through}
 .tableWrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:650px}th,td{padding:12px 10px;border-bottom:1px solid var(--line);text-align:left}th{font-size:12px;color:var(--muted);background:#f8fbfb}tr:last-child td{border-bottom:0}
@@ -257,17 +268,53 @@ border-radius:34px;padding:50px 42px 36px;color:#fff;box-shadow:0 28px 70px rgba
 <div class="days">
 
 <article class="day" id="day1030">
-  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 0 · Arrival</span><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="dayTag">亞庇市區</span></div><div class="dayTitle"><h3>抵達亞庇・直接休息</h3><p>晚班機抵達，今晚只追求順利入住與睡飽。</p></div></div>
+  <div class="dayHead"><div class="dateBox"><span class="editorialEyebrow">Day 0 · Arrival</span><div class="num">10/30</div><div class="dow">星期五｜抵達日</div><span class="dayTag">Solo → Meet Up → Together</span></div><div class="dayTitle"><h3>她先抵達亞庇・晚上 BKI 會合</h3><p>白天只安排 Horizon 與 Gaya Street 周邊，下午充分休息；22:50 在機場會合後，兩人的沙巴旅程正式開始。</p></div></div>
   <div class="dayBody">
-    <div class="timeline">
-      <div class="step"><div class="time">22:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>抵達 BKI</b><p>入境、領行李。</p></div></div>
-      <div class="step"><div class="time">23:30–00:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab 前往市區</b><p>建議住 Gaya Street／Jesselton Point 一帶。</p></div></div>
-      <div class="step"><div class="time">深夜</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>Check-in・休息</b><p>隔天不要排太早。</p></div></div>
+    <div class="arrivalLegend">
+      <span class="arrivalPill solo">👩 女生先行</span>
+      <span class="arrivalPill meet">❤️ BKI 會合</span>
+      <span class="arrivalPill together">💑 兩人同行</span>
     </div>
+
+    <div class="arrivalGroup solo">
+      <div class="arrivalGroupHead"><b>👩 Solo Arrival</b><span>09:00–21:50</span></div>
+      <div class="timeline">
+        <div class="step"><div class="time">09:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>女生抵達 BKI</b><p>入境、領行李，抓約 45–60 分鐘。</p></div></div>
+        <div class="step"><div class="time">10:00–10:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Grab → Horizon Hotel</b><p>先寄放大行李，只背小包在市中心活動。</p></div></div>
+        <div class="step"><div class="time">10:30–11:20</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Yee Fung Laksa 早午餐</b><p>吃一碗叻沙／牛雜麵即可，離 Horizon 很近。</p></div></div>
+        <div class="step"><div class="time">11:20–12:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Gaya Street 慢慢走</b><p>熟悉市中心、買水，不另外塞景點。</p></div></div>
+        <div class="step"><div class="time">12:00–14:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>October Coffee Gaya</b><p>咖啡、甜點、吹冷氣，適合一個人舒服坐一段時間。</p></div></div>
+        <div class="step"><div class="time">14:00–17:30</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回 Horizon・Check-in／休息</b><p>洗澡、補眠、泳池，保留晚上接機體力。</p></div></div>
+        <div class="step"><div class="time">18:00–19:15</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>Guan's Kopitiam 晚餐</b><p>咖哩炸雞椰漿飯、海南雞排或簡單南洋餐點。</p></div></div>
+        <div class="step"><div class="time">19:15–21:40</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>回 Horizon 休息</b><p>充電、整理小包，確認男生班機動態。</p></div></div>
+        <div class="step"><div class="time">21:50</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>Grab → BKI 接機</b><p>建議約 22:15 抵達機場，時間很充裕。</p></div></div>
+      </div>
+      <div class="soloQuickLinks">
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Horizon+Hotel+Kota+Kinabalu">Horizon</a>
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Yee+Fung+Laksa+Kota+Kinabalu">Yee Fung</a>
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=October+Coffee+Gaya+Kota+Kinabalu">October Coffee</a>
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Guan%27s+Kopitiam+Gaya+Street">Guan's</a>
+      </div>
+    </div>
+
+    <div class="meetPoint">
+      <div class="meetIcon">❤️</div>
+      <div><b>22:50 · BKI Meet Up</b><p>男生抵達沙巴。從這個時間點開始，後續行程全部都是兩人同行。</p></div>
+    </div>
+
+    <div class="arrivalGroup together">
+      <div class="arrivalGroupHead"><b>💑 Together</b><span>22:50 onward</span></div>
+      <div class="timeline">
+        <div class="step"><div class="time">22:50</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>男生抵達 BKI</b><p>女生在機場等候；男生入境、領行李。</p></div></div>
+        <div class="step"><div class="time">23:30–00:00</div><div class="dotcol"><span class="dot"></span><span class="line"></span></div><div class="stepText"><b>一起 Grab → Horizon Hotel</b><p>接到人後直接回飯店，不安排宵夜行程。</p></div></div>
+        <div class="step"><div class="time">深夜</div><div class="dotcol"><span class="dot"></span></div><div class="stepText"><b>Horizon Hotel・休息</b><p>隔天睡飽再開始亞庇慢遊。</p></div></div>
+      </div>
+    </div>
+
     <div class="transfers">
-      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>BKI → Gaya Street 市區</b><span>機場到市中心住宿區</span></div><div class="metrics"><b>約 8 km</b><span>預留 10–15 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kota+Kinabalu+International+Airport&destination=Gaya+Street+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
+      <div class="transfer"><div class="mode">🚕</div><div class="transferRoute"><b>BKI ↔ Horizon Hotel</b><span>女生白天進市區、晚上回機場接人，再一起回飯店</span></div><div class="metrics"><b>單程約 8 km</b><span>約 10–20 分</span><a class="mapBtn" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=Kota+Kinabalu+International+Airport&destination=Horizon+Hotel+Kota+Kinabalu&travelmode=driving">Google Maps</a></div></div>
     </div>
-    <div class="dayMeta"><div class="mini"><b>🏨 住宿</b><p>Gaya Street／Jesselton Point／市中心，方便隔天步行或 Grab 到碼頭。</p></div></div>
+    <div class="dayMeta"><div class="mini"><b>💡 這天的原則</b><p>女生單獨活動只留在 Horizon／Gaya Street 周邊；真正的共同旅程從 22:50 BKI 會合後開始。</p></div></div>
   </div>
 </article>
 
