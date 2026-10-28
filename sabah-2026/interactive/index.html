@@ -257,6 +257,103 @@ linear-gradient(135deg,#f7f3ea,#eef6f3)}
 @media(prefers-reduced-motion:reduce){.stamp.pop,.step.tripNow .dot{animation:none}}
 @media print{body{background:#fff}.wrap{max-width:none}.dayJump,.mobileDayToggle,.mobileNavBackdrop,.heroActions,.backTop{display:none}.hero,.card,.day{box-shadow:none}.day{break-inside:avoid}}
 </style>
+
+<style id="topNavExperiment">
+html{scroll-padding-top:112px}
+.wrap{max-width:1100px;margin:0 auto;padding:92px 16px 80px!important}
+
+.dayJump,
+.dayJump.open{
+  position:fixed!important;
+  top:10px!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translateX(-50%)!important;
+  z-index:120!important;
+  width:min(1080px,calc(100% - 24px))!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:6px!important;
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+  border:1px solid rgba(215,224,224,.92)!important;
+  border-radius:18px!important;
+  background:rgba(255,253,250,.90)!important;
+  backdrop-filter:blur(18px) saturate(1.15)!important;
+  box-shadow:0 14px 40px rgba(25,49,57,.13)!important;
+}
+.dayJumpShell{display:flex;align-items:center;gap:6px;min-width:0}
+.navBrand{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  min-width:84px;height:48px;padding:0 12px;border-radius:13px;
+  background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;
+  font-family:Georgia,"Times New Roman",serif;font-size:12px;font-weight:700;
+  letter-spacing:.08em
+}
+.dayJumpInner{
+  min-width:0;flex:1;display:flex!important;flex-direction:row!important;align-items:stretch;
+  gap:5px!important;overflow-x:auto!important;overflow-y:hidden!important;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain
+}
+.dayJumpInner::-webkit-scrollbar{display:none}
+.dayLink{
+  flex:0 0 auto!important;width:auto!important;min-width:82px!important;
+  min-height:48px!important;padding:7px 10px!important;border-radius:12px!important;
+  display:flex!important;flex-direction:column;justify-content:center;text-align:center;
+  border:1px solid transparent!important;background:transparent;color:var(--ink)
+}
+.dayLink b{display:block!important;font-size:12px!important;line-height:1.2}
+.dayLink span{display:block!important;font-size:9px!important;line-height:1.2;color:var(--muted)!important;margin-top:3px}
+.dayLink.active{background:var(--teal)!important;color:#fff!important;box-shadow:none!important}
+.dayLink.active span{color:rgba(255,255,255,.76)!important}
+.moreMenuBtn{border:0!important;font:inherit;cursor:pointer}
+.moreMenuBtn[aria-expanded="true"]{background:var(--sand2)!important;color:var(--ink)!important;border-color:#eadcc4!important}
+.mobileDayToggle,.mobileNavBackdrop{display:none!important}
+
+.toolTray{
+  position:fixed;top:76px;left:50%;z-index:119;
+  width:min(900px,calc(100% - 28px));transform:translate(-50%,-8px);
+  padding:8px;border:1px solid rgba(215,224,224,.94);border-radius:16px;
+  background:rgba(255,253,250,.96);backdrop-filter:blur(18px);
+  box-shadow:0 16px 42px rgba(25,49,57,.13);
+  opacity:0;visibility:hidden;pointer-events:none;transition:.18s ease
+}
+.toolTray.open{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.toolTrayScroll{
+  display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  padding:1px;overscroll-behavior-inline:contain
+}
+.toolTrayScroll::-webkit-scrollbar{display:none}
+.toolChip{
+  flex:0 0 auto;min-height:40px;border:1px solid var(--line);border-radius:12px;
+  background:#fff;color:var(--ink);padding:8px 12px;font-size:11px;font-weight:850;
+  cursor:pointer;white-space:nowrap
+}
+.toolChip:hover,.toolChip:focus-visible{background:var(--tealSoft);border-color:#cfe3e0;color:var(--teal)}
+.toolChip.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.day{scroll-margin-top:104px!important}
+.section,.interactiveSection{scroll-margin-top:104px}
+
+@media(max-width:760px){
+  .wrap{padding:82px 10px 92px!important}
+  .dayJump,.dayJump.open{top:8px!important;width:calc(100% - 16px)!important;padding:5px!important;border-radius:16px!important}
+  .navBrand{display:none}
+  .dayLink{min-width:72px!important;min-height:46px!important;padding:6px 8px!important}
+  .dayLink b{font-size:11px!important}.dayLink span{font-size:8px!important}
+  .toolTray{top:68px;width:calc(100% - 20px);border-radius:15px;padding:7px}
+  .toolChip{min-height:42px}
+  .travelFab{bottom:76px!important}
+  .travelSheet{bottom:130px!important}
+}
+@media print{
+  .dayJump,.toolTray{display:none!important}
+  .wrap{padding-top:10px!important}
+}
+</style>
+
 </head>
 <body>
 <div class="wrap" id="top">
@@ -281,26 +378,38 @@ linear-gradient(135deg,#f7f3ea,#eef6f3)}
     <button type="button" class="iDockBtn" data-jump="#passport"><b>◎ Travel Passport</b><small>旅行蓋章收藏</small></button>
     <button type="button" class="iDockBtn" data-jump="#sunsetExperience"><b>◐ Sunset</b><small>兩次夕陽倒數</small></button>
   </div>
-  <div class="originalBadge">Interactive Lab · 原版網站完全保留</div>
+  <div class="originalBadge">Interactive Lab · Top Navigation Experiment · 原版網站完全保留</div>
 </header>
 
-<nav class="dayJump" id="mobileDayNav" aria-label="快速切換每日行程">
-  <div class="dayJumpInner">
-    <a class="dayLink active" href="#day1030" data-target="day1030"><b>10/30(五)</b><span>抵達</span></a>
-    <a class="dayLink" href="#day1031" data-target="day1031"><b>10/31(六)</b><span>亞庇</span></a>
-    <a class="dayLink" href="#day1101" data-target="day1101"><b>11/01(日)</b><span>神山 D1</span></a>
-    <a class="dayLink" href="#day1102" data-target="day1102"><b>11/02(一)</b><span>神山 D2</span></a>
-    <a class="dayLink" href="#day1103" data-target="day1103"><b>11/03(二)</b><span>跳島</span></a>
-    <a class="dayLink" href="#day1104" data-target="day1104"><b>11/04(三)</b><span>回程</span></a>
-    <a class="dayLink" href="#foodGuide"><b>🍴</b><span>餐飲</span></a>
-    <a class="dayLink" href="#todo"><b>✓</b><span>待辦</span></a>
-    <a class="dayLink" href="#budget"><b>預算</b><span>總覽</span></a>
+<nav class="dayJump" id="mobileDayNav" aria-label="固定行程導覽">
+  <div class="dayJumpShell">
+    <a class="navBrand" href="#top" aria-label="回到首頁">SABAH 26</a>
+    <div class="dayJumpInner">
+      <a class="dayLink active" href="#day1030" data-target="day1030"><b>10/30(五)</b><span>抵達</span></a>
+      <a class="dayLink" href="#day1031" data-target="day1031"><b>10/31(六)</b><span>亞庇</span></a>
+      <a class="dayLink" href="#day1101" data-target="day1101"><b>11/01(日)</b><span>神山 D1</span></a>
+      <a class="dayLink" href="#day1102" data-target="day1102"><b>11/02(一)</b><span>神山 D2</span></a>
+      <a class="dayLink" href="#day1103" data-target="day1103"><b>11/03(二)</b><span>跳島</span></a>
+      <a class="dayLink" href="#day1104" data-target="day1104"><b>11/04(三)</b><span>回程</span></a>
+      <button type="button" class="dayLink moreMenuBtn" id="moreMenuBtn" aria-expanded="false" aria-controls="toolTray"><b>更多</b><span>工具 ▾</span></button>
+    </div>
   </div>
 </nav>
-<button type="button" class="mobileDayToggle" id="mobileDayToggle" aria-expanded="false" aria-controls="mobileDayNav">
+<div class="toolTray" id="toolTray" aria-hidden="true">
+  <div class="toolTrayScroll">
+    <button type="button" class="toolChip primary" data-tool-target="foodGuide">🍴 餐飲指南</button>
+    <button type="button" class="toolChip" data-tool-target="journeyMap">⌁ 路線圖</button>
+    <button type="button" class="toolChip" data-tool-target="sunsetExperience">◐ 夕陽倒數</button>
+    <button type="button" class="toolChip" data-tool-target="passport">◎ Travel Passport</button>
+    <button type="button" class="toolChip" data-tool-target="todo">✓ 待辦</button>
+    <button type="button" class="toolChip" data-tool-target="packing">🎒 行李清單</button>
+    <button type="button" class="toolChip" data-tool-target="budget">💰 預算</button>
+  </div>
+</div>
+<button type="button" class="mobileDayToggle" id="mobileDayToggle" aria-expanded="false" aria-controls="mobileDayNav" hidden>
   <span id="mobileDayCurrent">10/30(五)</span><span class="chev">▾</span>
 </button>
-<div class="mobileNavBackdrop" id="mobileNavBackdrop" aria-hidden="true"></div>
+<div class="mobileNavBackdrop" id="mobileNavBackdrop" aria-hidden="true" hidden></div>
 
 <section class="section">
   <div class="sectionTitle"><div><span class="editorialEyebrow">Journey Overview</span><h2>旅程總覽</h2><p>把移動安排得更順，把最好的時間留給風景、休息與兩個人的旅行節奏。</p></div></div>
@@ -733,6 +842,40 @@ window.addEventListener('resize',()=>{
   if(window.innerWidth>760)setMobileNav(false);
 },{passive:true});
 updateActiveDay();
+
+
+const moreMenuBtn=document.getElementById('moreMenuBtn');
+const toolTray=document.getElementById('toolTray');
+function setToolTray(open){
+  if(!moreMenuBtn||!toolTray)return;
+  toolTray.classList.toggle('open',open);
+  moreMenuBtn.setAttribute('aria-expanded',open?'true':'false');
+  toolTray.setAttribute('aria-hidden',open?'false':'true');
+}
+if(moreMenuBtn){
+  moreMenuBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    setToolTray(moreMenuBtn.getAttribute('aria-expanded')!=='true');
+  });
+}
+if(toolTray){
+  toolTray.addEventListener('click',e=>e.stopPropagation());
+  toolTray.querySelectorAll('[data-tool-target]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const target=document.getElementById(btn.dataset.toolTarget);
+      setToolTray(false);
+      if(target){
+        navLockUntil=Date.now()+650;
+        target.scrollIntoView({behavior:'smooth',block:'start'});
+        if(history.replaceState)history.replaceState(null,'','#'+target.id);
+      }
+    });
+  });
+}
+document.addEventListener('click',()=>setToolTray(false));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')setToolTray(false);
+});
 
 document.querySelectorAll('.checklist').forEach((list,li)=>{
   const name=list.dataset.list||('list'+li);
